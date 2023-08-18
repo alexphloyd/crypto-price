@@ -20,8 +20,12 @@ export class VerificationService {
     if (!user) throw Error('User is not created yet');
     if (user.verified) throw Error('User is already verified');
 
-    const existedVerificationCode = user.verificationCode?.code;
-    const code = existedVerificationCode ? existedVerificationCode : generateVerificationCode();
+    const existedVerificationCode = await this.db.verificationCode.findFirst({
+      where: {
+        email,
+      },
+    });
+    const code = existedVerificationCode ? existedVerificationCode.code : generateVerificationCode();
 
     if (!existedVerificationCode) {
       await this.db.verificationCode.create({
@@ -41,9 +45,15 @@ export class VerificationService {
       select: { verificationCode: true },
     });
 
-    if (user || user.verificationCode.code) throw new Error('Unable to verify this user');
+    if (user && user.verified) throw new Error('User is already verified');
 
-    if (user.verificationCode.code === code) {
+    const userVerification = await this.db.verificationCode.findFirst({
+      where: {
+        email: user?.email,
+      },
+    });
+
+    if (userVerification?.code === code) {
       await this.db.user.update({
         where: {
           id: userId,

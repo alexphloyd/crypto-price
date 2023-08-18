@@ -37,16 +37,19 @@ describe('verification', () => {
         email: userData.email,
       },
     });
-    await db.verificationCode.delete({
-      where: {
-        email: user.email,
-      },
-    });
-    await db.user.delete({
-      where: {
-        id: user.id,
-      },
-    });
+
+    if (user) {
+      await db.verificationCode.delete({
+        where: {
+          email: user.email,
+        },
+      });
+      await db.user.delete({
+        where: {
+          id: user.id,
+        },
+      });
+    }
   });
 
   it('should send code to email', async () => {
