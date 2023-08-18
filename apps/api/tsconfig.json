@@ -1,0 +1,21 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "files": [],
+  "include": [],
+  "references": [
+    {
+      "path": "./tsconfig.app.json"
+    },
+    {
+      "path": "./tsconfig.spec.json"
+    }
+  ],
+  "compilerOptions": {
+    "paths": {
+      "@app/*": ["apps/api/src/*"],
+      "@dto": ["libs/dto/src/index.ts"],
+      "@utility-types": ["libs/shared-utility-types/src/index.ts"]
+    },
+    "esModuleInterop": true
+  }
+}
