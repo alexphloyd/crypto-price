@@ -2,10 +2,12 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { NotificationProvider } from '@prisma/client';
 import { VerificationService } from '@app/domain/auth/services/verification.service';
 import { PrismaService } from '@app/infrastructure/db/prisma.service';
-import { MailService as SendGridService } from '@sendgrid/mail';
+import { AppModule } from '@app/application/app.module';
+import { SendgridService } from '@app/infrastructure/mail/services/sendgrid.service';
+import { MailService } from '@sendgrid/mail';
+import { ConfigModule } from '@nestjs/config';
 import { UserRepository } from '@app/domain/user/services/user.repository';
-import { MailService } from '@app/infrastructure/mail/services/mail.service';
-import { ConfigService } from '@nestjs/config';
+import { sendgridProviders } from '@app/infrastructure/mail/providers/sendgrid.providers';
 
 describe('verification', () => {
   let verificationService: VerificationService;
@@ -13,7 +15,15 @@ describe('verification', () => {
 
   beforeEach(async () => {
     const app: TestingModule = await Test.createTestingModule({
-      providers: [PrismaService, SendGridService, MailService, VerificationService, UserRepository, ConfigService],
+      imports: [AppModule, ConfigModule],
+      providers: [
+        VerificationService,
+        PrismaService,
+        SendgridService,
+        MailService,
+        UserRepository,
+        ...sendgridProviders,
+      ],
     }).compile();
 
     db = app.get<PrismaService>(PrismaService);
@@ -39,16 +49,20 @@ describe('verification', () => {
     });
 
     if (user) {
-      await db.verificationCode.delete({
-        where: {
-          email: user.email,
-        },
-      });
-      await db.user.delete({
-        where: {
-          id: user.id,
-        },
-      });
+      await db.verificationCode
+        .delete({
+          where: {
+            email: user.email,
+          },
+        })
+        .catch(() => 'not found');
+      await db.user
+        .delete({
+          where: {
+            id: user.id,
+          },
+        })
+        .catch(() => 'not found');
     }
   });
 

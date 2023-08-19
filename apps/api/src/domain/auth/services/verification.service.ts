@@ -2,14 +2,18 @@ import { UserRepository } from '@app/domain/user/services/user.repository';
 import { Injectable } from '@nestjs/common';
 import { User } from '@prisma/client';
 import { generateVerificationCode } from './../lib/generateVerificationCode';
-import { MailService } from '@app/infrastructure/mail/services/mail.service';
 import { PrismaService } from '@app/infrastructure/db/prisma.service';
 import { TypeOfValue } from '@utility-types';
 import { type VerifyUserInput } from '@dto';
+import { SendgridService } from '@app/infrastructure/mail/services/sendgrid.service';
 
 @Injectable()
 export class VerificationService {
-  constructor(private userRepository: UserRepository, private mailService: MailService, private db: PrismaService) {}
+  constructor(
+    private userRepository: UserRepository,
+    private mailService: SendgridService,
+    private db: PrismaService,
+  ) {}
 
   async sendVerificationCode({ email }: { email: TypeOfValue<User, 'email'> }) {
     const user = await this.userRepository.findByEmail({

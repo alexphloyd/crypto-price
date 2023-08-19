@@ -1,32 +1,29 @@
-import { Body, Controller, InternalServerErrorException, Post, Put } from '@nestjs/common';
 import { HashService } from '@app/domain/auth/services/hash.service';
 import { VerificationService } from '@app/domain/auth/services/verification.service';
 import { UserRepository } from '@app/domain/user/services/user.repository';
 import { CreateUserDto, VerifyUserDto } from '@dto';
+import { Body, Controller, InternalServerErrorException, Post, Put } from '@nestjs/common';
 
-@Controller('user')
-export class UserController {
+@Controller('auth')
+export class AuthController {
   constructor(
     private userRepository: UserRepository,
     private hashService: HashService,
     private verificationService: VerificationService,
   ) {}
 
-  @Post('create')
-  async create(@Body() data: CreateUserDto) {
+  @Post('sign-up')
+  async signUp(@Body() data: CreateUserDto) {
     const hashedPassword = await this.hashService.hash(data.password);
     const user = {
       ...data,
       password: hashedPassword,
     };
 
-    const createdUser = await this.userRepository.create(user).catch((error) => {
-      if (error.code === 'P2002') throw new Error('Email is already in use');
-    });
-
+    const createdUser = await this.userRepository.create(user);
     if (!createdUser) throw new Error('Unable to create this user');
 
-    this.verificationService.sendVerificationCode({
+    await this.verificationService.sendVerificationCode({
       email: createdUser.email,
     });
 
@@ -35,9 +32,12 @@ export class UserController {
 
   @Put('verify')
   async verify(@Body() { code, userId }: VerifyUserDto) {
-    const verifiedUser = await this.verificationService.verify({ code, userId });
-    if (!verifiedUser) throw new InternalServerErrorException();
+    const user = await this.verificationService.verify({ code, userId });
+    if (!user?.verified) throw new InternalServerErrorException();
 
-    return verifiedUser;
+    return user;
   }
+
+  // @Post('login')
+  // async login(@Body() data: LoginDto) {}
 }

@@ -9,9 +9,13 @@ export class UserRepository {
   constructor(private db: PrismaService) {}
 
   async create(payload: CreateUserInput) {
-    return await this.db.user.create({
-      data: payload,
-    });
+    return await this.db.user
+      .create({
+        data: payload,
+      })
+      .catch((error) => {
+        if (error.code === 'P2002') throw new Error('Email is already in use');
+      });
   }
 
   async verify({ userId }: { userId: TypeOfValue<User, 'id'> }) {
@@ -25,13 +29,7 @@ export class UserRepository {
     });
   }
 
-  async findByEmail({
-    email,
-    select,
-  }: {
-    email: TypeOfValue<User, 'email'>;
-    select?: Prisma.UserSelect;
-  }) {
+  async findByEmail({ email, select }: { email: TypeOfValue<User, 'email'>; select?: Prisma.UserSelect }) {
     return await this.db.user.findFirst({
       where: {
         email,
@@ -40,17 +38,18 @@ export class UserRepository {
     });
   }
 
-  async findById({
-    id,
-    select,
-  }: {
-    id: TypeOfValue<User, 'id'>;
-    select?: Prisma.UserSelect;
-  }) {
+  async findById({ id, select }: { id: TypeOfValue<User, 'id'>; select?: Prisma.UserSelect }) {
     return await this.db.user.findFirst({
       where: {
         id,
       },
+      select,
+    });
+  }
+
+  async delete({ where, select }: { where: Prisma.UserWhereUniqueInput; select?: Prisma.UserSelect }) {
+    return await this.db.user.delete({
+      where,
       select,
     });
   }

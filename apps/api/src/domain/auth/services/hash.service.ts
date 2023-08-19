@@ -5,11 +5,11 @@ import * as bcrypt from 'bcrypt';
 export class HashService {
   salt = bcrypt.genSaltSync(10);
 
-  async hash(data: string) {
-    return await bcrypt.hash(data, this.salt);
+  async hash(textToHash: string) {
+    return await bcrypt.hash(textToHash, this.salt);
   }
 
-  async compare(hashedData: string) {
-    return await bcrypt.compare(hashedData, this.salt);
+  async compare(plainText: string, hashedText: string) {
+    return await bcrypt.compare(plainText, hashedText);
   }
 }

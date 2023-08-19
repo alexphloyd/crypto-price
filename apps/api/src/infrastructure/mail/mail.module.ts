@@ -1,10 +1,11 @@
-import { MailService } from './services/mail.service';
+import { sendgridProviders } from '@app/infrastructure/mail/providers/sendgrid.providers';
+import { SendgridService } from '@app/infrastructure/mail/services/sendgrid.service';
 import { Module } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
-import { MailService as MailSenderService } from '@sendgrid/mail';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  providers: [MailService, ConfigService, MailSenderService],
-  exports: [MailService, MailSenderService],
+  imports: [ConfigModule],
+  providers: [SendgridService, ...sendgridProviders],
+  exports: [SendgridService, ...sendgridProviders],
 })
 export class MailModule {}

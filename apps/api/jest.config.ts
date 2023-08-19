@@ -1,5 +1,6 @@
-/* eslint-disable */
-export default {
+import type { Config } from 'jest';
+
+const config: Config = {
   displayName: 'api',
   preset: '../../jest.preset.js',
   testEnvironment: 'node',
@@ -8,6 +9,7 @@ export default {
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
   coverageDirectory: '../../coverage/apps/api',
-  modulePaths: ['<rootDir>/src'],
   setupFiles: ['dotenv/config'],
 };
+
+export default config;
