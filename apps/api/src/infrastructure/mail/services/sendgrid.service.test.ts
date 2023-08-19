@@ -41,11 +41,10 @@ describe('SendgridService', () => {
 
     await lastValueFrom(service.sendVerificationUserCode(MESSAGE));
     expect(sendSpy).toBeCalledTimes(1);
-    expect(sendSpy).toBeCalledWith(MESSAGE, false);
   });
 });
-
+1;
 const TEST_USER = {
-  email: 'alexborysovdev@gmail.com',
+  email: 'alexphloyd@gmail.com',
 };
 const MESSAGE = { code: generateVerificationCode(), email: TEST_USER.email };

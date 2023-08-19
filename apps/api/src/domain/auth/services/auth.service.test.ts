@@ -12,7 +12,7 @@ import { HashService } from '@app/domain/auth/services/hash.service';
 import { VerificationService } from '@app/domain/auth/services/verification.service';
 import { SendgridService } from '@app/infrastructure/mail/services/sendgrid.service';
 import { MailService } from '@sendgrid/mail';
-import { sendgridProviders } from '@app/infrastructure/mail/providers/sendgrid.providers';
+import { SENDGRID_SERVICE } from '@app/infrastructure/mail/config/constants';
 
 describe('auth-service', () => {
   let authService: AuthService;
@@ -39,16 +39,19 @@ describe('auth-service', () => {
         PrismaService,
         SendgridService,
         MailService,
-        ...sendgridProviders,
+        {
+          provide: SENDGRID_SERVICE,
+          useValue: {
+            send: jest.fn(),
+          },
+        },
       ],
     }).compile();
 
     authService = app.get<AuthService>(AuthService);
     user = app.get<UserRepository>(UserRepository);
     db = app.get<PrismaService>(PrismaService);
-  });
 
-  beforeEach(async () => {
     await db.verificationCode
       .delete({
         where: {
@@ -63,20 +66,24 @@ describe('auth-service', () => {
         },
       })
       .catch(() => 'user is not found');
+    await user
+      .delete({
+        where: {
+          email: TEST_USER.email,
+        },
+      })
+      .catch(() => 'user is not found');
   });
 
-  it('should login user', async () => {
+  it('should return tokens', async () => {
     const newUser = await user.create(TEST_USER);
-    let tokens: object;
-
     expect(newUser).toBeDefined();
 
     if (newUser) {
-      tokens = await authService.login({ email: newUser.email, password: TEST_USER.password });
-      console.log(tokens, 'TOKENS');
+      const tokens = await authService.login({ email: newUser.email, password: TEST_USER.password });
 
-      // expect(tokens).toHaveProperty('accessToken');
-      // expect(tokens).toHaveProperty('refreshToken');
+      expect(tokens.refreshToken).toBeDefined();
+      expect(tokens.accessToken).toBeDefined();
     }
   });
 });
@@ -85,7 +92,7 @@ const TEST_USER = {
   email: 'alexborysovdev@gmail.com',
   name: 'alex',
   notificationProvider: 'TELEGRAM' as NotificationProvider,
-  password: 'aijfdiojafads',
+  password: 'long-password',
   phoneNumber: '48562933119',
-  surname: 'fgrrerg',
+  surname: 'surname',
 };

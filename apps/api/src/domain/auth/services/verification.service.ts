@@ -40,7 +40,7 @@ export class VerificationService {
       });
     }
 
-    await this.mailService.sendVerificationUserCode({ email, code });
+    this.mailService.sendVerificationUserCode({ email, code });
   }
 
   async verify({ userId, code }: VerifyUserInput) {
