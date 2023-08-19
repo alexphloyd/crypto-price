@@ -1,5 +1,5 @@
 import { CreateUserInput } from '@dto';
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable } from '@nestjs/common';
 import { Prisma, User } from '@prisma/client';
 import { PrismaService } from '@app/infrastructure/db/prisma.service';
 import { type TypeOfValue } from '@utility-types';
@@ -14,7 +14,7 @@ export class UserRepository {
         data: payload,
       })
       .catch((error) => {
-        if (error.code === 'P2002') throw new Error('Email is already in use');
+        if (error.code === 'P2002') throw new HttpException('Email is already in use', 409);
       });
   }
 

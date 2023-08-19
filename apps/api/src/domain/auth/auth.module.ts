@@ -7,6 +7,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { UserModule } from '@app/domain/user/user.module';
 import { PrismaService } from '@app/infrastructure/db/prisma.service';
 import { AuthService } from '@app/domain/auth/services/auth.service';
+import { AuthController } from '@app/domain/auth/controller/auth.controller';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { AuthService } from '@app/domain/auth/services/auth.service';
       inject: [ConfigService],
     }),
   ],
+  controllers: [AuthController],
   providers: [HashService, VerificationService, PrismaService, AuthService],
 })
 export class AuthModule {}

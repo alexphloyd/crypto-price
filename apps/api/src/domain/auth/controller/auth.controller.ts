@@ -1,8 +1,9 @@
+import { AuthService } from '@app/domain/auth/services/auth.service';
 import { HashService } from '@app/domain/auth/services/hash.service';
 import { VerificationService } from '@app/domain/auth/services/verification.service';
 import { UserRepository } from '@app/domain/user/services/user.repository';
-import { CreateUserDto, VerifyUserDto } from '@dto';
-import { Body, Controller, InternalServerErrorException, Post, Put } from '@nestjs/common';
+import { CreateUserDto, LoginDto, VerifyUserDto } from '@dto';
+import { Body, Controller, HttpException, InternalServerErrorException, Post, Put } from '@nestjs/common';
 
 @Controller('auth')
 export class AuthController {
@@ -10,6 +11,7 @@ export class AuthController {
     private userRepository: UserRepository,
     private hashService: HashService,
     private verificationService: VerificationService,
+    private authService: AuthService,
   ) {}
 
   @Post('sign-up')
@@ -21,7 +23,7 @@ export class AuthController {
     };
 
     const createdUser = await this.userRepository.create(user);
-    if (!createdUser) throw new Error('Unable to create this user');
+    if (!createdUser) throw new HttpException('Unable to create this user', 409);
 
     await this.verificationService.sendVerificationCode({
       email: createdUser.email,
@@ -35,9 +37,13 @@ export class AuthController {
     const user = await this.verificationService.verify({ code, userId });
     if (!user?.verified) throw new InternalServerErrorException();
 
-    return user;
+    return {
+      verified: user.verified,
+    };
   }
 
-  // @Post('login')
-  // async login(@Body() data: LoginDto) {}
+  @Post('login')
+  async login(@Body() data: LoginDto) {
+    return await this.authService.login(data);
+  }
 }

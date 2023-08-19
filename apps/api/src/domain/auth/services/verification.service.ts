@@ -46,10 +46,10 @@ export class VerificationService {
   async verify({ userId, code }: VerifyUserInput) {
     const user = await this.userRepository.findById({
       id: userId,
-      select: { verificationCode: true },
+      select: { verificationCode: true, verified: true },
     });
 
-    if (user && user.verified) throw new Error('User is already verified');
+    if (user && user.verified) return user;
 
     const userVerification = await this.db.verificationCode.findFirst({
       where: {
