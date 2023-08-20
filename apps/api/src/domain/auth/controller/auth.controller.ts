@@ -3,7 +3,7 @@ import { HashService } from '@app/domain/auth/services/hash.service';
 import { VerificationService } from '@app/domain/auth/services/verification.service';
 import { UserRepository } from '@app/domain/user/services/user.repository';
 import { CreateUserDto, LoginDto, VerifyUserDto } from '@dto';
-import { Body, Controller, HttpException, InternalServerErrorException, Post, Put } from '@nestjs/common';
+import { Body, Controller, Get, HttpException, InternalServerErrorException, Post, Put, Req } from '@nestjs/common';
 
 @Controller('auth')
 export class AuthController {
@@ -45,5 +45,11 @@ export class AuthController {
   @Post('login')
   async login(@Body() data: LoginDto) {
     return await this.authService.login(data);
+  }
+
+  @Get('session')
+  async session(@Req() req: Request) {
+    const sessionUser = await this.authService.checkSession(req);
+    return sessionUser;
   }
 }

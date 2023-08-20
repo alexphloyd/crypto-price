@@ -1,7 +1,6 @@
 import { AppModule } from './../../../application/app.module';
 import { UserModule } from '@app/domain/user/user.module';
 import { AuthModule } from '@app/domain/auth/auth.module';
-import { AuthService } from './auth.service';
 import { UserRepository } from '@app/domain/user/services/user.repository';
 import { PrismaService } from '@app/infrastructure/db/prisma.service';
 import { ConfigService } from '@nestjs/config';
@@ -13,8 +12,11 @@ import { VerificationService } from '@app/domain/auth/services/verification.serv
 import { SendgridService } from '@app/infrastructure/mail/services/sendgrid.service';
 import { MailService } from '@sendgrid/mail';
 import { SENDGRID_SERVICE } from '@app/infrastructure/mail/config/constants';
+import { AuthService } from '@app/domain/auth/services/auth.service';
+import { AuthController } from '@app/domain/auth/controller/auth.controller';
 
-describe('auth-service', () => {
+describe('auth-controller', () => {
+  let authController: AuthController;
   let authService: AuthService;
   let user: UserRepository;
   let db: PrismaService;
@@ -32,6 +34,7 @@ describe('auth-service', () => {
           inject: [ConfigService],
         }),
       ],
+      controllers: [AuthController],
       providers: [
         AuthService,
         HashService,
@@ -49,6 +52,7 @@ describe('auth-service', () => {
     }).compile();
 
     authService = app.get<AuthService>(AuthService);
+    authController = app.get<AuthController>(AuthController);
     user = app.get<UserRepository>(UserRepository);
     db = app.get<PrismaService>(PrismaService);
 
@@ -66,24 +70,33 @@ describe('auth-service', () => {
         },
       })
       .catch(() => 'user is not found');
-    await user
-      .delete({
-        where: {
-          email: TEST_USER.email,
-        },
-      })
-      .catch(() => 'user is not found');
   });
 
-  it('should return tokens', async () => {
-    const newUser = await user.create(TEST_USER);
+  it('should return tokens which include user-id', async () => {
+    const newUser = await authController.signUp(TEST_USER);
     expect(newUser).toBeDefined();
 
     if (newUser) {
-      const tokens = await authService.login({ email: newUser.email, password: TEST_USER.password });
+      await db.user.update({
+        where: {
+          id: newUser.id,
+        },
+        data: {
+          verified: true,
+        },
+      });
+
+      const tokens = await authController.login({ email: newUser.email, password: TEST_USER.password });
 
       expect(tokens.refreshToken).toBeDefined();
       expect(tokens.accessToken).toBeDefined();
+
+      const sessionUser = await authService.checkSession({
+        headers: {
+          authorization: `Bearer ${tokens.accessToken}`,
+        },
+      } as any);
+      console.log(sessionUser);
     }
   });
 });

@@ -1,3 +1,4 @@
+import { extractTokenFromHeader } from '@app/domain/auth/lib/extractTokenFromHeader';
 import { HashService } from '@app/domain/auth/services/hash.service';
 import { UserRepository } from '@app/domain/user/services/user.repository';
 import { LoginInput } from '@dto';
@@ -30,5 +31,27 @@ export class AuthService {
       accessToken,
       refreshToken,
     };
+  }
+
+  async checkSession(req: Request) {
+    const bearer = extractTokenFromHeader(req);
+    if (!bearer) throw new HttpException('Invalid token', HttpStatusCode.NotFound);
+
+    const { sub } = await this.jwtService.verifyAsync(bearer);
+    const sessionUser = this.userRepository.findById({
+      id: sub,
+      select: {
+        email: true,
+        id: true,
+        name: true,
+        notificationProvider: true,
+        phoneNumber: true,
+        role: true,
+        surname: true,
+        verified: true,
+      },
+    });
+
+    return sessionUser;
   }
 }
