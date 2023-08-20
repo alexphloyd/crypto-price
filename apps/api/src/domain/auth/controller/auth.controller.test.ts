@@ -96,7 +96,7 @@ describe('auth-controller', () => {
           authorization: `Bearer ${tokens.accessToken}`,
         },
       } as any);
-      console.log(sessionUser);
+      expect(sessionUser).toBeDefined();
     }
   });
 });
