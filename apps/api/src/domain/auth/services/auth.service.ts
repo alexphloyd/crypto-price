@@ -5,6 +5,7 @@ import { LoginInput } from '@dto';
 import { Injectable, HttpException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { HttpStatusCode } from 'axios';
+import { Request } from 'express';
 
 @Injectable()
 export class AuthService {
@@ -24,8 +25,24 @@ export class AuthService {
     const isPasswordMatch = await this.hashService.compare(password, user.password);
     if (!isPasswordMatch) throw new HttpException('Invalid credentials', 400);
 
-    const accessToken = this.jwtService.sign({ sub: user.id }, { expiresIn: '7m' });
-    const refreshToken = this.jwtService.sign({ sub: user.id }, { expiresIn: '5d' });
+    const accessToken = this.jwtService.sign({ sub: user.id, role: user.role }, { expiresIn: '7m' });
+    const refreshToken = this.jwtService.sign({ sub: user.id, role: user.role }, { expiresIn: '5d' });
+
+    return {
+      accessToken,
+      refreshToken,
+    };
+  }
+
+  async refresh(req: Request) {
+    const token = req.cookies['refresh'];
+    const verified = await this.jwtService.verifyAsync(token);
+
+    if (!verified) throw new HttpException('Invalid token', 400);
+
+    const { sub, role } = verified;
+    const accessToken = this.jwtService.sign({ sub, role }, { expiresIn: '7m' });
+    const refreshToken = this.jwtService.sign({ sub, role }, { expiresIn: '5d' });
 
     return {
       accessToken,
@@ -38,7 +55,7 @@ export class AuthService {
     if (!bearer) throw new HttpException('Invalid token', HttpStatusCode.NotFound);
 
     const { sub } = await this.jwtService.verifyAsync(bearer);
-    const sessionUser = this.userRepository.findById({
+    const sessionUser = await this.userRepository.findById({
       id: sub,
       select: {
         email: true,
