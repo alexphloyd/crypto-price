@@ -3,13 +3,15 @@ import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class HashService {
-  salt = bcrypt.genSaltSync(10);
+  private saltRounds = 10;
 
-  async hash(data: string) {
-    return await bcrypt.hash(data, this.salt);
+  async hash(textToHash: string) {
+    const salt = await bcrypt.genSalt(this.saltRounds);
+    const hashedText = await bcrypt.hash(textToHash, salt);
+    return hashedText;
   }
 
-  async compare(hashedData: string) {
-    return await bcrypt.compare(hashedData, this.salt);
+  async compare(plainText: string, hashedText: string) {
+    return await bcrypt.compare(plainText, hashedText);
   }
 }
