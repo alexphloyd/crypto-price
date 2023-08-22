@@ -23,5 +23,6 @@ import { AuthController } from '@app/domain/auth/controller/auth.controller';
   ],
   controllers: [AuthController],
   providers: [HashService, VerificationService, PrismaService, AuthService],
+  exports: [JwtModule],
 })
 export class AuthModule {}
