@@ -1,0 +1,94 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap');
+
+*,
+::before,
+::after {
+  box-sizing: border-box; /* 1 */
+  border-width: 0; /* 2 */
+  border-style: solid; /* 2 */
+  border-color: theme('borderColor.DEFAULT', currentColor); /* 2 */
+}
+
+::before,
+::after {
+  --tw-content: '';
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body  {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  scroll-behavior: smooth;
+}
+
+/* Change Autocomplete styles */
+input:-webkit-autofill,
+input:-webkit-autofill:active textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  -webkit-text-fill-color: rgb(30, 30, 30) !important;
+  -webkit-box-shadow: rgb(30, 30, 30) !important;
+  box-shadow: rgb(30, 30, 30) !important;
+  color: rgb(30, 30, 30) !important;
+  font-size: 1rem;
+}
+
+body::-webkit-scrollbar {
+  width: 4px;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 255, 0.622);
+  border-radius: 20px;
+}
+
+/* Normalize */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  outline: none;
+}
+
+*:focus {
+  outline: none;
+}
+
+html,
+body {
+  touch-action: manipulation;
+}
+
+body {
+  min-height: 100vh;
+  scroll-behavior: smooth;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+  overflow-anchor: none;
+  margin: 0;
+}
+
+ul[class],
+ol[class] {
+  list-style: none;
+}
+
+a {
+  text-decoration-skip-ink: auto;
+  text-decoration: none;
+}
+
+article > * + * {
+  margin-top: 1em;
+}
+
+input {
+  background-color: transparent;
+}

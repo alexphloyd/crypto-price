@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "paths": {
+      "@app/*": ["apps/ui/src/*"],
+      "@dto": ["libs/dto/src/index.ts"],
+      "@utility-types": ["libs/shared-utility-types/src/index.ts"]
+    },
+    "jsx": "react-jsx",
+    "allowJs": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "types": ["vite/client", "vitest"]
+  },
+  "files": [],
+  "include": [],
+  "references": [
+    {
+      "path": "./tsconfig.app.json"
+    },
+    {
+      "path": "./tsconfig.spec.json"
+    }
+  ],
+  "extends": "../../tsconfig.base.json"
+}
