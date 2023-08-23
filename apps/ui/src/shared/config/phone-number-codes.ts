@@ -1,0 +1,25 @@
+import { Country } from '../types';
+
+export const PHONE_NUMBER_CODES: Record<Country, string> = {
+  'united-kingdom': '+44',
+  ukraine: '+380',
+  france: '+33',
+  argentina: '+54',
+  australia: '+61',
+  austria: '+43',
+  belgium: '+32',
+  brazil: '+55',
+  canada: '+1',
+  finland: '+358',
+  hungary: '+36',
+  ireland: '+353',
+  italy: '+39',
+  latvia: '+371',
+  poland: '+48',
+  scotland: '+44',
+  sweden: '+46',
+  taiwan: '+886',
+  'united-arab-emirates': '+971',
+  germany: '+49',
+  'united-states-of-america': '+1',
+};

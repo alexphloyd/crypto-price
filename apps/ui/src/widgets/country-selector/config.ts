@@ -1,0 +1,25 @@
+import { CountrySelectorOptions } from '@app/widgets/country-selector';
+
+export const COUNTRY_SELECTOR_OPTIONS = [
+  { value: 'united-kingdom', label: 'United Kingdom' },
+  { value: 'france', label: 'France' },
+  { value: 'ukraine', label: 'Ukraine' },
+  { value: 'argentina', label: 'Argentina' },
+  { value: 'australia', label: 'Australia' },
+  { value: 'austria', label: 'Austria' },
+  { value: 'belgium', label: 'Belgium' },
+  { value: 'brazil', label: 'Brazil' },
+  { value: 'canada', label: 'Canada' },
+  { value: 'finland', label: 'Finland' },
+  { value: 'hungary', label: 'Hungary' },
+  { value: 'ireland', label: 'Ireland' },
+  { value: 'italy', label: 'Italy' },
+  { value: 'latvia', label: 'Latvia' },
+  { value: 'poland', label: 'Poland' },
+  { value: 'scotland', label: 'Scotland' },
+  { value: 'sweden', label: 'Sweden' },
+  { value: 'taiwan', label: 'Taiwan' },
+  { value: 'united-arab-emirates', label: 'United Arab Emirates' },
+  { value: 'germany', label: 'Germany' },
+  { value: 'united-states-of-america', label: 'USA' },
+] satisfies CountrySelectorOptions;
