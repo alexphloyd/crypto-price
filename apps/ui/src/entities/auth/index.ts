@@ -1,2 +1,2 @@
 // UI
-export { SessionControl } from './ui/session-control';
+export { SessionControl } from './ui/session-control.button';

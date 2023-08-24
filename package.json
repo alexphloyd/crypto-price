@@ -41,8 +41,7 @@
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.0",
     "tailwind": "^4.0.0",
-    "tslib": "^2.3.0",
-    "zod": "^3.22.2"
+    "tslib": "^2.3.0"
   },
   "devDependencies": {
     "@nestjs/schematics": "^10.0.1",
