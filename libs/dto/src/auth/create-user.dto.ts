@@ -2,28 +2,30 @@ import { IsEmail, IsEnum, IsString, MaxLength, MinLength } from 'class-validator
 import { NotificationProvider } from '@prisma/client';
 
 export class CreateUserDto {
-  @IsString()
-  @MinLength(3, { message: 'must be at least 3 characters long' })
-  @MaxLength(30, { message: 'must be shorter than 30 characters' })
+  @IsString({ message: 'is required' })
+  @MinLength(2, { message: 'must be longer' })
+  @MaxLength(30, { message: 'must be shorter ' })
   name: string;
 
-  @IsString()
-  @MinLength(2, { message: 'must be at least 2 characters long' })
-  @MaxLength(30, { message: 'must be shorter than 30 characters' })
+  @IsString({ message: 'is required' })
+  @MinLength(2, { message: 'must be longer' })
+  @MaxLength(30, { message: 'must be shorter' })
   surname: string;
 
-  @IsString()
-  @IsEmail()
+  @IsString({ message: 'is required' })
+  @IsEmail(undefined, { message: 'must be valid' })
   email: string;
 
-  @IsString()
-  @MinLength(8, { message: 'must be at least 8 characters long' })
+  @IsString({ message: 'is required' })
+  @MinLength(6, { message: 'must be longer' })
   password: string;
 
   @IsEnum(NotificationProvider)
   notificationProvider: NotificationProvider;
 
-  @IsString()
+  @IsString({ message: 'is required' })
+  @MinLength(7, { message: 'must be valid' })
+  @MaxLength(15, { message: 'must be valid' })
   phoneNumber: string;
 }
 
