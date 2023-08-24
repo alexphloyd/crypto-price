@@ -12,8 +12,9 @@ interface Props {
 
 export const PhoneInput = ({ country, value, onChange, className }: Props) => {
   const handleChange = (value: string) => {
-    if (!country || typeof value !== 'string') return;
-    onChange(formatPhoneNumber({ value, country }));
+    if (country && value.length) {
+      onChange(formatPhoneNumber({ value, country }));
+    }
   };
 
   return (

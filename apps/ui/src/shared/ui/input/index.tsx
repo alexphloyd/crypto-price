@@ -26,10 +26,7 @@ export const Input = forwardRef<HTMLInputElement, Props>(
         control={control}
         render={({ field: { onChange } }) => (
           <main className={clsx('flex flex-col gap-1 items-start', className)}>
-            <Label
-              label={label}
-              error={error}
-            />
+            <Label label={label} error={error} />
             <TextFiled
               size='large'
               disabled={isSubmitting || disabled}
@@ -42,20 +39,14 @@ export const Input = forwardRef<HTMLInputElement, Props>(
         )}
       />
     );
-  }
+  },
 );
 
-export const Label = ({
-  label,
-  error,
-}: {
-  label: string | undefined;
-  error: string | undefined;
-}) => {
+export const Label = ({ label, error }: { label: string | undefined; error: string | undefined }) => {
   if (!label) return null;
 
   return (
-    <Typography.Text type={error ? 'danger' : undefined}>
+    <Typography.Text type={error ? 'danger' : undefined} className='ml-1'>
       {error ? label + ' ' + error : label}
     </Typography.Text>
   );
