@@ -3,7 +3,7 @@ import { type RoutePath } from '@app/shared/types';
 import { useEffect, useState } from 'react';
 import { Icon } from '@app/shared/ui/icon';
 import { useLocation, useNavigate } from 'react-router';
-import { Button } from 'antd';
+import { Button, Typography } from 'antd';
 import { sidebarModel } from '..';
 import clsx from 'clsx';
 
@@ -36,17 +36,17 @@ export const MenuButton = ({ path, label, icon }: MenuButtonProps) => {
         icon ? (
           <Icon
             name={icon}
-            section="primary"
+            section='primary'
             className={clsx('w-[15px] h-[15px] -mb-[2px] text-gray-500', isSelected && 'text-white')}
           />
         ) : undefined
       }
       type={isSelected ? 'primary' : 'text'}
-      size="middle"
-      className="text-left my-[6px] items-center justify-center"
+      size='middle'
+      className='text-left my-[6px] items-center justify-center'
       onClick={handleRoute}
     >
-      {label}
+      <Typography.Text>{label}</Typography.Text>
     </Button>
   );
 };

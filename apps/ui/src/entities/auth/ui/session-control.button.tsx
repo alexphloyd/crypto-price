@@ -1,7 +1,7 @@
 import { useAppDispatch } from '@app/app/store/hooks';
 import { Icon } from '@app/shared/ui/icon';
 import { sidebarModel } from '@app/widgets/app-sidebar';
-import { Button } from 'antd';
+import { Button, Typography } from 'antd';
 import { useNavigate } from 'react-router';
 
 export const SessionControl = () => {
@@ -33,7 +33,7 @@ export const SessionControl = () => {
         onClick={handleLogout}
       >
         <Icon name='logout' section='primary' className='w-4 h-4 text-[#ff7889] mr-[9px] -mb-[1px]' />
-        Log Out
+        <Typography.Text>Log Out</Typography.Text>
       </Button>
     );
   }
