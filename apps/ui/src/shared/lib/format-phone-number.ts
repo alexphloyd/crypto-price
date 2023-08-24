@@ -6,10 +6,12 @@ const SPACE = ' ';
 
 interface Params {
   value: PhoneNumber;
-  country: Country;
+  country: Country | undefined;
 }
 
 export const formatPhoneNumber = ({ value, country }: Params) => {
+  if (!country) return '';
+
   const template = PHONE_NUMBER_FORMATS[country];
   const input = ('' + value).replace(/\D/g, '');
 
