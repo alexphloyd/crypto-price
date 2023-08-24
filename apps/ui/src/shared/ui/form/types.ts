@@ -1,6 +1,8 @@
 import { PropsWithoutRef, ReactNode } from 'react';
 import { OmitStrict } from '@utility-types';
 
+export const FORM_ERROR = 'FORM_ERROR';
+
 export interface OnSubmitResult {
   FORM_ERROR?: string;
   [prop: string]: unknown;
@@ -15,6 +17,5 @@ export interface FormProps<S extends new (...args: any) => any>
   submitText?: string | undefined;
   children?: ReactNode | undefined;
   className?: string;
+  initialValues?: InstanceType<S>;
 }
-
-export const FORM_ERROR = 'FORM_ERROR';
