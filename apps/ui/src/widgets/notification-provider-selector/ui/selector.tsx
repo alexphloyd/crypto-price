@@ -15,10 +15,10 @@ export const NotificationProviderSelector = ({ name, label }: { name: string; la
       name={name}
       control={control}
       render={({ field: { onChange } }) => (
-        <>
+        <main className='space-y-2'>
           <Label label={label} error={error} />
           <Radio options={OPTIONS} onChange={onChange} />
-        </>
+        </main>
       )}
     />
   );

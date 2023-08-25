@@ -26,7 +26,7 @@ export const Radio = <O extends RadioOptions>({ options, onChange, defaultChecke
   ));
 
   return (
-    <main className={clsx('w-full flex flex-row items-center justify-center gap-4', className)}>{optionsList}</main>
+    <main className={clsx('w-full flex flex-row items-center justify-center gap-x-4', className)}>{optionsList}</main>
   );
 };
 

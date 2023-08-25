@@ -36,7 +36,7 @@ export const AppSidebar = () => {
 
   return (
     <main ref={barRef} className={sideBar({ show })}>
-      <AppLogo className='mb-2' />
+      <AppLogo className='mb-4' />
       <Menu />
 
       <SessionControl />

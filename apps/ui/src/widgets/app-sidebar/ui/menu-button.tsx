@@ -46,7 +46,7 @@ export const MenuButton = ({ path, label, icon }: MenuButtonProps) => {
       className='text-left my-[6px] items-center justify-center'
       onClick={handleRoute}
     >
-      <Typography.Text>{label}</Typography.Text>
+      <Typography.Text className={isSelected ? 'text-white' : undefined}>{label}</Typography.Text>
     </Button>
   );
 };
