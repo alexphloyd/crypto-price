@@ -16,6 +16,7 @@ interface Props {
 export const PhoneInput = ({ name, className }: Props) => {
   const {
     getValues,
+    setValue,
     control,
     formState: { errors },
   } = useFormContext();
@@ -23,6 +24,7 @@ export const PhoneInput = ({ name, className }: Props) => {
 
   const [country, setCountry] = useState<Country>();
   const handleCountryChange = (country: Country) => {
+    if (!country) setValue(name, '');
     setCountry(country);
   };
 
@@ -34,11 +36,11 @@ export const PhoneInput = ({ name, className }: Props) => {
       render={({ field: { onChange } }) => (
         <main className={clsx('flex flex-col gap-1 items-start min-w-full', className)}>
           <Label label='Phone number' error={error} />
-          <div className='flex flex-row gap-x-3 md:gap-x-4 w-full'>
+          <div className='flex flex-col gap-x-3 gap-y-4 md:gap-y-0 md:gap-x-4 md:flex-row  w-full'>
             <CountrySelector
               countryOptions={COUNTRY_SELECTOR_OPTIONS}
               onChange={handleCountryChange}
-              className='w-[50%]'
+              className='min-w-[48.5%]'
             />
             <TextFiled
               value={getValues(name)}
@@ -47,7 +49,7 @@ export const PhoneInput = ({ name, className }: Props) => {
               disabled={!country}
               placeholder={country ? undefined : 'Please, specify your location'}
               status={error ? 'error' : undefined}
-              className='w-[50%]'
+              className='flex-auto'
               prefix={country ? <span>{PHONE_NUMBER_CODES[country]}</span> : null}
               onChange={({ target }) => onChange(formatPhoneNumber({ value: target.value, country }))}
             />

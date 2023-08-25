@@ -18,6 +18,5 @@
     "strictNullChecks": true,
     "isolatedModules": true,
   },
-  
   "exclude": ["node_modules", "tmp"]
 }

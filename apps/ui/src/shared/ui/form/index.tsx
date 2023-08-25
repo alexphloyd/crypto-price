@@ -28,7 +28,7 @@ function FormElement<S extends new (...args: any) => any>(
 
   return (
     <FormProvider {...ctx}>
-      <form ref={ref} onSubmit={handleSubmit} className={clsx(className, 'flex flex-col gap-3')} {...props}>
+      <form ref={ref} onSubmit={handleSubmit} className={clsx(className, 'flex flex-col gap-4')} {...props}>
         {children}
 
         {submitText ? (

@@ -6,12 +6,7 @@ import { AvailableOptions, OptionValue, Props, RadioOptions } from './types';
 import { Button as AntdButton } from 'antd';
 import { nanoid } from '@reduxjs/toolkit';
 
-export const Radio = <O extends RadioOptions>({
-  options,
-  onChange,
-  defaultChecked,
-  className,
-}: Props<O>) => {
+export const Radio = <O extends RadioOptions>({ options, onChange, defaultChecked, className }: Props<O>) => {
   const [selected, setSelected] = useState<OptionValue | undefined>(defaultChecked);
 
   const handleOptionClick = (value: string) => {
@@ -31,14 +26,7 @@ export const Radio = <O extends RadioOptions>({
   ));
 
   return (
-    <main
-      className={clsx(
-        'w-full flex flex-row items-center justify-center flex-wrap gap-3',
-        className
-      )}
-    >
-      {optionsList}
-    </main>
+    <main className={clsx('w-full flex flex-row items-center justify-center gap-4', className)}>{optionsList}</main>
   );
 };
 
@@ -58,17 +46,13 @@ const Button = ({
   return (
     <AntdButton
       className={clsx(
-        'flex items-center justify-center py-7 px-6',
-        selected ? 'bg-blue-100/60' : 'bg-gray-50/00'
+        'flex items-center justify-center py-7 px-6 w-full',
+        selected ? 'bg-blue-100/60' : 'bg-gray-50/00',
       )}
       type='dashed'
       onClick={() => onClick(value)}
     >
-      <Icon
-        name={icon}
-        section={iconSection}
-        className='w-9 h-9'
-      />
+      <Icon name={icon} section={iconSection} className='w-9 h-9' />
     </AntdButton>
   );
 };

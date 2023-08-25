@@ -3,7 +3,8 @@
     "paths": {
       "@app/*": ["apps/ui/src/*"],
       "@dto": ["libs/dto/src/index.ts"],
-      "@utility-types": ["libs/shared-utility-types/src/index.ts"]
+      "@utility-types": ["libs/shared-utility-types/src/index.ts"],
+      "@utils": ["libs/utils/src/index.ts"]
     },
     "jsx": "react-jsx",
     "allowJs": true,

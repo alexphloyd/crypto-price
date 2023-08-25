@@ -1,7 +1,7 @@
 import { IsEmail, IsEnum, IsString, MaxLength, MinLength } from 'class-validator';
 import { NotificationProvider } from '@prisma/client';
 
-export class CreateUserDto {
+export class SignUpDto {
   @IsString({ message: 'is required' })
   @MinLength(2, { message: 'must be longer' })
   @MaxLength(30, { message: 'must be shorter ' })
@@ -18,9 +18,10 @@ export class CreateUserDto {
 
   @IsString({ message: 'is required' })
   @MinLength(6, { message: 'must be longer' })
+  // @Matches(/((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/, { message: 'too weak' })
   password: string;
 
-  @IsEnum(NotificationProvider)
+  @IsEnum(NotificationProvider, { message: 'must be specified' })
   notificationProvider: NotificationProvider;
 
   @IsString({ message: 'is required' })
@@ -29,4 +30,4 @@ export class CreateUserDto {
   phoneNumber: string;
 }
 
-export type CreateUserInput = CreateUserDto;
+export type SignUpInput = SignUpDto;
