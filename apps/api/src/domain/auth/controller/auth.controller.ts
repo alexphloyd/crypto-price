@@ -17,7 +17,6 @@ export class AuthController {
 
   @Post('sign-up')
   async signUp(@Body() data: CreateUserDto) {
-    console.log(data);
     const hashedPassword = await this.hashService.hash(data.password);
     const user = {
       ...data,

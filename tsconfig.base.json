@@ -16,8 +16,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "strictNullChecks": true,
-    "isolatedModules": true
+    "isolatedModules": true,
   },
-  
   "exclude": ["node_modules", "tmp"]
 }

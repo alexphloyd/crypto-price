@@ -18,44 +18,37 @@ export const Input = forwardRef<HTMLInputElement, Props>(
       control,
       formState: { isSubmitting, errors },
     } = useFormContext();
-    const error = errors[name]?.message?.toString() as string | undefined;
+    const error = errors[name]?.message?.toString();
 
     return (
       <Controller
         name={name}
         control={control}
+        defaultValue=''
         render={({ field: { onChange } }) => (
-          <main className={clsx('flex flex-col gap-1 items-start', className)}>
-            <Label
-              label={label}
-              error={error}
-            />
+          <main className={clsx('flex flex-col gap-1 items-start w-full', className)}>
+            <Label label={label} error={error} />
             <TextFiled
               size='large'
               disabled={isSubmitting || disabled}
-              placeholder={placeholder || 'Enter your ' + name}
+              placeholder={placeholder || 'enter your ' + name}
               type={type}
               status={error ? 'error' : undefined}
+              className='w-full'
               onChange={(event) => onChange(event.target.value)}
             />
           </main>
         )}
       />
     );
-  }
+  },
 );
 
-export const Label = ({
-  label,
-  error,
-}: {
-  label: string | undefined;
-  error: string | undefined;
-}) => {
+export const Label = ({ label, error }: { label: string | undefined; error: string | undefined }) => {
   if (!label) return null;
 
   return (
-    <Typography.Text type={error ? 'danger' : undefined}>
+    <Typography.Text type={error ? 'danger' : undefined} className='ml-1'>
       {error ? label + ' ' + error : label}
     </Typography.Text>
   );

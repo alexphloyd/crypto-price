@@ -19,14 +19,10 @@ export const CountrySelector = ({ countryOptions, onChange, className }: Props) 
       size='large'
       optionLabelProp='label'
       onChange={onChange}
-      className={clsx('caret-transparent transition-none animation-none cursor-pointer', className)}
+      className={clsx('caret-transparent transition-none animation-none cursor-pointer w-full', className)}
       placeholder={
         <div className='flex items-center'>
-          <Icon
-            name='united-kingdom'
-            section='flags'
-            className='w-6 h-6 rounded-[23%] mr-[2px]'
-          />
+          <Icon name='united-kingdom' section='flags' className='w-6 h-6 rounded-[23%] mr-[2px]' />
           &nbsp; Select your country..
         </div>
       }
@@ -37,11 +33,7 @@ export const CountrySelector = ({ countryOptions, onChange, className }: Props) 
           value={value}
           label={
             <div className='flex items-center'>
-              <Icon
-                name={value}
-                section='flags'
-                className='w-6 h-6 rounded-[23%] mr-[2px]'
-              />
+              <Icon name={value} section='flags' className='w-6 h-6 rounded-[23%] mr-[2px]' />
               &nbsp; {label}
             </div>
           }
