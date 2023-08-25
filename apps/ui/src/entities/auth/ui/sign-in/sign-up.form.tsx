@@ -10,12 +10,7 @@ export const SignUp = () => {
   };
 
   return (
-    <Form
-      onSubmit={signUp}
-      schema={ExtendedCreateUserDto}
-      submitText='Sign Up'
-      className='w-full sm:w-[80%] md:w-[70%] lg:w-[54%] xl:w-[45%] 2xl:w-[45%]'
-    >
+    <Form onSubmit={signUp} schema={ExtendedCreateUserDto} submitText='Sign Up' className='w-full '>
       <div className='flex flex-col gap-3  md:flex-row md:gap-4 items-center'>
         <Input name='name' label='Your name' />
         <Input name='surname' label='Surname' />
