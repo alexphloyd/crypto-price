@@ -1,4 +1,4 @@
-import { CreateUserInput } from '@dto';
+import { SignUpInput } from '@dto';
 import { HttpException, Injectable } from '@nestjs/common';
 import { Prisma, User } from '@prisma/client';
 import { PrismaService } from '@app/infrastructure/db/prisma.service';
@@ -8,7 +8,7 @@ import { type TypeOfValue } from '@utility-types';
 export class UserRepository {
   constructor(private db: PrismaService) {}
 
-  async create(payload: CreateUserInput) {
+  async create(payload: SignUpInput) {
     return await this.db.user
       .create({
         data: payload,
