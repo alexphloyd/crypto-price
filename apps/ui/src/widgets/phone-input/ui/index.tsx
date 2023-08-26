@@ -1,12 +1,12 @@
-import { PHONE_NUMBER_CODES } from '@app/shared/config/phone-number-codes';
-import { formatPhoneNumber } from '@app/shared/lib/format-phone-number';
-import { type Country } from '@app/shared/types';
-import { Label } from '@app/shared/ui/input';
-import { COUNTRY_SELECTOR_OPTIONS, CountrySelector } from '@app/widgets/country-selector';
 import clsx from 'clsx';
 import { useState } from 'react';
-import { Controller, useFormContext } from 'react-hook-form';
 import { Input as TextFiled } from 'antd';
+import { PHONE_NUMBER_CODES } from '@app/shared/config/phone-number-codes';
+import { formatPhoneNumber } from '@app/shared/lib/format-phone-number';
+import { COUNTRY_SELECTOR_OPTIONS, CountrySelector } from '@app/widgets/country-selector';
+import { Label } from '@app/shared/ui/input';
+import { Controller, useFormContext } from 'react-hook-form';
+import { type Country } from '@app/shared/types';
 
 interface Props {
   name: string;
@@ -16,16 +16,16 @@ interface Props {
 export const PhoneInput = ({ name, className }: Props) => {
   const {
     getValues,
-    setValue,
+    setValue: setPhoneFieldValue,
     control,
     formState: { errors },
   } = useFormContext();
   const error = errors[name]?.message?.toString();
 
   const [country, setCountry] = useState<Country>();
-  const handleCountryChange = (country: Country) => {
-    if (!country) setValue(name, '');
-    setCountry(country);
+  const handleCountryChange = (newCountryValue: Country) => {
+    if (!newCountryValue) setPhoneFieldValue(name, '');
+    setCountry(newCountryValue);
   };
 
   return (
