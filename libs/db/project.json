@@ -20,7 +20,34 @@
       "options": {
         "lintFilePatterns": ["libs/db/**/*.ts", "libs/db/package.json"]
       }
+    },
+    "prisma:inline": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "cp node_modules/.prisma/client/*.js node_modules/@prisma/client"
+      }
+    },
+    "prisma:migrate": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npx prisma migrate deploy && npx nx prisma:inline db"
+      }
+    },
+    "prisma:migrate:dev": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npx prisma migrate dev && npx nx prisma:inline db"
+      }
+    },
+    "prisma:generate": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npx prisma generate && npx nx prisma:inline db"
+      }
     }
   },
   "tags": []
 }
+
+
+

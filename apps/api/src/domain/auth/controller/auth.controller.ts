@@ -2,9 +2,10 @@ import { AuthService } from '@app/domain/auth/services/auth.service';
 import { HashService } from '@app/domain/auth/services/hash.service';
 import { VerificationService } from '@app/domain/auth/services/verification.service';
 import { UserRepository } from '@app/domain/user/services/user.repository';
-import { CreateUserDto, LoginDto, VerifyUserDto } from '@dto';
+import { SignUpDto, LoginDto, VerifyUserDto } from '@dto';
 import { Body, Controller, Get, HttpException, InternalServerErrorException, Post, Put, Req } from '@nestjs/common';
 import { Request } from 'express';
+import { VerifyRes, type RefreshRes } from '@api-types';
 
 @Controller('auth')
 export class AuthController {
@@ -16,10 +17,11 @@ export class AuthController {
   ) {}
 
   @Post('sign-up')
-  async signUp(@Body() data: CreateUserDto) {
-    const hashedPassword = await this.hashService.hash(data.password);
+  async signUp(@Body() credentials: SignUpDto) {
+    console.log(credentials, 'EE');
+    const hashedPassword = await this.hashService.hash(credentials.password);
     const user = {
-      ...data,
+      ...credentials,
       password: hashedPassword,
     };
 
@@ -34,7 +36,7 @@ export class AuthController {
   }
 
   @Put('verify')
-  async verify(@Body() { code, userId }: VerifyUserDto) {
+  async verify(@Body() { code, userId }: VerifyUserDto): VerifyRes {
     const user = await this.verificationService.verify({ code, userId });
     if (!user?.verified) throw new InternalServerErrorException();
 
@@ -55,7 +57,7 @@ export class AuthController {
   }
 
   @Get('refresh')
-  async refresh(@Req() req: Request) {
+  async refresh(@Req() req: Request): RefreshRes {
     const newTokens = await this.authService.refresh(req);
     return newTokens;
   }

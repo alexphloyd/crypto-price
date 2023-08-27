@@ -13,7 +13,7 @@ export default function Layout() {
       <section
         className={clsx(
           isSidebarOpen && 'blur-[3px] overflow-hidden pointer-events-none',
-          'flex-auto h-screen bg-white px-[3.5%] py-2 lg:pl-[19%] xl:pl-[17%] 2xl:pl-[15%] pt-11 md:pt-10',
+          'flex-auto min-h-screen bg-white px-[3.5%] lg:pl-[19%] xl:pl-[17%] 2xl:pl-[15%] pt-11 pb-16 md:pt-10',
         )}
       >
         <Outlet />

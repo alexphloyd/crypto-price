@@ -7,13 +7,13 @@ import { Button, Typography } from 'antd';
 import { sidebarModel } from '..';
 import clsx from 'clsx';
 
-interface MenuButtonProps {
+interface Props {
   path: RoutePath;
   label: string;
   icon?: string;
 }
 
-export const MenuButton = ({ path, label, icon }: MenuButtonProps) => {
+export const NavigationButton = ({ path, label, icon }: Props) => {
   const dispatch = useAppDispatch();
 
   const navigate = useNavigate();

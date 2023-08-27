@@ -1,4 +1,4 @@
-import { Country } from '../types';
+import { Country } from '@app/shared/types';
 
 export const PHONE_NUMBER_CODES: Record<Country, string> = {
   'united-kingdom': '+44',

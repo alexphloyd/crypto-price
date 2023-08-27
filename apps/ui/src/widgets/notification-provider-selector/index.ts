@@ -1,1 +1,1 @@
-export { NotificationProviderSelector } from './ui/selector';
+export { NotificationProviderSelector } from './ui';

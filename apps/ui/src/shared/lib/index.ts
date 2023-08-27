@@ -1,3 +1,3 @@
 export { getQueryParams } from './get-query-params';
 
-export { formatPhoneNumber } from './format-phone-number';
+export { formatPhoneNumber } from './international-phone-number/format-phone-number';

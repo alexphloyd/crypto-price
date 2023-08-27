@@ -2,9 +2,9 @@ import { sidebarModel } from '..';
 import { useEffect, useRef } from 'react';
 import { cva } from 'class-variance-authority';
 import { useAppDispatch } from '@app/app/store/hooks';
-import { Menu } from './menu';
-import { SessionControl } from '@app/entities/auth';
+import { AppNavigation } from './app-navigation';
 import { AppLogo } from './logo';
+import { AuthActions } from '@app/features/auth';
 
 export const AppSidebar = () => {
   const dispatch = useAppDispatch();
@@ -37,9 +37,9 @@ export const AppSidebar = () => {
   return (
     <main ref={barRef} className={sideBar({ show })}>
       <AppLogo className='mb-4' />
-      <Menu />
+      <AppNavigation />
 
-      <SessionControl />
+      <AuthActions />
     </main>
   );
 };
