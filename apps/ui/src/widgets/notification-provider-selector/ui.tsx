@@ -1,6 +1,6 @@
 import { Label } from '@app/shared/ui/input';
 import { Radio } from '@app/shared/ui/radio';
-import { OPTIONS } from '@app/widgets/notification-provider-selector/config';
+import { OPTIONS } from '@app/widgets/notification-provider-selector/options.config';
 import { Controller, useFormContext } from 'react-hook-form';
 
 export const NotificationProviderSelector = ({ name, label }: { name: string; label?: string }) => {

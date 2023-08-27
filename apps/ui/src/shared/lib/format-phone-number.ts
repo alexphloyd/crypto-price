@@ -5,12 +5,12 @@ const LINKING_SYMBOL = '-';
 const SPACE = ' ';
 
 interface Params {
-  value: PhoneNumber;
+  value: PhoneNumber | undefined;
   country: Country | undefined;
 }
 
 export const formatPhoneNumber = ({ value, country }: Params) => {
-  if (!country) return '';
+  if (!country || !value) return '';
 
   const template = PHONE_NUMBER_FORMATS[country];
   const input = ('' + value).replace(/\D/g, '');

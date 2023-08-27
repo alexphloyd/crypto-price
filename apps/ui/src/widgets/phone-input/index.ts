@@ -1,1 +1,1 @@
-export { PhoneInput } from './ui/index';
+export { PhoneInput } from './ui';

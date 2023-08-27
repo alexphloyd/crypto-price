@@ -15,11 +15,12 @@ interface Props {
 
 export const PhoneInput = ({ name, className }: Props) => {
   const {
-    getValues,
     setValue: setPhoneFieldValue,
     control,
     formState: { errors },
   } = useFormContext();
+  const [formattedValue, setFormattedValue] = useState<string>();
+
   const error = errors[name]?.message?.toString();
 
   const [country, setCountry] = useState<Country>();
@@ -43,15 +44,19 @@ export const PhoneInput = ({ name, className }: Props) => {
               className='min-w-[48.5%]'
             />
             <TextFiled
-              value={getValues(name)}
-              size='large'
-              allowClear
+              value={formattedValue || ''}
+              onChange={({ target }) => {
+                if (!country) return;
+                onChange(PHONE_NUMBER_CODES[country] + removeUnnecessarySymbols(target.value));
+                setFormattedValue(formatPhoneNumber({ value: target.value, country }));
+              }}
               disabled={!country}
-              placeholder={country ? undefined : 'Please, specify your location'}
               status={error ? 'error' : undefined}
-              className='flex-auto'
               prefix={country ? <span>{PHONE_NUMBER_CODES[country]}</span> : null}
-              onChange={({ target }) => onChange(formatPhoneNumber({ value: target.value, country }))}
+              placeholder={country ? undefined : 'Please, specify your location'}
+              className='flex-auto'
+              allowClear
+              size='large'
             />
           </div>
         </main>
@@ -59,3 +64,5 @@ export const PhoneInput = ({ name, className }: Props) => {
     />
   );
 };
+
+const removeUnnecessarySymbols = (string: string) => string.replace(/[\s-]+/g, '');

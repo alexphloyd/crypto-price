@@ -1,6 +1,6 @@
 import { Form } from '@app/shared/ui/form';
 import { Input } from '@app/shared/ui/input';
-import { NotificationProviderSelector } from '@app/widgets/notification-provider-selector/ui/selector';
+import { NotificationProviderSelector } from '@app/widgets/notification-provider-selector/ui';
 import { PhoneInput } from '@app/widgets/phone-input';
 import { type ExtendedCreateUserInput, ExtendedCreateUserDto } from '@app/entities/auth/model';
 
