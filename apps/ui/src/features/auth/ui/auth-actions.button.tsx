@@ -4,7 +4,7 @@ import { sidebarModel } from '@app/widgets/app-sidebar';
 import { Button, Typography } from 'antd';
 import { useNavigate } from 'react-router';
 
-export const SessionControl = () => {
+export const AuthActions = () => {
   const dispatch = useAppDispatch();
 
   const session = false;

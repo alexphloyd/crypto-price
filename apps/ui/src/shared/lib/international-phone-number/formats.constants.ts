@@ -1,4 +1,4 @@
-import { Country } from '../types';
+import { Country } from '../../types';
 
 export const PHONE_NUMBER_FORMATS: Record<Country, string> = {
   poland: 'AAA-AAA-AAA',

@@ -1,8 +1,8 @@
 import clsx from 'clsx';
 import { useState } from 'react';
 import { Input as TextFiled } from 'antd';
-import { PHONE_NUMBER_CODES } from '@app/shared/config/phone-number-codes';
-import { formatPhoneNumber } from '@app/shared/lib/format-phone-number';
+import { PHONE_NUMBER_CODES } from '@app/shared/config/codes.constants';
+import { formatPhoneNumber } from '@app/shared/lib/international-phone-number/format-phone-number';
 import { COUNTRY_SELECTOR_OPTIONS, CountrySelector } from '@app/widgets/country-selector';
 import { Label } from '@app/shared/ui/input';
 import { Controller, useFormContext } from 'react-hook-form';

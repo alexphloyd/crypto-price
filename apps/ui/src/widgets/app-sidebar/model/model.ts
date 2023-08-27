@@ -29,3 +29,5 @@ const sidebarModel = createSlice({
 export const actions = sidebarModel.actions;
 
 export const reducer = sidebarModel.reducer;
+
+export const name = sidebarModel.name;

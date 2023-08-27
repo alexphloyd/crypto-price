@@ -1,4 +1,4 @@
-import { Login } from '@app/entities/auth/ui/sign-in/log-in.form';
+import { Login } from '@app/features/auth/ui/forms/log-in.form';
 import { SignUp } from '@app/entities/auth/ui/sign-in/sign-up.form';
 import { Tabs, TabsProps, Typography } from 'antd';
 import { useState } from 'react';

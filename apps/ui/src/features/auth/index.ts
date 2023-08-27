@@ -7,4 +7,4 @@ export const authModel = {
 };
 
 // UI
-export { SessionControl } from './ui/session-control.button';
+export { AuthActions } from './ui/auth-actions.button';

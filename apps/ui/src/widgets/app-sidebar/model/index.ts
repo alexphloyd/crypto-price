@@ -1,3 +1,3 @@
-export { actions, reducer } from './slice';
+export { actions, reducer, name } from './model';
 
 export * from './selectors';
