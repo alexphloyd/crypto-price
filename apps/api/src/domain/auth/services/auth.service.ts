@@ -25,12 +25,12 @@ export class AuthService {
     const isPasswordMatch = await this.hashService.compare(password, user.password);
     if (!isPasswordMatch) throw new HttpException('Invalid credentials', 400);
 
-    const accessToken = this.jwtService.sign({ sub: user.id, role: user.role }, { expiresIn: '7m' });
-    const refreshToken = this.jwtService.sign({ sub: user.id, role: user.role }, { expiresIn: '5d' });
+    const access = this.jwtService.sign({ sub: user.id, role: user.role }, { expiresIn: '7m' });
+    const refresh = this.jwtService.sign({ sub: user.id, role: user.role }, { expiresIn: '5d' });
 
     return {
-      accessToken,
-      refreshToken,
+      access,
+      refresh,
     };
   }
 
@@ -41,12 +41,12 @@ export class AuthService {
     if (!verified) throw new HttpException('Invalid token', 400);
 
     const { sub, role } = verified;
-    const accessToken = this.jwtService.sign({ sub, role }, { expiresIn: '7m' });
-    const refreshToken = this.jwtService.sign({ sub, role }, { expiresIn: '5d' });
+    const access = this.jwtService.sign({ sub, role }, { expiresIn: '7m' });
+    const refresh = this.jwtService.sign({ sub, role }, { expiresIn: '5d' });
 
     return {
-      accessToken,
-      refreshToken,
+      access,
+      refresh,
     };
   }
 

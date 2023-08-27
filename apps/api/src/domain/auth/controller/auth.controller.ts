@@ -2,9 +2,10 @@ import { AuthService } from '@app/domain/auth/services/auth.service';
 import { HashService } from '@app/domain/auth/services/hash.service';
 import { VerificationService } from '@app/domain/auth/services/verification.service';
 import { UserRepository } from '@app/domain/user/services/user.repository';
-import { CreateUserDto, LoginDto, VerifyUserDto } from '@dto';
+import { SignUpDto, LoginDto, VerifyUserDto } from '@dto';
 import { Body, Controller, Get, HttpException, InternalServerErrorException, Post, Put, Req } from '@nestjs/common';
 import { Request } from 'express';
+import { type RefreshRes } from '@api-types';
 
 @Controller('auth')
 export class AuthController {
@@ -16,7 +17,7 @@ export class AuthController {
   ) {}
 
   @Post('sign-up')
-  async signUp(@Body() data: CreateUserDto) {
+  async signUp(@Body() data: SignUpDto) {
     const hashedPassword = await this.hashService.hash(data.password);
     const user = {
       ...data,
@@ -55,7 +56,7 @@ export class AuthController {
   }
 
   @Get('refresh')
-  async refresh(@Req() req: Request) {
+  async refresh(@Req() req: Request): RefreshRes {
     const newTokens = await this.authService.refresh(req);
     return newTokens;
   }

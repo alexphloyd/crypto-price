@@ -88,12 +88,12 @@ describe('auth-controller', () => {
 
       const tokens = await authController.login({ email: newUser.email, password: TEST_USER.password });
 
-      expect(tokens.refreshToken).toBeDefined();
-      expect(tokens.accessToken).toBeDefined();
+      expect(tokens.access).toBeDefined();
+      expect(tokens.access).toBeDefined();
 
       const sessionUser = await authService.checkSession({
         headers: {
-          authorization: `Bearer ${tokens.accessToken}`,
+          authorization: `Bearer ${tokens.access}`,
         },
       } as any);
       expect(sessionUser).toBeDefined();
