@@ -14,12 +14,11 @@ import { ENV_CONFIG } from '@app/shared/config';
 export const baseQuery: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError, object, FetchBaseQueryMeta> =
   fetchBaseQuery({
     baseUrl: ENV_CONFIG.API_URL,
-    credentials: 'include',
     mode: 'cors',
     prepareHeaders: (headers, api) => {
       const access = Cookies.get('access');
 
-      headers.set('content-type', 'application/json');
+      headers.set('Content-Type', 'application/json');
       if (access) {
         headers.set('Authorization', `Bearer ${access}`);
       }

@@ -1,12 +1,12 @@
 import clsx from 'clsx';
 import { useState } from 'react';
 import { Input as TextFiled } from 'antd';
-import { PHONE_NUMBER_CODES } from '@app/shared/config/codes.constants';
 import { formatPhoneNumber } from '@app/shared/lib/international-phone-number/format-phone-number';
 import { COUNTRY_SELECTOR_OPTIONS, CountrySelector } from '@app/widgets/country-selector';
 import { Label } from '@app/shared/ui/input';
 import { Controller, useFormContext } from 'react-hook-form';
 import { type Country } from '@app/shared/types';
+import { PHONE_NUMBER_CODES } from '@app/shared/lib/international-phone-number/codes.constants';
 
 interface Props {
   name: string;

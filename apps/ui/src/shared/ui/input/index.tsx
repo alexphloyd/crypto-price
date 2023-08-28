@@ -16,7 +16,7 @@ export const Input = forwardRef<HTMLInputElement, Props>(
   ({ name, disabled, label, className, placeholder, type }, _ref) => {
     const {
       control,
-      formState: { isSubmitting, errors },
+      formState: { errors },
     } = useFormContext();
     const error = errors[name]?.message?.toString();
 
@@ -30,7 +30,7 @@ export const Input = forwardRef<HTMLInputElement, Props>(
             <Label label={label} error={error} />
             <TextFiled
               size='large'
-              disabled={isSubmitting || disabled}
+              disabled={disabled}
               placeholder={placeholder || 'enter your ' + name}
               type={type}
               status={error ? 'error' : undefined}

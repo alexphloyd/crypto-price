@@ -23,7 +23,7 @@ function FormElement<S extends new (...args: any) => any>(
   });
 
   const handleSubmit = ctx.handleSubmit(async (values) => {
-    await onSubmit(values);
+    await onSubmit({ ...values });
   });
 
   return (
@@ -33,7 +33,12 @@ function FormElement<S extends new (...args: any) => any>(
 
         {submitText ? (
           <div className='flex flex-col items-center'>
-            <Button htmlType='submit' type='primary' className='mt-[14px] w-full' size='large'>
+            <Button
+              htmlType='submit'
+              type='primary'
+              className='mt-[14px] w-full items-center justify-center'
+              size='large'
+            >
               {isLoading ? <Loader color='white' size='sm' /> : submitText}
             </Button>
 

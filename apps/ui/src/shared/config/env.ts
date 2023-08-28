@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 const envVariables = z.object({
-  API_URL: z.string().url(),
+  VITE_API_URL: z.string().url(),
 });
 
 envVariables.parse(import.meta.env);

@@ -1,41 +1,17 @@
-import { Login } from '@app/features/auth/ui/forms/log-in.form';
-import { SignUp } from '@app/entities/auth/ui/sign-in/sign-up.form';
-import { Tabs, TabsProps, Typography } from 'antd';
-import { useState } from 'react';
+import { Typography } from 'antd';
+import { authModel } from '@app/features/auth';
+import { SignIn } from '@app/features/auth/ui/sign-in';
 
 export default function SignInPage() {
-  const [currentAuthOption, setAuthOption] = useState<AuthOptionKey>('sign-up');
-
-  const switchWelcomeText = (activeKey: AuthOptionKey) => {
-    setAuthOption(activeKey);
-  };
+  const activeTab = authModel.useSignInTab();
 
   return (
     <main className='flex flex-col w-full items-center'>
-      {currentAuthOption === 'sign-up' ? <SignUpWelcome /> : <LoginWelcome />}
-      <Tabs
-        defaultActiveKey='sign-up'
-        items={authOptions}
-        centered
-        onChange={(key) => switchWelcomeText(key as AuthOptionKey)}
-        className='w-full sm:w-[80%] md:w-[70%] lg:w-[54%] xl:w-[45%] 2xl:w-[45%]'
-      />
+      {activeTab === 'sign-up' ? <SignUpWelcome /> : <LoginWelcome />}
+      <SignIn />
     </main>
   );
 }
-
-const authOptions: TabsProps['items'] = [
-  {
-    key: 'sign-up',
-    label: 'Create an Account',
-    children: <SignUp />,
-  },
-  {
-    key: 'log-in',
-    label: 'Log In',
-    children: <Login />,
-  },
-];
 
 const SignUpWelcome = () => {
   return (
@@ -64,5 +40,3 @@ const LoginWelcome = () => {
     </main>
   );
 };
-
-type AuthOptionKey = 'sign-up' | 'log-in';

@@ -1,5 +1,5 @@
-import { type SignInProcess } from '@app/features/auth/model/types';
-import { createSlice } from '@reduxjs/toolkit';
+import { Tab, type SignInProcess } from '@app/features/auth/model/types';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 type AuthModel = {
   signInProcess: SignInProcess;
@@ -16,6 +16,10 @@ const authModel = createSlice({
   name: 'auth',
   initialState,
   reducers: {
+    switchTabByKey(state, action: PayloadAction<Tab>) {
+      state.signInProcess.tab = action.payload;
+    },
+
     switchToLoginTab(state) {
       state.signInProcess.tab = 'log-in';
     },

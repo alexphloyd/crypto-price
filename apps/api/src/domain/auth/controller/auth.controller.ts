@@ -5,7 +5,7 @@ import { UserRepository } from '@app/domain/user/services/user.repository';
 import { SignUpDto, LoginDto, VerifyUserDto } from '@dto';
 import { Body, Controller, Get, HttpException, InternalServerErrorException, Post, Put, Req } from '@nestjs/common';
 import { Request } from 'express';
-import { type RefreshRes } from '@api-types';
+import { VerifyRes, type RefreshRes } from '@api-types';
 
 @Controller('auth')
 export class AuthController {
@@ -17,10 +17,11 @@ export class AuthController {
   ) {}
 
   @Post('sign-up')
-  async signUp(@Body() data: SignUpDto) {
-    const hashedPassword = await this.hashService.hash(data.password);
+  async signUp(@Body() credentials: SignUpDto) {
+    console.log(credentials, 'EE');
+    const hashedPassword = await this.hashService.hash(credentials.password);
     const user = {
-      ...data,
+      ...credentials,
       password: hashedPassword,
     };
 
@@ -35,7 +36,7 @@ export class AuthController {
   }
 
   @Put('verify')
-  async verify(@Body() { code, userId }: VerifyUserDto) {
+  async verify(@Body() { code, userId }: VerifyUserDto): VerifyRes {
     const user = await this.verificationService.verify({ code, userId });
     if (!user?.verified) throw new InternalServerErrorException();
 

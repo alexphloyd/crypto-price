@@ -4,7 +4,7 @@ export class VerifyUserDto {
   @IsInt()
   userId: number;
 
-  @IsString()
+  @IsString({ message: 'is required' })
   code: string;
 }
 
