@@ -18,7 +18,6 @@ export class AuthController {
 
   @Post('sign-up')
   async signUp(@Body() credentials: SignUpDto) {
-    console.log(credentials, 'EE');
     const hashedPassword = await this.hashService.hash(credentials.password);
     const user = {
       ...credentials,
