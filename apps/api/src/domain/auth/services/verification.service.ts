@@ -1,5 +1,5 @@
 import { UserRepository } from '@app/domain/user/services/user.repository';
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable, InternalServerErrorException } from '@nestjs/common';
 import { User } from '@prisma/client';
 import { generateVerificationCode } from './../lib/generateVerificationCode';
 import { PrismaService } from '@app/infrastructure/db/prisma.service';
@@ -57,17 +57,18 @@ export class VerificationService {
       },
     });
 
-    if (userVerification?.code === code) {
-      await this.db.user.update({
-        where: {
-          id: userId,
-        },
-        data: {
-          verified: true,
-        },
-      });
-    }
+    if (!userVerification) throw new InternalServerErrorException();
+    if (userVerification.code !== code) throw new HttpException('Wrong verification code', HttpStatus.CONFLICT);
 
-    return user;
+    const verifiedUser = await this.db.user.update({
+      where: {
+        id: userId,
+      },
+      data: {
+        verified: true,
+      },
+    });
+
+    return verifiedUser;
   }
 }
