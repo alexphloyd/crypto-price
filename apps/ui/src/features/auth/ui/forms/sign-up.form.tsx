@@ -11,6 +11,10 @@ import { useRef } from 'react';
 import { type User } from '@prisma/client';
 import { BaseError } from '@api-types';
 
+class A {
+  code: VerifyUserDto['code'];
+}
+
 export const SignUp = () => {
   const dispatch = useAppDispatch();
 
@@ -92,7 +96,7 @@ const VerificationForm = ({
 }) => (
   <Form
     onSubmit={onSubmit}
-    schema={VerifyUserDto}
+    schema={A}
     isLoading={isLoading}
     errorMessage={error}
     submitText='Verify'

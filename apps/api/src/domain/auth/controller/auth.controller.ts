@@ -37,7 +37,9 @@ export class AuthController {
 
   @Put('verify')
   async verify(@Body() { code, userId }: VerifyUserDto): VerifyRes {
+    console.log(code);
     const user = await this.verificationService.verify({ code, userId });
+    console.log(user, 'VERIFY');
     if (!user?.verified) throw new InternalServerErrorException();
 
     return {
