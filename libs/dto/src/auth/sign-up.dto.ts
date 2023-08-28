@@ -1,33 +1,19 @@
-import { IsEmail, IsEnum, IsString, MaxLength, MinLength } from 'class-validator';
 import { NotificationProvider } from '@prisma/client';
+import { z } from 'nestjs-zod/z';
+import { createZodDto } from 'nestjs-zod';
 
-export class SignUpDto {
-  @IsString({ message: 'is required' })
-  @MinLength(2, { message: 'must be longer' })
-  @MaxLength(30, { message: 'must be shorter ' })
-  name: string;
+export const SignUpSchema = z
+  .object({
+    name: z.string().min(2, { message: 'must be longer' }).max(30, { message: 'must be shorter' }),
+    surname: z.string().min(2, { message: 'must be longer' }).max(30, { message: 'must be shorter' }),
+    email: z.string().min(1, { message: 'must be longer' }).email({ message: 'must be valid' }),
+    password: z.string().min(6, { message: 'must be longer' }),
+    notificationProvider: z.nativeEnum(NotificationProvider),
+    phoneNumber: z.string().min(7, { message: 'must be valid' }).max(15, { message: 'must be valid' }),
+  })
+  .refine((data) => data.notificationProvider.length, {
+    message: 'must be specified',
+    path: ['notificationProvider'],
+  });
 
-  @IsString({ message: 'is required' })
-  @MinLength(2, { message: 'must be longer' })
-  @MaxLength(30, { message: 'must be shorter' })
-  surname: string;
-
-  @IsString({ message: 'is required' })
-  @IsEmail(undefined, { message: 'must be valid' })
-  email: string;
-
-  @IsString({ message: 'is required' })
-  @MinLength(6, { message: 'must be longer' })
-  // @Matches(/((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/, { message: 'too weak' })
-  password: string;
-
-  @IsEnum(NotificationProvider, { message: 'must be specified' })
-  notificationProvider: NotificationProvider;
-
-  @IsString({ message: 'is required' })
-  @MinLength(7, { message: 'must be valid' })
-  @MaxLength(15, { message: 'must be valid' })
-  phoneNumber: string;
-}
-
-export type SignUpInput = SignUpDto;
+export class SignUpDto extends createZodDto(SignUpSchema) {}

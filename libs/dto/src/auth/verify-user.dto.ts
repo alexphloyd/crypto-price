@@ -1,12 +1,9 @@
-import { IsInt, IsString, MinLength } from 'class-validator';
+import { createZodDto } from 'nestjs-zod';
+import { z } from 'nestjs-zod/z';
 
-export class VerifyUserDto {
-  @IsInt()
-  userId: number;
+export const VerificationSchema = z.object({
+  userId: z.number(),
+  code: z.string().min(6, { message: 'must be longer' }),
+});
 
-  @IsString({ message: 'is required' })
-  @MinLength(6, { message: 'Must be longer' })
-  code: string;
-}
-
-export type VerifyUserInput = VerifyUserDto;
+export class VerificationDto extends createZodDto(VerificationSchema) {}

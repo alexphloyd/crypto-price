@@ -1,11 +1,13 @@
+import { RefreshRes } from '@api-types';
 import { extractTokenFromHeader } from '@app/domain/auth/lib/extractTokenFromHeader';
 import { HashService } from '@app/domain/auth/services/hash.service';
 import { UserRepository } from '@app/domain/user/services/user.repository';
-import { LoginInput } from '@dto';
+import { LoginSchema } from '@dto';
 import { Injectable, HttpException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { HttpStatusCode } from 'axios';
 import { Request } from 'express';
+import { z } from 'nestjs-zod/z';
 
 @Injectable()
 export class AuthService {
@@ -15,7 +17,7 @@ export class AuthService {
     private userRepository: UserRepository,
   ) {}
 
-  async login({ email, password }: LoginInput) {
+  async login({ email, password }: z.infer<typeof LoginSchema>) {
     const user = await this.userRepository.findByEmail({ email });
 
     if (!user) throw new HttpException('Invalid credentials', 400);
@@ -34,7 +36,7 @@ export class AuthService {
     };
   }
 
-  async refresh(req: Request) {
+  async refresh(req: Request): RefreshRes {
     const token = req.cookies['refresh'];
     const verified = await this.jwtService.verifyAsync(token);
 

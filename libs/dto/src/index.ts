@@ -1,5 +1,5 @@
-export { SignUpDto, type SignUpInput } from './auth/sign-up.dto';
+export { SignUpDto, SignUpSchema } from './auth/sign-up.dto';
 
-export { VerifyUserDto, type VerifyUserInput } from './auth/verify-user.dto';
+export { VerificationDto, VerificationSchema } from './auth/verify-user.dto';
 
-export { LoginDto, type LoginInput } from './auth/login.dto';
+export { LoginDto, LoginSchema } from './auth/login.dto';
