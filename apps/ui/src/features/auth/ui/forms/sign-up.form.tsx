@@ -6,14 +6,11 @@ import { ExtendedSignUpDto, ExtendedSignUpInput } from '@app/features/auth/model
 import { authModel } from '@app/features/auth';
 import { useAppDispatch } from '@app/app/store/hooks';
 import { OnSubmitResult } from '@app/shared/ui/form/types';
-import { VerifyUserDto, type VerifyUserInput } from '@dto';
 import { useRef } from 'react';
 import { type User } from '@prisma/client';
-import { BaseError } from '@api-types';
-
-class A {
-  code: VerifyUserDto['code'];
-}
+import { type BaseError } from '@api-types';
+import { Typography } from 'antd';
+import { MappedVerificationDto, type MappedVerificationInput } from '@app/features/auth/model';
 
 export const SignUp = () => {
   const dispatch = useAppDispatch();
@@ -32,15 +29,15 @@ export const SignUp = () => {
     dispatch(authModel.actions.switchToVerificationStep());
   };
 
-  const handleVerify = async (payload: Pick<VerifyUserInput, 'code'>) => {
+  const handleVerify = async (payload: MappedVerificationInput) => {
     const userId = signUpProcessUser.current?.id;
     if (!userId) return;
 
     await verify({ code: payload.code, userId });
   };
 
-  return processStep === 'credentials' ? (
-    <SignUpForm onSubmit={handleSignUp} isLoading={isSignUpLoading} error={(signUpError as BaseError)?.data.message} />
+  return processStep !== 'credentials' ? (
+    <SignUpForm onSubmit={handleSignUp} isLoading={isSignUpLoading} error={(signUpError as BaseError)?.data?.message} />
   ) : (
     <VerificationForm
       onSubmit={handleVerify}
@@ -90,18 +87,27 @@ const VerificationForm = ({
   isLoading,
   error,
 }: {
-  onSubmit: (payload: Pick<VerifyUserInput, 'code'>) => Promise<void | OnSubmitResult>;
+  onSubmit: (payload: MappedVerificationInput) => Promise<void | OnSubmitResult>;
   isLoading: boolean;
   error?: string | undefined;
 }) => (
   <Form
     onSubmit={onSubmit}
-    schema={A}
+    schema={MappedVerificationDto}
     isLoading={isLoading}
     errorMessage={error}
     submitText='Verify'
     className='w-full'
   >
-    <Input name='code' />
+    <Typography.Text>Please use verification code to complete your registration.</Typography.Text>
+    <Typography.Text>
+      We sent it to your{' '}
+      <a href='https://gmail.com' target='_blank' rel='noreferrer' className='text-cyan-500'>
+        email
+      </a>
+      .
+    </Typography.Text>
+
+    <Input name='code' label='Verification code' />
   </Form>
 );
