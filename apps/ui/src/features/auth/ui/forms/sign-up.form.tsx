@@ -2,7 +2,6 @@ import { Form } from '@app/shared/ui/form';
 import { Input } from '@app/shared/ui/input';
 import { NotificationProviderSelector } from '@app/widgets/notification-provider-selector/ui';
 import { PhoneInput } from '@app/widgets/phone-input';
-import { ExtendedSignUpDto, ExtendedSignUpInput } from '@app/features/auth/model';
 import { authModel } from '@app/features/auth';
 import { useAppDispatch } from '@app/app/store/hooks';
 import { OnSubmitResult } from '@app/shared/ui/form/types';
@@ -10,7 +9,8 @@ import { useRef } from 'react';
 import { type User } from '@prisma/client';
 import { type BaseError } from '@api-types';
 import { Typography } from 'antd';
-import { MappedVerificationDto, type MappedVerificationInput } from '@app/features/auth/model';
+import { z } from 'zod';
+import { SignUpSchemaExtended, VerificationSchemaExtended } from '@app/features/auth/model';
 
 export const SignUp = () => {
   const dispatch = useAppDispatch();
@@ -21,7 +21,7 @@ export const SignUp = () => {
   const [signUp, { isLoading: isSignUpLoading, error: signUpError }] = authModel.api.signUp.useMutation();
   const [verify, { isLoading: isVerifyLoading, error: verifyError }] = authModel.api.verify.useMutation();
 
-  const handleSignUp = async (credentials: ExtendedSignUpInput) => {
+  const handleSignUp = async (credentials: z.infer<typeof SignUpSchemaExtended>) => {
     Reflect.deleteProperty(credentials, 'confirmPassword');
     const signedUser = await signUp(credentials).unwrap();
 
@@ -29,14 +29,15 @@ export const SignUp = () => {
     dispatch(authModel.actions.switchToVerificationStep());
   };
 
-  const handleVerify = async (payload: MappedVerificationInput) => {
+  const handleVerify = async (payload: z.infer<typeof VerificationSchemaExtended>) => {
     const userId = signUpProcessUser.current?.id;
     if (!userId) return;
 
-    await verify({ code: payload.code, userId });
+    const a = await verify({ code: payload.code, userId });
+    console.log(a);
   };
 
-  return processStep !== 'credentials' ? (
+  return processStep === 'credentials' ? (
     <SignUpForm onSubmit={handleSignUp} isLoading={isSignUpLoading} error={(signUpError as BaseError)?.data?.message} />
   ) : (
     <VerificationForm
@@ -52,13 +53,13 @@ const SignUpForm = ({
   isLoading,
   error,
 }: {
-  onSubmit: (credentials: ExtendedSignUpInput) => Promise<void | OnSubmitResult>;
+  onSubmit: (credentials: z.infer<typeof SignUpSchemaExtended>) => Promise<void | OnSubmitResult>;
   isLoading: boolean;
   error?: string | undefined;
 }) => (
   <Form
     onSubmit={onSubmit}
-    schema={ExtendedSignUpDto}
+    schema={SignUpSchemaExtended}
     errorMessage={error}
     isLoading={isLoading}
     submitText='Sign Up'
@@ -73,7 +74,7 @@ const SignUpForm = ({
 
     <div className='flex flex-col gap-x-3 gap-y-3 md:flex-row md:gap-x-4 items-center'>
       <Input name='password' type='password' label='Password' />
-      <Input name='confirmPassword' type='password' label='Confirm password' placeholder='confirm entered password' />
+      <Input name='confirm' type='password' label='Confirm password' placeholder='confirm entered password' />
     </div>
 
     <PhoneInput name='phoneNumber' />
@@ -87,13 +88,13 @@ const VerificationForm = ({
   isLoading,
   error,
 }: {
-  onSubmit: (payload: MappedVerificationInput) => Promise<void | OnSubmitResult>;
+  onSubmit: (payload: z.infer<typeof VerificationSchemaExtended>) => Promise<void | OnSubmitResult>;
   isLoading: boolean;
   error?: string | undefined;
 }) => (
   <Form
     onSubmit={onSubmit}
-    schema={MappedVerificationDto}
+    schema={VerificationSchemaExtended}
     isLoading={isLoading}
     errorMessage={error}
     submitText='Verify'

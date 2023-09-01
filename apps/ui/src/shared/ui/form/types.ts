@@ -1,5 +1,7 @@
 import { PropsWithoutRef, ReactNode } from 'react';
 import { OmitStrict } from '@utility-types';
+import { UseFormProps } from 'react-hook-form';
+import { z } from 'zod';
 
 export const FORM_ERROR = 'FORM_ERROR';
 
@@ -8,14 +10,14 @@ export interface OnSubmitResult {
   [prop: string]: unknown;
 }
 
-export interface FormProps<S extends new (...args: any) => any>
+export interface FormProps<S extends z.ZodType<any, any>>
   extends OmitStrict<PropsWithoutRef<JSX.IntrinsicElements['form']>, 'onSubmit'> {
   schema: S;
-  onSubmit: (values: InstanceType<S>) => Promise<void | OnSubmitResult>;
+  onSubmit: (values: z.infer<S>) => Promise<void | OnSubmitResult>;
   isLoading?: boolean;
   errorMessage?: string | null | undefined;
   submitText?: string | undefined;
+  addClass?: string | undefined;
   children?: ReactNode | undefined;
-  className?: string;
-  initialValues?: InstanceType<S>;
+  initialValues?: UseFormProps<z.infer<S>>['defaultValues'];
 }

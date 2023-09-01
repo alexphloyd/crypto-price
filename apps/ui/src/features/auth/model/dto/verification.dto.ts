@@ -1,8 +1,3 @@
-import { VerifyUserDto } from '@dto';
-import { MinLength } from 'class-validator';
+import { VerificationSchema } from '@dto/auth/schemas/verification.schema';
 
-export class MappedVerificationDto {
-  code: VerifyUserDto['code'];
-}
-
-export type MappedVerificationInput = MappedVerificationDto;
+export const VerificationSchemaExtended = VerificationSchema.pick({ code: true });

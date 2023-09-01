@@ -2,7 +2,7 @@ import { RefreshRes } from '@api-types';
 import { extractTokenFromHeader } from '@app/domain/auth/lib/extractTokenFromHeader';
 import { HashService } from '@app/domain/auth/services/hash.service';
 import { UserRepository } from '@app/domain/user/services/user.repository';
-import { LoginSchema } from '@dto';
+import { LoginSchema } from '@dto/auth/schemas/login.schema';
 import { Injectable, HttpException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { HttpStatusCode } from 'axios';

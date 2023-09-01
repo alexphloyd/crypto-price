@@ -1,12 +1,13 @@
+import { SignUpDto } from '@dto/auth/dto/sign-up.dto';
+import { VerificationDto } from '@dto/auth/dto/verification.dto';
+import { LoginDto } from '@dto/auth/dto/login.dto';
 import { AuthService } from '@app/domain/auth/services/auth.service';
 import { HashService } from '@app/domain/auth/services/hash.service';
 import { VerificationService } from '@app/domain/auth/services/verification.service';
 import { UserRepository } from '@app/domain/user/services/user.repository';
-import { SignUpDto, LoginDto, VerificationDto } from '@dto';
 import { Body, Controller, Get, HttpException, InternalServerErrorException, Post, Put, Req } from '@nestjs/common';
 import { Request } from 'express';
 import { VerifyRes, type RefreshRes } from '@api-types';
-
 @Controller('auth')
 export class AuthController {
   constructor(
