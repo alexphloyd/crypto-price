@@ -1,12 +1,6 @@
-import { SignUpDto } from '@dto';
-import { IsString, MinLength } from 'class-validator';
-import { Match } from '@utils';
+import { SignUpSchema } from '@dto/auth/schemas/sign-up.schema';
+import { z } from 'zod';
 
-export class ExtendedSignUpDto extends SignUpDto {
-  @IsString({ message: 'is required' })
-  @MinLength(6, { message: 'must be longer' })
-  @Match('password', { message: `don't match` })
-  confirmPassword: string;
-}
-
-export type ExtendedSignUpInput = ExtendedSignUpDto;
+export const SignUpSchemaExtended = SignUpSchema.extend({
+  confirm: z.string().min(6, { message: 'must be longer' }),
+}).refine((data) => data.confirm === data.password, { path: ['confirm'], message: `don't match` });

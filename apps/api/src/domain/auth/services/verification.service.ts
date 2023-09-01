@@ -1,11 +1,12 @@
+import { z } from 'nestjs-zod/z';
 import { UserRepository } from '@app/domain/user/services/user.repository';
 import { HttpException, HttpStatus, Injectable, InternalServerErrorException } from '@nestjs/common';
 import { User } from '@prisma/client';
 import { generateVerificationCode } from './../lib/generateVerificationCode';
 import { PrismaService } from '@app/infrastructure/db/prisma.service';
 import { TypeOfValue } from '@utility-types';
-import { type VerifyUserInput } from '@dto';
 import { SendgridService } from '@app/infrastructure/mail/services/sendgrid.service';
+import { VerificationSchema } from '@dto/auth/schemas/verification.schema';
 
 @Injectable()
 export class VerificationService {
@@ -43,7 +44,7 @@ export class VerificationService {
     this.mailService.sendVerificationUserCode({ email, code });
   }
 
-  async verify({ userId, code }: VerifyUserInput) {
+  async verify({ userId, code }: z.infer<typeof VerificationSchema>) {
     const user = await this.userRepository.findById({
       id: userId,
       select: { verificationCode: true, verified: true },

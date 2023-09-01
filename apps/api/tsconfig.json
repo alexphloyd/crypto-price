@@ -13,7 +13,7 @@
   "compilerOptions": {
     "paths": {
       "@app/*": ["apps/api/src/*"],
-      "@dto": ["libs/dto/src/index.ts"],
+      "@dto/*": ["libs/dto/src/*"],
       "@utility-types": ["libs/shared-utility-types/src/index.ts"],
       "@api-types": ["libs/api-types/src/index.ts"]
     },

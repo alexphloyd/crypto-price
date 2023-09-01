@@ -2,28 +2,29 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { ErrorLabel } from './error-label';
 import { FormProps } from './types';
 import { ForwardedRef, forwardRef } from 'react';
-import { classValidatorResolver } from '@hookform/resolvers/class-validator';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 import clsx from 'clsx';
 import { Button } from 'antd';
 import { Loader } from '../loader';
+import { z, type ZodType } from 'nestjs-zod/z';
 
-export const Form = forwardRef(FormElement) as <S extends new (...args: any) => any>(
+export const Form = forwardRef(FormElement) as <S extends ZodType<any, any>>(
   props: FormProps<S> & { ref?: ForwardedRef<HTMLFormElement> },
 ) => ReturnType<typeof FormElement>;
 
-function FormElement<S extends new (...args: any) => any>(
+function FormElement<S extends ZodType<any, any>>(
   { schema, onSubmit, errorMessage, submitText, children, isLoading, className, ...props }: FormProps<S>,
   ref: ForwardedRef<HTMLFormElement>,
 ) {
-  const ctx = useForm<InstanceType<S>>({
+  const ctx = useForm<z.infer<S>>({
     mode: 'onSubmit',
     reValidateMode: 'onChange',
-    resolver: classValidatorResolver(schema),
+    resolver: zodResolver(schema),
   });
 
   const handleSubmit = ctx.handleSubmit(async (values) => {
-    await onSubmit({ ...values });
+    await onSubmit(values);
   });
 
   return (

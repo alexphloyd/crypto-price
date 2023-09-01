@@ -1,14 +1,15 @@
-import { SignUpInput } from '@dto';
+import { SignUpSchema } from '@dto/auth/schemas/sign-up.schema';
 import { HttpException, Injectable } from '@nestjs/common';
 import { Prisma, User } from '@prisma/client';
 import { PrismaService } from '@app/infrastructure/db/prisma.service';
 import { type TypeOfValue } from '@utility-types';
+import { z } from 'nestjs-zod/z';
 
 @Injectable()
 export class UserRepository {
   constructor(private db: PrismaService) {}
 
-  async create(payload: SignUpInput) {
+  async create(payload: z.infer<typeof SignUpSchema>) {
     return await this.db.user
       .create({
         data: payload,

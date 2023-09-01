@@ -19,7 +19,7 @@ export const Input = forwardRef<HTMLInputElement, Props>(
       formState: { errors },
     } = useFormContext();
     const error = errors[name]?.message?.toString();
-
+    console.log(errors);
     return (
       <Controller
         name={name}
