@@ -12,6 +12,7 @@ export const NotificationProviderSelector = ({ name, label }: { name: string; la
 
   return (
     <Controller
+      defaultValue=''
       name={name}
       control={control}
       render={({ field: { onChange } }) => (
