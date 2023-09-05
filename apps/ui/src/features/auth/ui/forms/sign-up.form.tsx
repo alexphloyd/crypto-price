@@ -37,7 +37,7 @@ export const SignUp = () => {
     console.log(a);
   };
 
-  return processStep === 'credentials' ? (
+  return processStep !== 'credentials' ? (
     <SignUpForm onSubmit={handleSignUp} isLoading={isSignUpLoading} error={(signUpError as BaseError)?.data?.message} />
   ) : (
     <VerificationForm
@@ -97,11 +97,12 @@ const VerificationForm = ({
     schema={VerificationSchemaExtended}
     isLoading={isLoading}
     errorMessage={error}
-    submitText='Verify'
+    submitText='Apply'
     className='w-full'
   >
-    <Typography.Text>Please use verification code to complete your registration.</Typography.Text>
-    <Typography.Text>
+    <Typography.Text className='text-[15px]'>
+      Please use verification code to complete your registration.
+      <br />
       We sent it to your{' '}
       <a href='https://gmail.com' target='_blank' rel='noreferrer' className='text-cyan-500'>
         email
