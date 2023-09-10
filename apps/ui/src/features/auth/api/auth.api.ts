@@ -35,6 +35,7 @@ const authApi = baseApi.injectEndpoints({
         await api.queryFulfilled.then((res) => {
           const { data: tokens } = res;
           tokenService.set(tokens);
+          console.log(tokens);
         });
       },
     }),

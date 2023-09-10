@@ -6,7 +6,7 @@ export default function SignInPage() {
   const activeTab = authModel.useSignInTab();
 
   return (
-    <main className='flex flex-col w-full items-center'>
+    <main className='flex flex-col w-full items-center pt-[1vh]'>
       {activeTab === 'sign-up' ? <SignUpWelcome /> : <LoginWelcome />}
       <SignIn />
     </main>
@@ -30,7 +30,7 @@ const SignUpWelcome = () => {
 const LoginWelcome = () => {
   return (
     <main className='text-center px-4 mb-6'>
-      <Typography.Paragraph className='text-[28px]'>Welcome back!</Typography.Paragraph>
+      <Typography.Paragraph className='text-[28px]'>Welcome to sync-vision!</Typography.Paragraph>
       <Typography.Paragraph className='-mt-6 text-[13px] text-slate-500'>
         If you don't have an account yet, switch to the next tab.
       </Typography.Paragraph>

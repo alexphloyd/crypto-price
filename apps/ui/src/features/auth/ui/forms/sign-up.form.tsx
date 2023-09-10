@@ -8,9 +8,9 @@ import { OnSubmitResult } from '@app/shared/ui/form/types';
 import { useRef } from 'react';
 import { type User } from '@prisma/client';
 import { type BaseError } from '@api-types/errors/base';
-import { Typography } from 'antd';
 import { z } from 'zod';
 import { SignUpSchemaExtended, VerificationSchemaExtended } from '@app/features/auth/model';
+import { VerificationForm } from '@app/features/auth/ui/forms/verification.form';
 
 export const SignUp = () => {
   const dispatch = useAppDispatch();
@@ -19,7 +19,8 @@ export const SignUp = () => {
   const signUpProcessUser = useRef<User>();
 
   const [signUp, { isLoading: isSignUpLoading, error: signUpError }] = authModel.api.signUp.useMutation();
-  const [verify, { isLoading: isVerifyLoading, error: verifyError }] = authModel.api.verify.useMutation();
+  const [verify, { isLoading: isVerifyLoading, error: verifyError, data: verificationResponse }] =
+    authModel.api.verify.useMutation();
 
   const handleSignUp = async (credentials: z.infer<typeof SignUpSchemaExtended>) => {
     Reflect.deleteProperty(credentials, 'confirmPassword');
@@ -33,14 +34,14 @@ export const SignUp = () => {
     const userId = signUpProcessUser.current?.id;
     if (!userId) return;
 
-    const a = await verify({ code: payload.code, userId });
-    console.log(a);
+    await verify({ code: payload.code, userId });
   };
 
   return processStep === 'credentials' ? (
     <SignUpForm onSubmit={handleSignUp} isLoading={isSignUpLoading} error={(signUpError as BaseError)?.data?.message} />
   ) : (
     <VerificationForm
+      succesfullyVerified={verificationResponse?.verified ?? false}
       onSubmit={handleVerify}
       isLoading={isVerifyLoading}
       error={(verifyError as BaseError)?.data.message}
@@ -80,33 +81,5 @@ const SignUpForm = ({
       <Input name='password' type='password' label='Password' />
       <Input name='confirm' type='password' label='Confirm password' placeholder='confirm entered password' />
     </div>
-  </Form>
-);
-
-const VerificationForm = ({
-  onSubmit,
-  isLoading,
-  error,
-}: {
-  onSubmit: (payload: z.infer<typeof VerificationSchemaExtended>) => Promise<void | OnSubmitResult>;
-  isLoading: boolean;
-  error?: string | undefined;
-}) => (
-  <Form
-    onSubmit={onSubmit}
-    schema={VerificationSchemaExtended}
-    isLoading={isLoading}
-    errorMessage={error}
-    submitText='Apply'
-    className='w-full'
-  >
-    <Typography.Text className='text-[15px]'>
-      Please, check your{' '}
-      <a href='https://gmail.com' target='_blank' rel='noreferrer' className='text-cyan-500'>
-        email!
-      </a>
-    </Typography.Text>
-
-    <Input name='code' label='Verification code' />
   </Form>
 );
