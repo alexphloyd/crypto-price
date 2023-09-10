@@ -101,13 +101,10 @@ const VerificationForm = ({
     className='w-full'
   >
     <Typography.Text className='text-[15px]'>
-      Please use verification code to complete your registration.
-      <br />
-      We sent it to your{' '}
+      Please, check your{' '}
       <a href='https://gmail.com' target='_blank' rel='noreferrer' className='text-cyan-500'>
-        email
+        email!
       </a>
-      .
     </Typography.Text>
 
     <Input name='code' label='Verification code' />
