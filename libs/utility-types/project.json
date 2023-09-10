@@ -1,0 +1,26 @@
+{
+  "name": "utility-types",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/utility-types/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/utility-types",
+        "main": "libs/utility-types/src/index.ts",
+        "tsConfig": "libs/utility-types/tsconfig.lib.json",
+        "assets": ["libs/utility-types/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/utility-types/**/*.ts", "libs/utility-types/package.json"]
+      }
+    }
+  },
+  "tags": []
+}
