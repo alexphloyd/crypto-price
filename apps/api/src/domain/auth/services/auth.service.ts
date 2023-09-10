@@ -31,8 +31,11 @@ export class AuthService {
     const refresh = this.jwtService.sign({ sub: user.id, role: user.role }, { expiresIn: '5d' });
 
     return {
-      access,
-      refresh,
+      tokens: {
+        access,
+        refresh,
+      },
+      user,
     };
   }
 
@@ -54,7 +57,7 @@ export class AuthService {
 
   async checkSession(req: Request) {
     const bearer = extractTokenFromHeader(req);
-    if (!bearer) throw new HttpException('Invalid token', HttpStatusCode.NotFound);
+    if (!bearer) throw new HttpException('Invalid token', HttpStatusCode.Locked);
 
     const { sub } = await this.jwtService.verifyAsync(bearer);
     const sessionUser = await this.userRepository.findById({
@@ -71,6 +74,10 @@ export class AuthService {
       },
     });
 
-    return sessionUser;
+    if (!sessionUser) throw new HttpException('Unauthorized', HttpStatusCode.Locked);
+
+    return {
+      user: sessionUser,
+    };
   }
 }

@@ -8,14 +8,18 @@ import { Tabs, TabsProps } from 'antd';
 
 export const SignIn = () => {
   const dispatch = useAppDispatch();
-  const activeTab = authModel.useSignInTab();
+  const activeTab = authModel.useAuthProcessTab();
+
+  const handleChangeTab = (key: TypeOfValue<SignInProcess, 'tab'>) => {
+    dispatch(authModel.actions.switchAuthProcessTab(key as TypeOfValue<SignInProcess, 'tab'>));
+  };
 
   return (
     <Tabs
-      activeKey={activeTab}
-      items={tabOptions}
       centered
-      onChange={(key: string) => dispatch(authModel.actions.switchTabByKey(key as TypeOfValue<SignInProcess, 'tab'>))}
+      items={tabOptions}
+      activeKey={activeTab}
+      onChange={(key: string) => handleChangeTab(key as TypeOfValue<SignInProcess, 'tab'>)}
       className='w-full sm:w-[80%] md:w-[70%] lg:w-[54%] xl:w-[45%] 2xl:w-[45%]'
     />
   );

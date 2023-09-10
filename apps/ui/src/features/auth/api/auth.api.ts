@@ -6,6 +6,7 @@ import { type LoginResponse, type VerifyResponse } from '@api-types/auth.types';
 import { SignUpSchema } from '@dto/auth/schemas/sign-up.schema';
 import { VerificationSchema } from '@dto/auth/schemas/verification.schema';
 import { tokenService } from '@app/shared/services';
+import { authModel } from '@app/features/auth';
 
 const authApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -31,11 +32,10 @@ const authApi = baseApi.injectEndpoints({
         method: 'POST',
         body,
       }),
-      onQueryStarted: async (arg, api) => {
-        await api.queryFulfilled.then((res) => {
-          const { data: tokens } = res;
-          tokenService.set(tokens);
-          console.log(tokens);
+      onQueryStarted: async (_arg, api) => {
+        await api.queryFulfilled.then(({ data }) => {
+          tokenService.setAuthTokens(data.tokens);
+          api.dispatch(authModel.actions.setSessionUser(data.user));
         });
       },
     }),

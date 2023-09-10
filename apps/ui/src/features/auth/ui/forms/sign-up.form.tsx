@@ -15,8 +15,8 @@ import { VerificationForm } from '@app/features/auth/ui/forms/verification.form'
 export const SignUp = () => {
   const dispatch = useAppDispatch();
 
-  const processStep = authModel.useSignInProcessStep();
-  const signUpProcessUser = useRef<User>();
+  const step = authModel.useAuthProcessStep();
+  const processUser = useRef<User>();
 
   const [signUp, { isLoading: isSignUpLoading, error: signUpError }] = authModel.api.signUp.useMutation();
   const [verify, { isLoading: isVerifyLoading, error: verifyError, data: verificationResponse }] =
@@ -26,18 +26,18 @@ export const SignUp = () => {
     Reflect.deleteProperty(credentials, 'confirmPassword');
     const signedUser = await signUp(credentials).unwrap();
 
-    signUpProcessUser.current = signedUser;
-    dispatch(authModel.actions.switchToVerificationStep());
+    processUser.current = signedUser;
+    dispatch(authModel.actions.switchAuthProcessStep('verification'));
   };
 
   const handleVerify = async (payload: z.infer<typeof VerificationSchemaExtended>) => {
-    const userId = signUpProcessUser.current?.id;
+    const userId = processUser.current?.id;
     if (!userId) return;
 
     await verify({ code: payload.code, userId });
   };
 
-  return processStep === 'credentials' ? (
+  return step === 'credentials' ? (
     <SignUpForm onSubmit={handleSignUp} isLoading={isSignUpLoading} error={(signUpError as BaseError)?.data?.message} />
   ) : (
     <VerificationForm

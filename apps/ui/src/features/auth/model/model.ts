@@ -1,8 +1,11 @@
-import { Tab, type SignInProcess } from '@app/features/auth/model/types';
+import { type Tab, type SignInProcess, type Step } from '@app/features/auth/model/types';
+import { tokenService } from '@app/shared/services';
+import { User } from '@prisma/client';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 type AuthModel = {
   signInProcess: SignInProcess;
+  sessionUser: User | undefined;
 };
 
 const initialState: AuthModel = {
@@ -10,28 +13,28 @@ const initialState: AuthModel = {
     step: 'credentials',
     tab: 'sign-up',
   },
+  sessionUser: undefined,
 };
 
 const authModel = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    switchTabByKey(state, action: PayloadAction<Tab>) {
+    switchAuthProcessTab(state, action: PayloadAction<Tab>) {
       state.signInProcess.tab = action.payload;
     },
 
-    switchToLoginTab(state) {
-      state.signInProcess.tab = 'log-in';
-    },
-    switchToSignUpTab(state) {
-      state.signInProcess.tab = 'sign-up';
+    switchAuthProcessStep(state, action: PayloadAction<Step>) {
+      state.signInProcess.step = action.payload;
     },
 
-    switchToVerificationStep(state) {
-      state.signInProcess.step = 'verification';
+    setSessionUser(state, action: PayloadAction<User>) {
+      state.sessionUser = action.payload;
     },
-    switchToCredentialsTab(state) {
-      state.signInProcess.step = 'credentials';
+
+    logout(state) {
+      state = initialState;
+      tokenService.resetAuthTokens();
     },
   },
 });

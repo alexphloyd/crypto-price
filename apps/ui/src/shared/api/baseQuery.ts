@@ -15,7 +15,7 @@ export const baseQuery: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryE
     baseUrl: ENV_CONFIG.API_URL,
     mode: 'cors',
     prepareHeaders: (headers, api) => {
-      const access = tokenService.getAccess();
+      const access = tokenService.getAccessToken();
 
       headers.set('Content-Type', 'application/json');
       if (access) {
@@ -36,7 +36,7 @@ export const baseReauthQuery: BaseQueryFn<string | FetchArgs, unknown, FetchBase
   if (incomingQueryRes.error && incomingQueryRes.error.status === 401) {
     const refreshReq = await baseQuery(REFRESH_API_PATH, api, extraOptions);
     if (refreshReq.data) {
-      tokenService.set(refreshReq.data as Awaited<RefreshResponse>);
+      tokenService.setAuthTokens(refreshReq.data as Awaited<RefreshResponse>);
       incomingQueryRes = await baseQuery(args, api, extraOptions);
     }
   }

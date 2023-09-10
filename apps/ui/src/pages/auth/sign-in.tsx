@@ -3,7 +3,7 @@ import { authModel } from '@app/features/auth';
 import { SignIn } from '@app/features/auth/ui/sign-in';
 
 export default function SignInPage() {
-  const activeTab = authModel.useSignInTab();
+  const activeTab = authModel.useAuthProcessTab();
 
   return (
     <main className='flex flex-col w-full items-center pt-[1vh]'>

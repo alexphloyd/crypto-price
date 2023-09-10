@@ -7,7 +7,12 @@ import { VerificationService } from '@app/domain/auth/services/verification.serv
 import { UserRepository } from '@app/domain/user/services/user.repository';
 import { Body, Controller, Get, HttpException, InternalServerErrorException, Post, Put, Req } from '@nestjs/common';
 import { Request } from 'express';
-import { type VerifyResponse, type RefreshResponse } from '@api-types/auth.types';
+import {
+  type VerifyResponse,
+  type RefreshResponse,
+  type LoginResponse,
+  type SessionResponse,
+} from '@api-types/auth.types';
 
 @Controller('auth')
 export class AuthController {
@@ -47,14 +52,14 @@ export class AuthController {
   }
 
   @Post('login')
-  async login(@Body() data: LoginDto) {
+  async login(@Body() data: LoginDto): LoginResponse {
     return await this.authService.login(data);
   }
 
   @Get('session')
-  async session(@Req() req: Request) {
-    const sessionUser = await this.authService.checkSession(req);
-    return sessionUser;
+  async session(@Req() req: Request): SessionResponse {
+    const session = await this.authService.checkSession(req);
+    return session;
   }
 
   @Get('refresh')

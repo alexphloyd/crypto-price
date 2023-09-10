@@ -20,7 +20,7 @@ export const VerificationForm = ({
   error?: string | undefined;
 }) => {
   const dispatch = useAppDispatch();
-  const activeTab = authModel.useSignInTab();
+  const activeTab = authModel.useAuthProcessTab();
 
   const [timeToSwitchTab, setTimeToSwitchTab] = useState(4);
 
@@ -35,7 +35,7 @@ export const VerificationForm = ({
       clearInterval(timeout);
 
       if (activeTab === 'sign-up') {
-        dispatch(authModel.actions.switchTabByKey('log-in'));
+        dispatch(authModel.actions.switchAuthProcessTab('log-in'));
       }
     }
     return () => clearInterval(timeout);
