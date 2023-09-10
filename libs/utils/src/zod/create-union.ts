@@ -1,14 +1,17 @@
-import { type Primitive, z, type ZodLiteral, ZodNever } from 'zod';
+import { type Primitive, z, ZodLiteral, ZodNever } from 'zod';
 
 type Options = {
   message?: string;
 };
 
 type MappedZodLiterals<T extends readonly Primitive[]> = {
-  -readonly [K in keyof T]: ZodLiteral<T[K]>;
+  readonly [K in keyof T]: ZodLiteral<T[K]>;
 };
 
-function createManyUnion<A extends readonly [Primitive, Primitive, ...Primitive[]]>(literals: A, { message }: Options) {
+export function createManyUnion<A extends readonly [Primitive, Primitive, ...Primitive[]]>(
+  literals: A,
+  { message }: Options,
+) {
   return z.union(
     literals.map((value) =>
       z.literal(value, { errorMap: message ? () => ({ message }) : undefined }),

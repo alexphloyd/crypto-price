@@ -7,7 +7,8 @@ import { VerificationService } from '@app/domain/auth/services/verification.serv
 import { UserRepository } from '@app/domain/user/services/user.repository';
 import { Body, Controller, Get, HttpException, InternalServerErrorException, Post, Put, Req } from '@nestjs/common';
 import { Request } from 'express';
-import { VerifyRes, type RefreshRes } from '@api-types';
+import { type VerifyResponse, type RefreshResponse } from '@api-types';
+
 @Controller('auth')
 export class AuthController {
   constructor(
@@ -36,7 +37,7 @@ export class AuthController {
   }
 
   @Put('verify')
-  async verify(@Body() { code, userId }: VerificationDto): VerifyRes {
+  async verify(@Body() { code, userId }: VerificationDto): VerifyResponse {
     const user = await this.verificationService.verify({ code, userId });
     if (!user?.verified) throw new InternalServerErrorException();
 
@@ -57,7 +58,7 @@ export class AuthController {
   }
 
   @Get('refresh')
-  async refresh(@Req() req: Request): RefreshRes {
+  async refresh(@Req() req: Request): RefreshResponse {
     const newTokens = await this.authService.refresh(req);
     return newTokens;
   }

@@ -3,4 +3,12 @@ import { z } from 'zod';
 
 export const SignUpSchemaExtended = SignUpSchema.extend({
   confirm: z.string().min(6, { message: 'must be longer' }),
-}).refine((data) => data.confirm === data.password, { path: ['confirm'], message: `don't match` });
+}).superRefine(({ password, confirm }, ctx) => {
+  if (password !== confirm) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: `don't match`,
+      path: ['confirm'],
+    });
+  }
+});

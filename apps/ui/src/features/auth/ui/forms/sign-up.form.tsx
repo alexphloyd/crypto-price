@@ -37,7 +37,7 @@ export const SignUp = () => {
     console.log(a);
   };
 
-  return processStep !== 'credentials' ? (
+  return processStep === 'credentials' ? (
     <SignUpForm onSubmit={handleSignUp} isLoading={isSignUpLoading} error={(signUpError as BaseError)?.data?.message} />
   ) : (
     <VerificationForm
@@ -70,16 +70,16 @@ const SignUpForm = ({
       <Input name='surname' label='Surname' />
     </div>
 
+    <PhoneInput name='phoneNumber' />
+
+    <NotificationProviderSelector name='notificationProvider' label='Notification messenger' />
+
     <Input name='email' type='email' label='Email' />
 
     <div className='flex flex-col gap-x-3 gap-y-3 md:flex-row md:gap-x-4 items-center'>
       <Input name='password' type='password' label='Password' />
       <Input name='confirm' type='password' label='Confirm password' placeholder='confirm entered password' />
     </div>
-
-    <PhoneInput name='phoneNumber' />
-
-    <NotificationProviderSelector name='notificationProvider' label='Notification messenger' />
   </Form>
 );
 
