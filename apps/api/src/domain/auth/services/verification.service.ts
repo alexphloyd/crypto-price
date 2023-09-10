@@ -4,7 +4,7 @@ import { HttpException, HttpStatus, Injectable, InternalServerErrorException } f
 import { User } from '@prisma/client';
 import { generateVerificationCode } from './../lib/generateVerificationCode';
 import { PrismaService } from '@app/infrastructure/db/prisma.service';
-import { TypeOfValue } from '@utility-types';
+import { type TypeOfValue } from '@utils/types';
 import { SendgridService } from '@app/infrastructure/mail/services/sendgrid.service';
 import { VerificationSchema } from '@dto/auth/schemas/verification.schema';
 

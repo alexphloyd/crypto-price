@@ -37,10 +37,10 @@ function FormElement<S extends ZodType<any, any>>(
             <Button
               htmlType='submit'
               type='primary'
-              className='mt-[14px] w-full items-center justify-center'
+              className='mt-[14px] w-full items-center justify-center '
               size='large'
             >
-              {isLoading ? <Loader color='white' size='sm' /> : submitText}
+              {isLoading ? <Loader color='white' size='md' /> : submitText}
             </Button>
 
             <ErrorLabel message={errorMessage} />

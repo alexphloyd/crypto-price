@@ -1,5 +1,5 @@
 import { PropsWithoutRef, ReactNode } from 'react';
-import { OmitStrict } from '@utility-types';
+import { type OmitStrict } from '@utils/types';
 import { UseFormProps } from 'react-hook-form';
 import { z } from 'zod';
 

@@ -7,7 +7,7 @@ import { useAppDispatch } from '@app/app/store/hooks';
 import { OnSubmitResult } from '@app/shared/ui/form/types';
 import { useRef } from 'react';
 import { type User } from '@prisma/client';
-import { type BaseError } from '@api-types';
+import { type BaseError } from '@api-types/errors/base';
 import { Typography } from 'antd';
 import { z } from 'zod';
 import { SignUpSchemaExtended, VerificationSchemaExtended } from '@app/features/auth/model';
@@ -37,7 +37,7 @@ export const SignUp = () => {
     console.log(a);
   };
 
-  return processStep !== 'credentials' ? (
+  return processStep === 'credentials' ? (
     <SignUpForm onSubmit={handleSignUp} isLoading={isSignUpLoading} error={(signUpError as BaseError)?.data?.message} />
   ) : (
     <VerificationForm
@@ -70,16 +70,16 @@ const SignUpForm = ({
       <Input name='surname' label='Surname' />
     </div>
 
+    <PhoneInput name='phoneNumber' />
+
+    <NotificationProviderSelector name='notificationProvider' label='Notification messenger' />
+
     <Input name='email' type='email' label='Email' />
 
     <div className='flex flex-col gap-x-3 gap-y-3 md:flex-row md:gap-x-4 items-center'>
       <Input name='password' type='password' label='Password' />
       <Input name='confirm' type='password' label='Confirm password' placeholder='confirm entered password' />
     </div>
-
-    <PhoneInput name='phoneNumber' />
-
-    <NotificationProviderSelector name='notificationProvider' label='Notification messenger' />
   </Form>
 );
 
@@ -101,13 +101,10 @@ const VerificationForm = ({
     className='w-full'
   >
     <Typography.Text className='text-[15px]'>
-      Please use verification code to complete your registration.
-      <br />
-      We sent it to your{' '}
+      Please, check your{' '}
       <a href='https://gmail.com' target='_blank' rel='noreferrer' className='text-cyan-500'>
-        email
+        email!
       </a>
-      .
     </Typography.Text>
 
     <Input name='code' label='Verification code' />
