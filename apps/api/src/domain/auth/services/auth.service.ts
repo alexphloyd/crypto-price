@@ -1,4 +1,4 @@
-import { RefreshResponse } from '@api-types';
+import { RefreshResponse } from '@api-types/auth.types';
 import { extractTokenFromHeader } from '@app/domain/auth/lib/extractTokenFromHeader';
 import { HashService } from '@app/domain/auth/services/hash.service';
 import { UserRepository } from '@app/domain/user/services/user.repository';

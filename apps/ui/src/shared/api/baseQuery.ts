@@ -1,4 +1,4 @@
-import { type RefreshResponse } from '@api-types';
+import { type RefreshResponse } from '@api-types/auth.types';
 import { type BaseQueryFn } from '@reduxjs/toolkit/dist/query/baseQueryTypes';
 import {
   type FetchArgs,
@@ -6,7 +6,6 @@ import {
   type FetchBaseQueryMeta,
 } from '@reduxjs/toolkit/dist/query/fetchBaseQuery';
 import { fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import Cookies from 'js-cookie';
 import { tokenService } from '@app/shared/services';
 import { REFRESH_API_PATH } from '@app/shared/api/config';
 import { ENV_CONFIG } from '@app/shared/config';

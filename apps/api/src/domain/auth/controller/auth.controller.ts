@@ -7,7 +7,7 @@ import { VerificationService } from '@app/domain/auth/services/verification.serv
 import { UserRepository } from '@app/domain/user/services/user.repository';
 import { Body, Controller, Get, HttpException, InternalServerErrorException, Post, Put, Req } from '@nestjs/common';
 import { Request } from 'express';
-import { type VerifyResponse, type RefreshResponse } from '@api-types';
+import { type VerifyResponse, type RefreshResponse } from '@api-types/auth.types';
 
 @Controller('auth')
 export class AuthController {

@@ -2,7 +2,7 @@ import { SignUpSchema } from '@dto/auth/schemas/sign-up.schema';
 import { HttpException, Injectable } from '@nestjs/common';
 import { Prisma, User } from '@prisma/client';
 import { PrismaService } from '@app/infrastructure/db/prisma.service';
-import { type TypeOfValue } from '@utility-types';
+import { type TypeOfValue } from '@utils/types';
 import { z } from 'nestjs-zod/z';
 
 @Injectable()

@@ -3,7 +3,7 @@ import { authModel } from '@app/features/auth';
 import { type SignInProcess } from '@app/features/auth/model/types';
 import { Login } from '@app/features/auth/ui/forms/log-in.form';
 import { SignUp } from '@app/features/auth/ui/forms/sign-up.form';
-import { TypeOfValue } from '@utility-types';
+import { type TypeOfValue } from '@utils/types';
 import { Tabs, TabsProps } from 'antd';
 
 export const SignIn = () => {

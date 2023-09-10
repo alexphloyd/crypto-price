@@ -7,7 +7,7 @@ import { useAppDispatch } from '@app/app/store/hooks';
 import { OnSubmitResult } from '@app/shared/ui/form/types';
 import { useRef } from 'react';
 import { type User } from '@prisma/client';
-import { type BaseError } from '@api-types';
+import { type BaseError } from '@api-types/errors/base';
 import { Typography } from 'antd';
 import { z } from 'zod';
 import { SignUpSchemaExtended, VerificationSchemaExtended } from '@app/features/auth/model';

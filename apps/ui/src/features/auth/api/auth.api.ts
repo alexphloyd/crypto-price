@@ -2,7 +2,7 @@ import { LoginSchema } from '@dto/auth/schemas/login.schema';
 import { z } from 'zod';
 import { baseApi } from '@app/shared/api';
 import { type User } from '@prisma/client';
-import { LoginResponse, type VerifyResponse } from '@api-types';
+import { type LoginResponse, type VerifyResponse } from '@api-types/auth.types';
 import { SignUpSchema } from '@dto/auth/schemas/sign-up.schema';
 import { VerificationSchema } from '@dto/auth/schemas/verification.schema';
 import { tokenService } from '@app/shared/services';
