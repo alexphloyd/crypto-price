@@ -17,7 +17,7 @@ export class SendgridService {
       this.mailService.send({
         from: this.from,
         to: email,
-        subject: 'Welcome to sync-vision!',
+        subject: 'Welcome to Demure!',
         templateId: SEND_VERIFICATION_CODE_TEMPLATE,
         dynamicTemplateData: {
           code,

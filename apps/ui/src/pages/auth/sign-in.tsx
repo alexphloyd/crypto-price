@@ -16,7 +16,7 @@ export default function SignInPage() {
 const SignUpWelcome = () => {
   return (
     <main className='text-center px-4 mb-6'>
-      <Typography.Paragraph className='text-[28px]'>Welcome to sync-vision!</Typography.Paragraph>
+      <Typography.Paragraph className='text-[28px]'>Welcome to Demure!</Typography.Paragraph>
       <Typography.Paragraph className='-mt-6 text-[13px] text-slate-500'>
         Let's create Your account to synchronize team perspective.
       </Typography.Paragraph>
@@ -30,7 +30,7 @@ const SignUpWelcome = () => {
 const LoginWelcome = () => {
   return (
     <main className='text-center px-4 mb-6'>
-      <Typography.Paragraph className='text-[28px]'>Welcome to sync-vision!</Typography.Paragraph>
+      <Typography.Paragraph className='text-[28px]'>Welcome to Demure!</Typography.Paragraph>
       <Typography.Paragraph className='-mt-6 text-[13px] text-slate-500'>
         If you don't have an account yet, switch to the next tab.
       </Typography.Paragraph>

@@ -18,9 +18,6 @@
     "strict": true,
     "strictNullChecks": true,
     "isolatedModules": true,
-    "paths": {
-      "@sync-vision/api-types": ["libs/api-types/src/index.ts"]
-    }
   },
   "exclude": ["node_modules", "tmp"]
 }

@@ -1,6 +1,6 @@
-# Project Management Tool
+# Demure
 
-### Inspired by Jira Software
+### Car selling platform
 
 ## Tech Stack
 
@@ -10,7 +10,7 @@ TypeScript · Docker · Nx
 
 ### Testing
 
-Jest · Vitest · Supertest · React-testing-library
+Jest · Vitest · React-testing-library
 
 ### Front-end (apps/ui)
 
