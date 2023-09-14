@@ -6,6 +6,7 @@ export const withAntdConfig = (component: () => ReactNode) => () => {
     <ConfigProvider
       theme={{
         token: {
+          colorPrimary: '#0891b2',
           fontFamily: 'Montserrat',
         },
       }}

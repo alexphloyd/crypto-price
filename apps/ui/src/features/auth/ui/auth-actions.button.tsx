@@ -34,11 +34,11 @@ export const AuthActions = () => {
       <Button
         danger
         type='text'
-        className='w-full flex items-center justify-center bg-red-200/60 hover:bg-red-100/70 text-[#e06777]'
+        className='w-full flex items-center justify-center bg-red-200/80 hover:bg-red-200/60'
         onClick={handleLogout}
       >
-        <Icon name='logout' section='primary' className='-mt-[1px] w-4 h-4 text-[#df6374] mr-[9px] -mb-[1px]' />
-        <Typography.Text className='text-[#b7515f]'>Log Out</Typography.Text>
+        <Icon name='logout' section='primary' className='-mt-[1px] w-4 h-4 text-red-500 mr-[9px] -mb-[1px]' />
+        <Typography.Text className='text-red-600'>Log Out</Typography.Text>
       </Button>
     );
   }

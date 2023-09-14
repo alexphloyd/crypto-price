@@ -32,9 +32,9 @@ const authModel = createSlice({
       state.sessionUser = action.payload;
     },
 
-    logout(state) {
-      state = initialState;
+    logout() {
       tokenService.resetAuthTokens();
+      return initialState;
     },
   },
 });

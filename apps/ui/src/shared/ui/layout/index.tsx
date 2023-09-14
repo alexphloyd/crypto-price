@@ -55,6 +55,6 @@ const Loader = () => (
     transition={{ delay: 0.3 }}
     className='fixed top-0 left-0 w-full h-full flex justify-center items-center'
   >
-    <motion.div className='w-16 h-16 border-t-4 border-blue-500 border-solid rounded-full animate-spin' />
+    <motion.div className='w-16 h-16 border-t-4 border-cyan-600 border-solid rounded-full animate-spin' />
   </motion.div>
 );
