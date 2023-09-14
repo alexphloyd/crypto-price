@@ -20,9 +20,9 @@ export class AuthService {
   async login({ email, password }: z.infer<typeof LoginSchema>) {
     const user = await this.userRepository.findByEmail({ email });
 
-    if (!user) throw new HttpException('Invalid credentials', 400);
+    if (!user) throw new HttpException('Invalid credentials', 423);
 
-    if (!user.verified) throw new HttpException('Please, verify your account', HttpStatusCode.Conflict);
+    if (!user.verified) throw new HttpException('Please, verify your account', 423);
 
     const isPasswordMatch = await this.hashService.compare(password, user.password);
     if (!isPasswordMatch) throw new HttpException('Invalid credentials', 400);
@@ -43,11 +43,11 @@ export class AuthService {
     const token = req.cookies['refresh'];
     const verified = await this.jwtService.verifyAsync(token);
 
-    if (!verified) throw new HttpException('Invalid token', 400);
+    if (!verified) throw new HttpException('Invalid token', HttpStatusCode.Locked);
 
     const { sub, role } = verified;
-    const access = this.jwtService.sign({ sub, role }, { expiresIn: '7m' });
-    const refresh = this.jwtService.sign({ sub, role }, { expiresIn: '5d' });
+    const access = this.jwtService.sign({ sub, role }, { expiresIn: 2 });
+    const refresh = this.jwtService.sign({ sub, role }, { expiresIn: '2m' });
 
     return {
       access,
@@ -59,7 +59,10 @@ export class AuthService {
     const bearer = extractTokenFromHeader(req);
     if (!bearer) throw new HttpException('Invalid token', HttpStatusCode.Locked);
 
-    const { sub } = await this.jwtService.verifyAsync(bearer);
+    const { sub } = this.jwtService.verify(bearer);
+    console.log(sub);
+    if (!sub) throw new HttpException('Unauthorized', HttpStatusCode.Unauthorized);
+
     const sessionUser = await this.userRepository.findById({
       id: sub,
       select: {
