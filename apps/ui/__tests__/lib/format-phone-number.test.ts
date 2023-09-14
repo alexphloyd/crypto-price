@@ -1,4 +1,4 @@
-import { formatPhoneNumber } from '@app/shared/lib/format-phone-number';
+import { formatPhoneNumber } from '@app/shared/lib/international-phone-number/format-phone-number';
 import { describe, it } from 'vitest';
 
 describe('format phone number', () => {
