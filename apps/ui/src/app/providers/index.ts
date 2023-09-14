@@ -1,5 +1,5 @@
 import compose from 'compose-function';
-import { withAntd } from '@app/app/providers/with-antd';
+import { withAntdConfig } from '@app/app/providers/with-antd-config';
 import { withStore } from '@app/app/providers/with-store';
 
-export const withProviders = compose(withStore, withAntd);
+export const withProviders = compose(withAntdConfig, withStore);

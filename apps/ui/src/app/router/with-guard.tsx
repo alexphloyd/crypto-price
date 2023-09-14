@@ -3,6 +3,7 @@ import { Navigate } from 'react-router-dom';
 import { type RoutePath } from '@app/shared/types';
 import { type ExcludeStrict } from '@utils/types';
 import { type Role } from '@prisma/client';
+import { authModel } from '@app/features/auth';
 
 const SUPER_ROLES = [] satisfies Role[];
 
@@ -12,9 +13,9 @@ export function withGuard(
   redirectTo?: RoutePath,
 ) {
   return function RouteElement(props: Record<string, unknown>) {
-    const sessionRole = 'USER'; // TODO: set role
+    const session = authModel.useSession();
 
-    if (!isAccessGranted(sessionRole, permissibleRoles)) {
+    if (!session?.role || !isAccessGranted(session.role, permissibleRoles)) {
       return <Navigate to={redirectTo || '/auth/access-denied'} replace />;
     }
 

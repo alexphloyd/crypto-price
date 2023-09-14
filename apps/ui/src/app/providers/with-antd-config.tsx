@@ -1,7 +1,7 @@
 import { ConfigProvider } from 'antd';
 import { ReactNode } from 'react';
 
-export const withAntd = (component: () => ReactNode) => () => {
+export const withAntdConfig = (component: () => ReactNode) => () => {
   return (
     <ConfigProvider
       theme={{

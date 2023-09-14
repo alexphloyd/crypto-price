@@ -13,7 +13,7 @@ export type LoginResponse = Promise<{
 
 export type SessionResponse = Promise<{
   user: User;
-} | null>;
+}>;
 
 type Tokens = {
   access: string;

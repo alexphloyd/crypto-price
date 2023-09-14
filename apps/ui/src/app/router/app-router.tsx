@@ -1,11 +1,11 @@
 import { createBrowserRouter } from 'react-router-dom';
+import { WithAuthLayout } from '@app/app/layouts/with-auth.layout';
 import { Pages } from './pages-config';
-import Layout from '../../shared/ui/layout';
 
 export const appRouter = () =>
   createBrowserRouter([
     {
-      element: <Layout />,
+      element: <WithAuthLayout />,
       children: [
         {
           path: '/',

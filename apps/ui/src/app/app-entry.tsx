@@ -5,5 +5,5 @@ import { ComposedApp } from './app';
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <StrictMode>
     <ComposedApp />
-  </StrictMode>
+  </StrictMode>,
 );
