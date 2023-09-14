@@ -34,9 +34,11 @@ export const baseReauthQuery: BaseQueryFn<string | FetchArgs, unknown, FetchBase
   let incomingQueryRes = await baseQuery(args, api, extraOptions);
 
   if (incomingQueryRes.error && incomingQueryRes.error.status === 401) {
-    const refreshReq = await baseQuery(REFRESH_API_PATH, api, extraOptions);
-    if (refreshReq.data) {
-      tokenService.setAuthTokens(refreshReq.data as Awaited<RefreshResponse>);
+    const refresh = await baseQuery(REFRESH_API_PATH, api, extraOptions);
+    const tokens = refresh.data as Awaited<RefreshResponse>;
+
+    if (tokens) {
+      tokenService.setAuthTokens(tokens);
       incomingQueryRes = await baseQuery(args, api, extraOptions);
     }
   }
