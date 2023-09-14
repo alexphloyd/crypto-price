@@ -2,7 +2,7 @@ import { LoginSchema } from '@dto/auth/schemas/login.schema';
 import { z } from 'zod';
 import { baseApi } from '@app/shared/api';
 import { type User } from '@prisma/client';
-import { type LoginResponse, type VerifyResponse } from '@api-types/auth.types';
+import { SessionResponse, type LoginResponse, type VerifyResponse } from '@api-types/auth.types';
 import { SignUpSchema } from '@dto/auth/schemas/sign-up.schema';
 import { VerificationSchema } from '@dto/auth/schemas/verification.schema';
 import { tokenService } from '@app/shared/services';
@@ -39,7 +39,19 @@ const authApi = baseApi.injectEndpoints({
         });
       },
     }),
+
+    session: builder.query<Awaited<SessionResponse>, void>({
+      query: () => ({
+        url: 'auth/session',
+        method: 'GET',
+      }),
+      onQueryStarted: async (_arg, api) => {
+        await api.queryFulfilled.then(({ data }) => {
+          api.dispatch(authModel.actions.setSessionUser(data.user));
+        });
+      },
+    }),
   }),
 });
 
-export const { signUp, verify, login } = authApi.endpoints;
+export const { signUp, verify, login, session } = authApi.endpoints;
