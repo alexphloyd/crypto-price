@@ -18,7 +18,7 @@ const SignUpWelcome = () => {
     <main className='text-center px-4 mb-6'>
       <Typography.Paragraph className='text-[28px]'>Welcome to Demure!</Typography.Paragraph>
       <Typography.Paragraph className='-mt-6 text-[13px] text-slate-500'>
-        Let's create Your account to synchronize team perspective.
+        Let's create Your account to sell faster.
       </Typography.Paragraph>
       <Typography.Paragraph className='-mt-3 -mb-3 text-[13px] text-slate-500'>
         Specify your messenger to receive instant notifications.
@@ -35,7 +35,7 @@ const LoginWelcome = () => {
         If you don't have an account yet, switch to the next tab.
       </Typography.Paragraph>
       <Typography.Paragraph className='-mt-3 -mb-3 text-[13px] text-slate-500'>
-        You'll receive action notifications to your messenger.
+        You'll receive notifications to your messenger.
       </Typography.Paragraph>
     </main>
   );
