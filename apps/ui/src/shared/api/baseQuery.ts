@@ -14,6 +14,7 @@ export const baseQuery: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryE
   fetchBaseQuery({
     baseUrl: ENV_CONFIG.API_URL,
     mode: 'cors',
+    credentials: 'include',
     prepareHeaders: (headers, api) => {
       const access = tokenService.getAccessToken();
 

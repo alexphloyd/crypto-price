@@ -27,8 +27,8 @@ export class AuthService {
     const isPasswordMatch = await this.hashService.compare(password, user.password);
     if (!isPasswordMatch) throw new HttpException('Invalid credentials', 400);
 
-    const access = this.jwtService.sign({ sub: user.id, role: user.role }, { expiresIn: '7m' });
-    const refresh = this.jwtService.sign({ sub: user.id, role: user.role }, { expiresIn: '5d' });
+    const access = this.jwtService.sign({ sub: user.id, role: user.role }, { expiresIn: '1m' });
+    const refresh = this.jwtService.sign({ sub: user.id, role: user.role }, { expiresIn: '2m' });
 
     return {
       tokens: {
@@ -40,13 +40,13 @@ export class AuthService {
   }
 
   async refresh(req: Request): RefreshResponse {
-    const token = req.cookies['refresh'];
+    const token = req?.cookies['refresh'];
     const verified = await this.jwtService.verifyAsync(token);
 
     if (!verified) throw new HttpException('Invalid token', HttpStatusCode.Locked);
 
     const { sub, role } = verified;
-    const access = this.jwtService.sign({ sub, role }, { expiresIn: 2 });
+    const access = this.jwtService.sign({ sub, role }, { expiresIn: '1m' });
     const refresh = this.jwtService.sign({ sub, role }, { expiresIn: '2m' });
 
     return {
@@ -59,9 +59,9 @@ export class AuthService {
     const bearer = extractTokenFromHeader(req);
     if (!bearer) throw new HttpException('Invalid token', HttpStatusCode.Locked);
 
-    const { sub } = this.jwtService.verify(bearer);
-    console.log(sub);
-    if (!sub) throw new HttpException('Unauthorized', HttpStatusCode.Unauthorized);
+    const { sub } = await this.jwtService.verifyAsync(bearer).catch(() => {
+      throw new HttpException('Unauthorized', HttpStatusCode.Unauthorized);
+    });
 
     const sessionUser = await this.userRepository.findById({
       id: sub,
