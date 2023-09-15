@@ -13,7 +13,7 @@ export const Layout = ({ isGlobalLoading, showSidebar }: Props) => {
   const [loadingSimulation, setLoadingSimulation] = useState(true);
 
   useEffect(() => {
-    setTimeout(() => setLoadingSimulation(false), 1500);
+    setTimeout(() => setLoadingSimulation(false), 1000);
   }, []);
 
   return (

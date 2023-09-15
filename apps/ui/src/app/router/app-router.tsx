@@ -20,7 +20,7 @@ export const appRouter = () =>
           element: <Pages.SignIn />,
         },
         {
-          path: '/auth/access-denied',
+          path: '/access-denied',
           element: <Pages.AccessDenied />,
         },
       ],
