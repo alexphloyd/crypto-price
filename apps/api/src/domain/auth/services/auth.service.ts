@@ -27,8 +27,8 @@ export class AuthService {
     const isPasswordMatch = await this.hashService.compare(password, user.password);
     if (!isPasswordMatch) throw new HttpException('Invalid credentials', 400);
 
-    const access = this.jwtService.sign({ sub: user.id, role: user.role }, { expiresIn: '1m' });
-    const refresh = this.jwtService.sign({ sub: user.id, role: user.role }, { expiresIn: '2m' });
+    const access = this.jwtService.sign({ sub: user.id, role: user.role }, { expiresIn: '4m' });
+    const refresh = this.jwtService.sign({ sub: user.id, role: user.role }, { expiresIn: '1d' });
 
     return {
       tokens: {
@@ -46,8 +46,8 @@ export class AuthService {
     if (!verified) throw new HttpException('Invalid token', HttpStatusCode.Locked);
 
     const { sub, role } = verified;
-    const access = this.jwtService.sign({ sub, role }, { expiresIn: '1m' });
-    const refresh = this.jwtService.sign({ sub, role }, { expiresIn: '2m' });
+    const access = this.jwtService.sign({ sub, role }, { expiresIn: '4m' });
+    const refresh = this.jwtService.sign({ sub, role }, { expiresIn: '1d' });
 
     return {
       access,
