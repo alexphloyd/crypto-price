@@ -37,7 +37,7 @@ export const NavigationButton = ({ path, label, icon }: Props) => {
           <Icon
             name={icon}
             section='primary'
-            className={clsx('w-[15px] h-[15px] -mb-[2px] text-gray-500', isSelected && 'text-white')}
+            className={clsx('w-[16px] h-[16px] -mb-[3px] text-gray-500', isSelected && 'text-white')}
           />
         ) : undefined
       }

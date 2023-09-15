@@ -9,8 +9,14 @@ export const appRouter = () =>
       element: <WithAuthLayout />,
       errorElement: <ErrorPageElement />,
       children: [
+        // BOARDS
         {
           path: '/',
+          element: <Pages.Home />,
+        },
+
+        {
+          path: '/your-cars',
           element: <Pages.Home />,
         },
 
@@ -22,6 +28,22 @@ export const appRouter = () =>
         {
           path: '/access-denied',
           element: <Pages.AccessDenied />,
+        },
+
+        // ACCOUNT
+        {
+          path: '/profile',
+          element: <Pages.Home />,
+        },
+        {
+          path: '/settings',
+          element: <Pages.Home />,
+        },
+
+        // SUPPORT
+        {
+          path: '/contact-us',
+          element: <Pages.Home />,
         },
       ],
     },

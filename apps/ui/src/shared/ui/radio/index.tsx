@@ -47,7 +47,7 @@ const Button = ({
     <AntdButton
       className={clsx(
         'flex items-center justify-center py-7 px-6 w-full',
-        selected ? 'bg-blue-100/60' : 'bg-gray-50/00',
+        selected ? 'bg-cyan-100/80' : 'bg-gray-50/00',
       )}
       type='dashed'
       onClick={() => onClick(value)}
