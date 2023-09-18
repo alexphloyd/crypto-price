@@ -4,6 +4,13 @@
   "sourceRoot": "apps/ui/src",
   "projectType": "application",
   "targets": {
+    "pm2": {
+      "executor": "nx-pm2-plugin:pm2-executor",
+      "options": {
+          "command": "ui:serve:production",
+          "name": "ui"
+      }
+    },
     "build": {
       "executor": "@nx/vite:build",
       "outputs": ["{options.outputPath}"],
