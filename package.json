@@ -37,6 +37,7 @@
     "js-cookie": "^3.0.5",
     "nestjs-zod": "^3.0.0",
     "nodemailer": "^6.9.4",
+    "nx-pm2-plugin": "^1.0.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.45.4",
