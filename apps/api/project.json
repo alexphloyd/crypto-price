@@ -4,8 +4,8 @@
   "sourceRoot": "apps/api/src",
   "projectType": "application",
   "targets": {
-    "pm2": {
-      "executor": "nx-pm2-plugin:pm2-executor",
+    "pm2": {  
+      "executor": "nx-pm2-plugin:pm2-executor", 
       "options": {
           "command": "api:serve:production",
           "name": "api"

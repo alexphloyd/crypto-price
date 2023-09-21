@@ -2,7 +2,9 @@
 module.exports = {
   content: ['apps/ui/src/**/*.{tsx,jsx,ts}'],
   theme: {
-    extend: {},
+    fontFamily: {
+      croissant: ['Croissant One', 'cursive'],
+    },
   },
   plugins: [],
 
