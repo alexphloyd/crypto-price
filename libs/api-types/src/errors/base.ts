@@ -1,7 +1,9 @@
-export type BaseError = {
-  data: {
-    message: string;
-    statusCode: number;
-  };
-  status: number;
-};
+export type BaseError =
+  | {
+      data: {
+        message: string | undefined;
+        statusCode: number;
+      };
+      status: number;
+    }
+  | undefined;

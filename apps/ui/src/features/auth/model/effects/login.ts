@@ -12,9 +12,9 @@ export const login = createAsyncThunk<LoginEffectRes | null, z.infer<typeof Logi
   'auth/login',
   async (args, { dispatch }) => {
     const { data: queryResponse, error } = await dispatch(authApi.endpoints.login.initiate(args));
-
-    const errorCode = (error as BaseError).status;
-    const errorMessage = (error as BaseError).data.message;
+    console.log(error);
+    const errorCode = (error as BaseError)?.status;
+    const errorMessage = (error as BaseError)?.data?.message;
 
     const isVerificationNeeded = errorCode === HttpStatusCode.UpgradeRequired;
     const authSuccess = !!queryResponse?.user;
