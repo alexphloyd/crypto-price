@@ -1,4 +1,3 @@
-import { HttpStatusCode } from 'axios';
 import { LoginSchema } from '@dto/auth/schemas/login.schema';
 import { z } from 'zod';
 import { baseApi } from '@app/shared/api';
@@ -6,7 +5,6 @@ import { type User } from '@prisma/client';
 import { SessionResponse, type LoginResponse, type VerifyResponse } from '@api-types/auth.types';
 import { SignUpSchema } from '@dto/auth/schemas/sign-up.schema';
 import { VerificationSchema } from '@dto/auth/schemas/verification.schema';
-import { tokenService } from '@app/shared/services';
 import { authModel } from '@app/features/auth';
 
 export const authApi = baseApi.injectEndpoints({
@@ -33,21 +31,6 @@ export const authApi = baseApi.injectEndpoints({
         method: 'POST',
         body,
       }),
-
-      onQueryStarted: async (arg, api) => {
-        await api.queryFulfilled
-          .then(({ data }) => {
-            tokenService.setAuthTokens(data.tokens);
-            api.dispatch(authModel.actions.setSessionUser(data.user));
-          })
-          .catch((query) => {
-            if (query.error.status === HttpStatusCode.UpgradeRequired) {
-              api.dispatch(authModel.actions.setSignInProcessCredentials({ email: arg.email }));
-              api.dispatch(authModel.actions.switchAuthProcessStep('verification'));
-              api.dispatch(authModel.actions.switchAuthProcessTab('sign-up'));
-            }
-          });
-      },
     }),
 
     session: builder.query<Awaited<SessionResponse>, void>({
