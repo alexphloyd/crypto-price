@@ -47,7 +47,7 @@ export class VerificationService {
   async verify({ email, code }: z.infer<typeof VerificationSchema>) {
     const user = await this.userRepository.findByEmail({
       email,
-      select: { verificationCode: true, verified: true },
+      select: { verified: true, email: true },
     });
 
     if (user && user.verified) return user;
