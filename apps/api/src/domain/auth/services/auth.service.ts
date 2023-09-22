@@ -22,10 +22,10 @@ export class AuthService {
 
     if (!user) throw new HttpException('Invalid credentials', HttpStatusCode.Conflict);
 
-    if (!user.verified) throw new HttpException('Please, verify your account', HttpStatusCode.UpgradeRequired);
-
     const isPasswordMatch = await this.hashService.compare(password, user.password);
-    if (!isPasswordMatch) throw new HttpException('Invalid credentials', 400);
+    if (!isPasswordMatch) throw new HttpException('Invalid credentials', HttpStatusCode.Conflict);
+
+    if (!user.verified) throw new HttpException('Please, verify your account', HttpStatusCode.UpgradeRequired);
 
     const access = this.jwtService.sign({ sub: user.id, role: user.role }, { expiresIn: '4m' });
     const refresh = this.jwtService.sign({ sub: user.id, role: user.role }, { expiresIn: '1d' });
