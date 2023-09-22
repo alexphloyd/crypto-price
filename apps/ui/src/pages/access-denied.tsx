@@ -1,7 +1,7 @@
 import { Button } from 'antd';
 import { useNavigate } from 'react-router';
 
-const AccessDenied = () => {
+export default function AccessDeniedPage() {
   const navigate = useNavigate();
 
   return (
@@ -10,6 +10,4 @@ const AccessDenied = () => {
       <Button onClick={() => navigate(-1)}>Back</Button>
     </div>
   );
-};
-
-export default AccessDenied;
+}

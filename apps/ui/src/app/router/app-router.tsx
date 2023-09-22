@@ -22,7 +22,7 @@ export const appRouter = () =>
 
         // AUTH
         {
-          path: '/auth/sign-in',
+          path: '/sign-in',
           element: <Pages.SignIn />,
         },
         {

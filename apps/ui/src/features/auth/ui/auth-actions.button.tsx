@@ -17,8 +17,8 @@ export const AuthActions = () => {
   };
 
   const handleLogout = () => {
-    navigate('/');
     dispatch(authModel.actions.logout());
+    navigate('/');
   };
 
   if (!session) {

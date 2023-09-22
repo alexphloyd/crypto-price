@@ -1,7 +1,7 @@
 import * as model from './model';
 import * as api from './api/auth.api';
-// model
 
+// model
 export const authModel = {
   ...model,
   api,

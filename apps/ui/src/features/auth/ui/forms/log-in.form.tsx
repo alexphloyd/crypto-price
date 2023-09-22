@@ -15,7 +15,7 @@ export const Login = () => {
   const handleLogin = async (credentials: z.infer<typeof LoginSchema>) => {
     await dispatch(authModel.effects.login(credentials))
       .unwrap()
-      .then((res) => res?.user && navigate('/'));
+      .then(({ isLoggedIn }) => isLoggedIn && navigate('/'));
   };
 
   return (
