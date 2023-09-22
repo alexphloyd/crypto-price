@@ -1,3 +1,4 @@
+import { HttpStatusCode } from 'axios';
 import { LoginSchema } from '@dto/auth/schemas/login.schema';
 import { z } from 'zod';
 import { baseApi } from '@app/shared/api';
@@ -8,7 +9,7 @@ import { VerificationSchema } from '@dto/auth/schemas/verification.schema';
 import { tokenService } from '@app/shared/services';
 import { authModel } from '@app/features/auth';
 
-const authApi = baseApi.injectEndpoints({
+export const authApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     signUp: builder.mutation<Awaited<User>, z.infer<typeof SignUpSchema>>({
       query: (body) => ({
@@ -32,11 +33,20 @@ const authApi = baseApi.injectEndpoints({
         method: 'POST',
         body,
       }),
-      onQueryStarted: async (_arg, api) => {
-        await api.queryFulfilled.then(({ data }) => {
-          tokenService.setAuthTokens(data.tokens);
-          api.dispatch(authModel.actions.setSessionUser(data.user));
-        });
+
+      onQueryStarted: async (arg, api) => {
+        await api.queryFulfilled
+          .then(({ data }) => {
+            tokenService.setAuthTokens(data.tokens);
+            api.dispatch(authModel.actions.setSessionUser(data.user));
+          })
+          .catch((query) => {
+            if (query.error.status === HttpStatusCode.UpgradeRequired) {
+              api.dispatch(authModel.actions.setSignInProcessCredentials({ email: arg.email }));
+              api.dispatch(authModel.actions.switchAuthProcessStep('verification'));
+              api.dispatch(authModel.actions.switchAuthProcessTab('sign-up'));
+            }
+          });
       },
     }),
 

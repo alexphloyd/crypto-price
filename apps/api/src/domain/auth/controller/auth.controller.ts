@@ -42,8 +42,8 @@ export class AuthController {
   }
 
   @Put('verify')
-  async verify(@Body() { code, userId }: VerificationDto): VerifyResponse {
-    const user = await this.verificationService.verify({ code, userId });
+  async verify(@Body() { code, email }: VerificationDto): VerifyResponse {
+    const user = await this.verificationService.verify({ code, email });
     if (!user?.verified) throw new InternalServerErrorException();
 
     return {

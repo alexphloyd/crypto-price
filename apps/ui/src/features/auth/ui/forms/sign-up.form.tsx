@@ -5,8 +5,6 @@ import { PhoneInput } from '@app/widgets/phone-input';
 import { authModel } from '@app/features/auth';
 import { useAppDispatch } from '@app/app/store/hooks';
 import { OnSubmitResult } from '@app/shared/ui/form/types';
-import { useRef } from 'react';
-import { type User } from '@prisma/client';
 import { type BaseError } from '@api-types/errors/base';
 import { z } from 'zod';
 import { SignUpSchemaExtended, VerificationSchemaExtended } from '@app/features/auth/model';
@@ -16,7 +14,7 @@ export const SignUp = () => {
   const dispatch = useAppDispatch();
 
   const step = authModel.useAuthProcessStep();
-  const processUser = useRef<User>();
+  const processCredentials = authModel.useSignInProcessCredentials();
 
   const [signUp, { isLoading: isSignUpLoading, error: signUpError }] = authModel.api.signUp.useMutation();
   const [verify, { isLoading: isVerifyLoading, error: verifyError, data: verificationResponse }] =
@@ -26,15 +24,13 @@ export const SignUp = () => {
     Reflect.deleteProperty(credentials, 'confirmPassword');
     const signedUser = await signUp(credentials).unwrap();
 
-    processUser.current = signedUser;
+    dispatch(authModel.actions.setSignInProcessCredentials(signedUser));
     dispatch(authModel.actions.switchAuthProcessStep('verification'));
   };
 
   const handleVerify = async (payload: z.infer<typeof VerificationSchemaExtended>) => {
-    const userId = processUser.current?.id;
-    if (!userId) return;
-
-    await verify({ code: payload.code, userId });
+    if (!processCredentials?.email) return;
+    await verify({ code: payload.code, email: processCredentials.email });
   };
 
   return step === 'credentials' ? (

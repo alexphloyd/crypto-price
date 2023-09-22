@@ -20,9 +20,9 @@ export class AuthService {
   async login({ email, password }: z.infer<typeof LoginSchema>) {
     const user = await this.userRepository.findByEmail({ email });
 
-    if (!user) throw new HttpException('Invalid credentials', 423);
+    if (!user) throw new HttpException('Invalid credentials', HttpStatusCode.Conflict);
 
-    if (!user.verified) throw new HttpException('Please, verify your account', 423);
+    if (!user.verified) throw new HttpException('Please, verify your account', HttpStatusCode.UpgradeRequired);
 
     const isPasswordMatch = await this.hashService.compare(password, user.password);
     if (!isPasswordMatch) throw new HttpException('Invalid credentials', 400);

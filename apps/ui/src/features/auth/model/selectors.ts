@@ -18,6 +18,22 @@ export const useAuthProcessTab = () =>
     ),
   );
 
+export const useSignInProcessCredentials = () =>
+  useSelector(
+    createSelector(
+      (state: AppState) => state.auth,
+      (auth) => auth.signInProcess.credentials,
+    ),
+  );
+
+export const useLoginErrorMessage = () =>
+  useSelector(
+    createSelector(
+      (state: AppState) => state.auth,
+      (auth) => auth.loginProcess.error,
+    ),
+  );
+
 export const useSession = () =>
   useSelector(
     createSelector(

@@ -44,9 +44,9 @@ export class VerificationService {
     this.mailService.sendVerificationUserCode({ email, code });
   }
 
-  async verify({ userId, code }: z.infer<typeof VerificationSchema>) {
-    const user = await this.userRepository.findById({
-      id: userId,
+  async verify({ email, code }: z.infer<typeof VerificationSchema>) {
+    const user = await this.userRepository.findByEmail({
+      email,
       select: { verificationCode: true, verified: true },
     });
 
@@ -63,7 +63,7 @@ export class VerificationService {
 
     const verifiedUser = await this.db.user.update({
       where: {
-        id: userId,
+        email,
       },
       data: {
         verified: true,

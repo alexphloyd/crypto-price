@@ -11,6 +11,7 @@ export const SignIn = () => {
   const activeTab = authModel.useAuthProcessTab();
 
   const handleChangeTab = (key: TypeOfValue<SignInProcess, 'tab'>) => {
+    dispatch(authModel.actions.switchAuthProcessStep('credentials'));
     dispatch(authModel.actions.switchAuthProcessTab(key as TypeOfValue<SignInProcess, 'tab'>));
   };
 
