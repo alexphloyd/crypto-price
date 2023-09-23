@@ -13,7 +13,7 @@ export const AuthActions = () => {
 
   const handleRedirectToSignIn = () => {
     dispatch(sidebarModel.actions.close());
-    navigate('/auth/sign-in');
+    navigate('/sign-in');
   };
 
   const handleLogout = () => {
