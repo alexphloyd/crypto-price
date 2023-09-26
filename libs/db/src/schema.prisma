@@ -47,3 +47,21 @@ model VerificationCode {
 
   code String
 }
+
+model CarMake {
+  id Int @id @default(autoincrement())
+
+  name   String     @unique
+  models CarModel[]
+}
+
+model CarModel {
+  id Int @id @default(autoincrement())
+
+  make   CarMake @relation(fields: [makeId], references: [id])
+  makeId Int
+
+  name String
+
+  @@unique([makeId, name])
+}

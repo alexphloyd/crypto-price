@@ -5,7 +5,8 @@
   "scripts": {},
   "private": true,
   "prisma": {
-    "schema": "./libs/db/src/schema.prisma"
+    "schema": "./libs/db/src/schema.prisma",
+    "seed": "ts-node libs/db/src/seeds/cars.seed.ts"
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",

@@ -13,22 +13,8 @@
         "tsConfig": "libs/db/tsconfig.lib.json",
         "assets": ["libs/db/*.md"]
       }
-    },
-    "lint": {
-      "executor": "@nx/linter:eslint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": ["libs/db/**/*.ts", "libs/db/package.json"]
-      }
-    },
-    "apply-seeds": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": ""
-      }
     }
-  },
-  "tags": []
+  }
 }
 
 
