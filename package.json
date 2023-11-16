@@ -5,7 +5,8 @@
   "scripts": {},
   "private": true,
   "prisma": {
-    "schema": "./libs/db/src/schema.prisma"
+    "schema": "./libs/db/src/schema.prisma",
+    "seed": "ts-node libs/db/src/seeds/cars.seed.ts"
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",
@@ -22,6 +23,7 @@
     "@sendgrid/mail": "^7.7.0",
     "@swc/helpers": "~0.5.0",
     "antd": "^5.8.4",
+    "antd-img-crop": "^4.13.0",
     "axios": "^1.0.0",
     "bcrypt": "^5.1.1",
     "class-transformer": "^0.5.1",

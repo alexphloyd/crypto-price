@@ -1,4 +1,4 @@
-import { type RefreshResponse } from '@api-types/auth.types';
+import { type RefreshResponse } from '@api-types/domain/auth/types';
 import Cookies from 'js-cookie';
 
 export const getAccessToken = () => Cookies.get('access');

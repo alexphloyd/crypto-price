@@ -1,8 +1,15 @@
-import './styles.css';
+import ReactDOM from 'react-dom/client';
 import { RouterProvider } from 'react-router';
-import { withProviders } from './providers';
+import { withProviders } from './providers/compose';
 import { appRouter } from './router/app-router';
+import { StrictMode } from 'react';
 
-const App = () => <RouterProvider router={appRouter()} />;
+import './styles.css';
 
-export const ComposedApp = withProviders(App);
+const ComposedApp = withProviders(() => <RouterProvider router={appRouter()} />);
+
+ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+  <StrictMode>
+    <ComposedApp />
+  </StrictMode>,
+);
