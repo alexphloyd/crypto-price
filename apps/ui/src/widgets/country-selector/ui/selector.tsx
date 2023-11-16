@@ -1,4 +1,4 @@
-import clsx from 'clsx';
+import { twMerge } from 'tailwind-merge';
 import { Select } from 'antd';
 import { Icon } from '@app/shared/ui/icon';
 import { CountrySelectorOptions } from '../types';
@@ -19,7 +19,7 @@ export const CountrySelector = ({ countryOptions, onChange, className }: Props) 
       size='large'
       optionLabelProp='label'
       onChange={onChange}
-      className={clsx('caret-transparent transition-none animation-none cursor-pointer w-full', className)}
+      className={twMerge(className, 'caret-transparent transition-none animation-none cursor-pointer w-full')}
       placeholder={
         <div className='flex items-center'>
           <Icon name='united-kingdom' section='flags' className='w-6 h-6 rounded-[23%] mr-[2px]' />

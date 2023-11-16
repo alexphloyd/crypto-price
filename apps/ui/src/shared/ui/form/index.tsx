@@ -4,7 +4,7 @@ import { FormProps } from './types';
 import { ForwardedRef, forwardRef } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import clsx from 'clsx';
+import { twMerge } from 'tailwind-merge';
 import { Button } from 'antd';
 import { Loader } from '../loader';
 import { z, type ZodType } from 'nestjs-zod/z';
@@ -29,7 +29,7 @@ function FormElement<S extends ZodType<any, any>>(
 
   return (
     <FormProvider {...ctx}>
-      <form ref={ref} onSubmit={handleSubmit} className={clsx(className, 'flex flex-col gap-4')} {...props}>
+      <form ref={ref} onSubmit={handleSubmit} className={twMerge(className, 'flex flex-col gap-4')} {...props}>
         {children}
 
         {submitText ? (

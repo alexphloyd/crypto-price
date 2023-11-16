@@ -3,7 +3,7 @@ module.exports = {
   content: ['apps/ui/src/**/*.{tsx,jsx,ts}'],
   theme: {
     fontFamily: {
-      croissant: ['Croissant One', 'cursive'],
+      exo: ['Exo', 'sans-serif'],
     },
   },
   plugins: [],

@@ -1,5 +1,5 @@
 import { Typography } from 'antd';
-import clsx from 'clsx';
+import { twMerge } from 'tailwind-merge';
 
 interface Props {
   label: string;
@@ -8,8 +8,8 @@ interface Props {
 
 export const Topic = ({ label, className }: Props) => {
   return (
-    <main className={clsx(className, 'w-full flex flex-col space-y-[0.4rem] mb-[6px]')}>
-      <Typography.Text className='-mb-[3px] tracking-widest text-left text-[13px]'>{label}</Typography.Text>
+    <main className={twMerge(className, 'w-full flex flex-col space-y-2 mb-[7px]')}>
+      <Typography.Text className='-mb-[6px] tracking-widest text-left text-[14px]'>{label}</Typography.Text>
       <span className='w-[85%] h-[1px] border-b-[1px] border-gray-100' />
     </main>
   );

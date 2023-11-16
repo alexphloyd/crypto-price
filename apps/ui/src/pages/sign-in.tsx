@@ -7,35 +7,29 @@ export default function SignInPage() {
 
   return (
     <main className='flex flex-col w-full items-center pt-[1vh]'>
-      {activeTab === 'sign-up' ? <SignUpWelcome /> : <LoginWelcome />}
+      {activeTab === 'sign-up' ? <SignUpWelcomeLabel /> : <LoginWelcomeLabel />}
       <SignIn />
     </main>
   );
 }
 
-const SignUpWelcome = () => {
+const SignUpWelcomeLabel = () => {
   return (
-    <main className='text-center px-4 mb-6'>
-      <Typography.Paragraph className='text-[28px]'>Welcome to Demure!</Typography.Paragraph>
-      <Typography.Paragraph className='-mt-6 text-[13px] text-slate-500'>
-        Let's create Your account to sell faster.
-      </Typography.Paragraph>
-      <Typography.Paragraph className='-mt-3 -mb-3 text-[13px] text-slate-500'>
-        Specify your messenger to receive instant notifications.
+    <main className='text-center px-4'>
+      <Typography.Paragraph className='text-[28px]'>Welcome to Crypto-price!</Typography.Paragraph>
+      <Typography.Paragraph className='-mt-7 text-[13px] text-slate-500'>
+        Let's create Your account to track the market.
       </Typography.Paragraph>
     </main>
   );
 };
 
-const LoginWelcome = () => {
+const LoginWelcomeLabel = () => {
   return (
-    <main className='text-center px-4 mb-6'>
-      <Typography.Paragraph className='text-[28px]'>Welcome to Demure!</Typography.Paragraph>
-      <Typography.Paragraph className='-mt-6 text-[13px] text-slate-500'>
+    <main className='text-center px-4'>
+      <Typography.Paragraph className='text-[28px]'>Welcome to Crypto-price!</Typography.Paragraph>
+      <Typography.Paragraph className='-mt-7 text-[13px] text-slate-500'>
         If you don't have an account yet, switch to the next tab.
-      </Typography.Paragraph>
-      <Typography.Paragraph className='-mt-3 -mb-3 text-[13px] text-slate-500'>
-        You'll receive notifications to your messenger.
       </Typography.Paragraph>
     </main>
   );

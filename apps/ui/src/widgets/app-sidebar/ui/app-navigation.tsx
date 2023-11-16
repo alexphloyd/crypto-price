@@ -3,8 +3,8 @@ import { NavigationButton } from './nav.button';
 
 export const AppNavigation = () => {
   return (
-    <div className='flex flex-col w-full py-2 flex-auto space-y-3'>
-      <Topic label='General' />
+    <div className='flex flex-col w-full py-3 flex-auto space-y-2'>
+      <Topic label='General' className='mb-1' />
       <NavigationButton label='Home' path='/' icon='view-stacked' />
 
       <Topic label='Account' />

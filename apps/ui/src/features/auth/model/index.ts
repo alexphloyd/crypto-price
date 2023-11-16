@@ -1,6 +1,10 @@
+import { login } from './effects/login';
+
 export { actions, name, reducer } from './model';
 
-export * as effects from './effects';
+export const effects = {
+  login,
+};
 
 export {
   useAuthProcessStep,
