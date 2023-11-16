@@ -1,5 +1,5 @@
 import { type IconName } from '@app/shared/types';
-import clsx from 'clsx';
+import { twMerge } from 'tailwind-merge';
 import { useState } from 'react';
 import { Icon } from '../icon';
 import { AvailableOptions, OptionValue, Props, RadioOptions } from './types';
@@ -26,7 +26,9 @@ export const Radio = <O extends RadioOptions>({ options, onChange, defaultChecke
   ));
 
   return (
-    <main className={clsx('w-full flex flex-row items-center justify-center gap-x-4', className)}>{optionsList}</main>
+    <main className={twMerge(className, 'w-full flex flex-row items-center justify-center gap-x-4')}>
+      {optionsList}
+    </main>
   );
 };
 
@@ -45,7 +47,7 @@ const Button = ({
 }) => {
   return (
     <AntdButton
-      className={clsx(
+      className={twMerge(
         'flex items-center justify-center py-7 px-6 w-full',
         selected ? 'bg-cyan-100/80' : 'bg-gray-50/00',
       )}

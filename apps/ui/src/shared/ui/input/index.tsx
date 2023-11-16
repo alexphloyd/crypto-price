@@ -1,7 +1,7 @@
 import { forwardRef } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 import { Input as TextFiled, Typography } from 'antd';
-import clsx from 'clsx';
+import { twMerge } from 'tailwind-merge';
 
 interface Props {
   name: string;
@@ -26,7 +26,7 @@ export const Input = forwardRef<HTMLInputElement, Props>(
         control={control}
         defaultValue=''
         render={({ field: { onChange } }) => (
-          <main className={clsx('flex flex-col gap-1 items-start w-full', className)}>
+          <main className={twMerge(className, 'flex flex-col gap-1 items-start w-full')}>
             <Label label={label} error={error} />
             <TextFiled
               size='large'

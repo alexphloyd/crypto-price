@@ -5,7 +5,7 @@ import { Icon } from '@app/shared/ui/icon';
 import { useLocation, useNavigate } from 'react-router';
 import { Button, Typography } from 'antd';
 import { sidebarModel } from '..';
-import clsx from 'clsx';
+import { twMerge } from 'tailwind-merge';
 
 interface Props {
   path: RoutePath;
@@ -37,16 +37,16 @@ export const NavigationButton = ({ path, label, icon }: Props) => {
           <Icon
             name={icon}
             section='primary'
-            className={clsx('w-[16px] h-[16px] -mb-[3px] text-gray-500', isSelected && 'text-white')}
+            className={twMerge(isSelected && 'text-white', 'w-[16px] h-[16px] -mb-[3px] text-gray-500')}
           />
         ) : undefined
       }
-      type={isSelected ? 'primary' : 'text'}
+      type={isSelected ? 'dashed' : 'text'}
       size='middle'
-      className='text-left my-[6px] items-center justify-center'
+      className={twMerge('text-left my-[6px] items-center justify-center')}
       onClick={handleRoute}
     >
-      <Typography.Text className={isSelected ? 'text-white' : undefined}>{label}</Typography.Text>
+      <Typography.Text>{label}</Typography.Text>
     </Button>
   );
 };

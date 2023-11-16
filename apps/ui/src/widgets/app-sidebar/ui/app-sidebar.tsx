@@ -45,7 +45,7 @@ export const AppSidebar = () => {
 };
 
 const sideBar = cva(
-  'items-center fixed py-4 px-6 top-0 left-0 z-40 flex flex-col h-full border-r-[1px] border-gray-100/70 bg-white transition-transform duration-200 -translate-x-full min-w-fit rounded-r-2xl lg:rounded-none overflow-hidden w-[52%] sm:w-[39%] md:w-[30%] lg:w-[19%] xl:w-[17%] 2xl:w-[15%]',
+  'items-center fixed py-4 px-6 top-0 left-0 z-40 flex flex-col h-full border-r-[1px] border-gray-100/10  bg-white transition-transform duration-200 -translate-x-full min-w-fit rounded-r-[30px] overflow-hidden w-[52%] sm:w-[39%] md:w-[30%] lg:w-[19%] xl:w-[17%] 2xl:w-[15%] shadow-md',
   {
     variants: {
       show: {

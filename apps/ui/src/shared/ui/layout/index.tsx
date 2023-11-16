@@ -1,5 +1,5 @@
 import { Outlet, ScrollRestoration } from 'react-router-dom';
-import clsx from 'clsx';
+import { twMerge } from 'tailwind-merge';
 import { AppSidebar, ToggleAppSidebar } from '@app/widgets/app-sidebar';
 import { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -13,7 +13,7 @@ export const Layout = ({ isGlobalLoading, showSidebar }: Props) => {
   const [loadingSimulation, setLoadingSimulation] = useState(true);
 
   useEffect(() => {
-    setTimeout(() => setLoadingSimulation(false), 1000);
+    setTimeout(() => setLoadingSimulation(false), 800);
   }, []);
 
   return (
@@ -32,7 +32,7 @@ export const Layout = ({ isGlobalLoading, showSidebar }: Props) => {
           <AppSidebar />
 
           <section
-            className={clsx(
+            className={twMerge(
               showSidebar && 'blur-[3px] overflow-hidden pointer-events-none',
               'flex-auto min-h-screen bg-white px-[3.5%] lg:pl-[19%] xl:pl-[17%] 2xl:pl-[15%] pt-11 pb-16 md:pt-10',
             )}

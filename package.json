@@ -29,7 +29,6 @@
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.0",
     "class-variance-authority": "^0.7.0",
-    "clsx": "^2.0.0",
     "compose-function": "^3.0.3",
     "cookie-parser": "^1.4.6",
     "dayjs": "^1.11.9",
@@ -49,6 +48,7 @@
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.0",
     "tailwind": "^4.0.0",
+    "tailwind-merge": "^2.0.0",
     "tslib": "^2.3.0",
     "zod": "^3.22.2"
   },

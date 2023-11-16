@@ -1,4 +1,4 @@
-import clsx from 'clsx';
+import { twMerge } from 'tailwind-merge';
 import { useState } from 'react';
 import { Input as TextFiled } from 'antd';
 import { formatPhoneNumber } from '@app/shared/lib/international-phone-number/format-phone-number';
@@ -35,7 +35,7 @@ export const PhoneInput = ({ name, className }: Props) => {
       control={control}
       defaultValue=''
       render={({ field: { onChange } }) => (
-        <main className={clsx('flex flex-col gap-1 items-start min-w-full', className)}>
+        <main className={twMerge(className, 'flex flex-col gap-1 items-start min-w-full')}>
           <Label label='Phone number' error={error} />
           <div className='flex flex-col gap-x-3 gap-y-4 md:gap-y-0 md:gap-x-4 md:flex-row  w-full'>
             <CountrySelector
