@@ -1,4 +1,4 @@
-import { type RefreshResponse } from '@api-types/auth.types';
+import { type RefreshResponse } from '@api-types/domain/auth/types';
 import { type BaseQueryFn } from '@reduxjs/toolkit/dist/query/baseQueryTypes';
 import {
   type FetchArgs,

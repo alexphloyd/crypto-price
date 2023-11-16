@@ -1,5 +1,5 @@
 import ImgCrop from 'antd-img-crop';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Upload } from 'antd';
 import type { RcFile, UploadFile, UploadProps } from 'antd/es/upload/interface';
 

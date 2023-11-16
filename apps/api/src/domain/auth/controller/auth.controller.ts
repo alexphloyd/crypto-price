@@ -12,7 +12,7 @@ import {
   type RefreshResponse,
   type LoginResponse,
   type SessionResponse,
-} from '@api-types/auth.types';
+} from '@api-types/domain/auth/types';
 
 @Controller('auth')
 export class AuthController {

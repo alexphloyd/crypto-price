@@ -5,8 +5,7 @@ export const AppNavigation = () => {
   return (
     <div className='flex flex-col w-full py-2 flex-auto space-y-3'>
       <Topic label='General' />
-      <NavigationButton label='Board' path='/' icon='view-stacked' />
-      <NavigationButton label='Your cars' path='/your-cars' icon='app' />
+      <NavigationButton label='Home' path='/' icon='view-stacked' />
 
       <Topic label='Account' />
       <NavigationButton label='Profile' path='/profile' icon='user' />
