@@ -1,6 +1,4 @@
-# Demure
-
-### Car selling platform
+# crypto-price
 
 ## Tech Stack
 
