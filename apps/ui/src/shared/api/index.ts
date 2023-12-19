@@ -1,6 +1,6 @@
-export * from './baseApi';
+export * from './base-api';
 
-export * from './api.helpers';
+export * from './helpers';
 
 export * from './types';
 

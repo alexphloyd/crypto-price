@@ -11,7 +11,7 @@ export const login = createAsyncThunk<{ isLoggedIn: boolean }, z.infer<typeof Lo
   'auth/login',
   async (args, { dispatch }) => {
     const { data: queryResponse, error } = await dispatch(authApi.endpoints.login.initiate(args));
-    console.log(error);
+
     const errorCode = (error as BaseError)?.status;
     const errorMessage = (error as BaseError)?.data?.message;
 

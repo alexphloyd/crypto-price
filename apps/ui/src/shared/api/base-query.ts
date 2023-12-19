@@ -7,7 +7,7 @@ import {
 } from '@reduxjs/toolkit/dist/query/fetchBaseQuery';
 import { fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { tokenService } from '@app/shared/services';
-import { REFRESH_API_PATH } from '@app/shared/api/config';
+import { REFRESH_TOKENS_API_PATH } from '@app/shared/api/config';
 import { ENV_CONFIG } from '@app/shared/config';
 
 export const baseQuery: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError, object, FetchBaseQueryMeta> =
@@ -35,7 +35,7 @@ export const baseReauthQuery: BaseQueryFn<string | FetchArgs, unknown, FetchBase
   let incomingQueryRes = await baseQuery(args, api, extraOptions);
 
   if (incomingQueryRes.error && incomingQueryRes.error.status === 401) {
-    const refresh = await baseQuery(REFRESH_API_PATH, api, extraOptions);
+    const refresh = await baseQuery(REFRESH_TOKENS_API_PATH, api, extraOptions);
     const tokens = refresh.data as Awaited<RefreshResponse>;
 
     if (tokens) {

@@ -1,5 +1,4 @@
-export type BaseError =
-  | {
+export type BaseError = {
       data: {
         message: string | undefined;
         statusCode: number;

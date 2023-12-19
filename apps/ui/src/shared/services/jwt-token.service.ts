@@ -1,14 +1,20 @@
 import { type RefreshResponse } from '@api-types/domain/auth/types';
 import Cookies from 'js-cookie';
 
-export const getAccessToken = () => Cookies.get('access');
+ const getAccessToken = () => Cookies.get('access');
 
-export const setAuthTokens = ({ access, refresh }: Awaited<RefreshResponse>) => {
+ const setAuthTokens = ({ access, refresh }: Awaited<RefreshResponse>) => {
   Cookies.set('access', access);
   Cookies.set('refresh', refresh);
 };
 
-export const resetAuthTokens = () => {
+ const resetAuthTokens = () => {
   Cookies.remove('access');
   Cookies.remove('refresh');
 };
+
+export const tokenService = {
+  getAccessToken, 
+  setAuthTokens,
+  resetAuthTokens
+}

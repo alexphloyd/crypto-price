@@ -37,7 +37,6 @@ model User {
   verified Boolean @default(false)
 
   verificationCode VerificationCode?
-  Car              Car?
 }
 
 model VerificationCode {
@@ -47,67 +46,4 @@ model VerificationCode {
   email String @unique
 
   code String
-}
-
-model CarMake {
-  id Int @id @default(autoincrement())
-
-  name   String     @unique
-  models CarModel[]
-  Car    Car[]
-}
-
-model CarModel {
-  id Int @id @default(autoincrement())
-
-  make   CarMake @relation(fields: [makeId], references: [id])
-  makeId Int
-
-  name String
-  Car  Car[]
-
-  @@unique([makeId, name])
-}
-
-enum CarType {
-  USED
-  NEW
-}
-
-enum CarTransmission {
-  AUTOMATIC
-  MANUAL
-}
-
-enum CarCondition {
-  EXCELLENT
-  GOOD
-  NEEDS_WORK
-}
-
-model Car {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  seller      User   @relation(fields: [sellerEmail], references: [email])
-  sellerEmail String @unique
-
-  price       Int
-  mileage     Int
-  condition   CarCondition
-  photos      String[]
-  description String?
-
-  make     CarMake @relation(fields: [makeName], references: [name])
-  makeName String
-
-  model   CarModel @relation(fields: [modelId], references: [id])
-  modelId Int
-
-  generation   String?
-  transmission CarTransmission
-  type         CarType
-
-  productionYear String
 }

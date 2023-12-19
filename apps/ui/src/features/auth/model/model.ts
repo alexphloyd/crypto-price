@@ -1,7 +1,7 @@
 import { type Tab, type SignInProcess, type Step, type LoginProcess } from '@app/features/auth/model/types';
 import { tokenService } from '@app/shared/services';
-import { User } from '@prisma/client';
-import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { type User } from '@prisma/client';
+import { type PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 type AuthModel = {
   signInProcess: SignInProcess;

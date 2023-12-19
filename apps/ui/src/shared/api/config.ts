@@ -1,5 +1,1 @@
-export const FORCE_REFETCH = {
-  forceRefetch: true,
-};
-
-export const REFRESH_API_PATH = 'auth/refresh';
+export const REFRESH_TOKENS_API_PATH = 'auth/refresh';
