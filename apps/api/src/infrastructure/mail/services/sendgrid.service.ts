@@ -17,7 +17,7 @@ export class SendgridService {
       this.mailService.send({
         from: this.from,
         to: email,
-        subject: 'Welcome to Demure!',
+        subject: 'Welcome to crypto-price!',
         templateId: SEND_VERIFICATION_CODE_TEMPLATE,
         dynamicTemplateData: {
           code,
