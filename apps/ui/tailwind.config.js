@@ -6,6 +6,7 @@ module.exports = {
       exo: ['Exo', 'sans-serif'],
     },
   },
+
   plugins: [],
 
   important: '#root',

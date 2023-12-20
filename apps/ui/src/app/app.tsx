@@ -4,7 +4,7 @@ import { withProviders } from './providers/compose';
 import { appRouter } from './router/app-router';
 import { StrictMode } from 'react';
 
-import './styles.css';
+import './styles/index.css';
 
 const ComposedApp = withProviders(() => <RouterProvider router={appRouter()} />);
 

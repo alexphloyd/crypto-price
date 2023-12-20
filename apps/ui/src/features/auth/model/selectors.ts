@@ -1,4 +1,4 @@
-import { AppState } from '@app/app/store/types';
+import { type AppState } from '@app/app/store/types';
 import { createSelector } from '@reduxjs/toolkit';
 import { useSelector } from 'react-redux';
 

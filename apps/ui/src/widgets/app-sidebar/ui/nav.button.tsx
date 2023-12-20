@@ -43,7 +43,7 @@ export const NavigationButton = ({ path, label, icon }: Props) => {
       }
       type={isSelected ? 'dashed' : 'text'}
       size='middle'
-      className={twMerge('text-left my-[6px] items-center justify-center')}
+      className={twMerge('text-left my-[4px] items-center justify-center')}
       onClick={handleRoute}
     >
       <Typography.Text>{label}</Typography.Text>
