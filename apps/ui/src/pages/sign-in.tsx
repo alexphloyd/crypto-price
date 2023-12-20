@@ -13,7 +13,7 @@ export default function SignInPage() {
   );
 }
 
-const SignUpWelcomeLabel = () => {
+function SignUpWelcomeLabel() {
   return (
     <main className='text-center px-4'>
       <Typography.Paragraph className='text-[28px]'>Welcome to Crypto-price!</Typography.Paragraph>
@@ -22,9 +22,9 @@ const SignUpWelcomeLabel = () => {
       </Typography.Paragraph>
     </main>
   );
-};
+}
 
-const LoginWelcomeLabel = () => {
+function LoginWelcomeLabel() {
   return (
     <main className='text-center px-4'>
       <Typography.Paragraph className='text-[28px]'>Welcome to Crypto-price!</Typography.Paragraph>
@@ -33,4 +33,4 @@ const LoginWelcomeLabel = () => {
       </Typography.Paragraph>
     </main>
   );
-};
+}

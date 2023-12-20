@@ -23,7 +23,10 @@ export function withGuard(
   };
 }
 
-const isAccessGranted = (sessionRole: Role, permissibleRoles: ExcludeStrict<Role, (typeof SUPER_ROLES)[number]>[]) => {
+function isAccessGranted(
+  sessionRole: Role,
+  permissibleRoles: ExcludeStrict<Role, (typeof SUPER_ROLES)[number]>[],
+) {
   const allPermissibleRoles = [...SUPER_ROLES, ...permissibleRoles];
   return allPermissibleRoles.some((role) => role === sessionRole);
-};
+}

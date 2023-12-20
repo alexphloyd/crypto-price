@@ -51,6 +51,6 @@ export const NavigationButton = ({ path, label, icon }: Props) => {
   );
 };
 
-const isSelectedTopic = (currentPath: string, expectedPath: string) => {
+function isSelectedTopic(currentPath: string, expectedPath: string) {
   return currentPath === expectedPath;
-};
+}

@@ -34,10 +34,14 @@ export const SignUp = () => {
   };
 
   return step === 'credentials' ? (
-    <SignUpForm onSubmit={handleSignUp} isLoading={isSignUpLoading} error={(signUpError as BaseError)?.data?.message} />
+    <SignUpForm
+      onSubmit={handleSignUp}
+      isLoading={isSignUpLoading}
+      error={(signUpError as BaseError)?.data?.message}
+    />
   ) : (
     <VerificationForm
-      succesfullyVerified={verificationResponse?.verified ?? false}
+      successfullyVerified={!!verificationResponse?.verified}
       onSubmit={handleVerify}
       isLoading={isVerifyLoading}
       error={(verifyError as BaseError)?.data.message}
@@ -45,7 +49,7 @@ export const SignUp = () => {
   );
 };
 
-const SignUpForm = ({
+function SignUpForm({
   onSubmit,
   isLoading,
   error,
@@ -53,29 +57,36 @@ const SignUpForm = ({
   onSubmit: (credentials: z.infer<typeof SignUpSchemaExtended>) => Promise<void | OnSubmitResult>;
   isLoading: boolean;
   error?: string | undefined;
-}) => (
-  <Form
-    onSubmit={onSubmit}
-    schema={SignUpSchemaExtended}
-    errorMessage={error}
-    isLoading={isLoading}
-    submitText='Sign Up'
-    className='w-full'
-  >
-    <div className='flex flex-col gap-3  md:flex-row md:gap-4 items-center'>
-      <Input name='name' label='Your name' />
-      <Input name='surname' label='Surname' />
-    </div>
+}) {
+  return (
+    <Form
+      onSubmit={onSubmit}
+      schema={SignUpSchemaExtended}
+      errorMessage={error}
+      isLoading={isLoading}
+      submitText='Sign Up'
+      className='w-full'
+    >
+      <div className='flex flex-col gap-3  md:flex-row md:gap-4 items-center'>
+        <Input name='name' label='Your name' />
+        <Input name='surname' label='Surname' />
+      </div>
 
-    <PhoneInput name='phoneNumber' />
+      <PhoneInput name='phoneNumber' />
 
-    <NotificationProviderSelector name='notificationProvider' label='Notification messenger' />
+      <NotificationProviderSelector name='notificationProvider' label='Notification messenger' />
 
-    <Input name='email' type='email' label='Email' />
+      <Input name='email' type='email' label='Email' />
 
-    <div className='flex flex-col gap-x-3 gap-y-3 md:flex-row md:gap-x-4 items-center'>
-      <Input name='password' type='password' label='Password' />
-      <Input name='confirm' type='password' label='Confirm password' placeholder='confirm entered password' />
-    </div>
-  </Form>
-);
+      <div className='flex flex-col gap-x-3 gap-y-3 md:flex-row md:gap-x-4 items-center'>
+        <Input name='password' type='password' label='Password' />
+        <Input
+          name='confirm'
+          type='password'
+          label='Confirm password'
+          placeholder='confirm entered password'
+        />
+      </div>
+    </Form>
+  );
+}

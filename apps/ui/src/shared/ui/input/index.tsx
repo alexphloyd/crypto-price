@@ -44,7 +44,7 @@ export const Input = forwardRef<HTMLInputElement, Props>(
   },
 );
 
-export const Label = ({ label, error }: { label: string | undefined; error: string | undefined }) => {
+export function Label({ label, error }: { label: string | undefined; error: string | undefined }) {
   if (!label) return null;
 
   return (
@@ -52,4 +52,4 @@ export const Label = ({ label, error }: { label: string | undefined; error: stri
       {error ? label + ' ' + error : label}
     </Typography.Text>
   );
-};
+}

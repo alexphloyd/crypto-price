@@ -38,11 +38,7 @@ export const PhoneInput = ({ name, className }: Props) => {
         <main className={twMerge(className, 'flex flex-col gap-1 items-start min-w-full')}>
           <Label label='Phone number' error={error} />
           <div className='flex flex-col gap-x-3 gap-y-4 md:gap-y-0 md:gap-x-4 md:flex-row  w-full'>
-            <CountrySelector
-              countryOptions={COUNTRY_SELECTOR_OPTIONS}
-              onChange={handleCountryChange}
-              className='min-w-[48.5%]'
-            />
+            <CountrySelector countryOptions={COUNTRY_SELECTOR_OPTIONS} onChange={handleCountryChange} className='min-w-[48.5%]' />
             <TextFiled
               value={formattedValue || ''}
               onChange={({ target }) => {
@@ -65,4 +61,6 @@ export const PhoneInput = ({ name, className }: Props) => {
   );
 };
 
-const removeUnnecessarySymbols = (string: string) => string.replace(/[\s-]+/g, '');
+function removeUnnecessarySymbols(string: string) {
+  return string.replace(/[\s-]+/g, '');
+}

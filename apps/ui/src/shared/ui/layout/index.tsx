@@ -9,7 +9,7 @@ interface Props {
   isGlobalLoading: boolean;
 }
 
-export const Layout = ({ isGlobalLoading, showSidebar }: Props) => {
+export function Layout({ isGlobalLoading, showSidebar }: Props) {
   const [loadingSimulation, setLoadingSimulation] = useState(true);
 
   useEffect(() => {
@@ -45,16 +45,18 @@ export const Layout = ({ isGlobalLoading, showSidebar }: Props) => {
       )}
     </AnimatePresence>
   );
-};
+}
 
-const Loader = () => (
-  <motion.div
-    initial={{ opacity: 0, scale: 0 }}
-    animate={{ opacity: 1, scale: 1 }}
-    exit={{ opacity: 0 }}
-    transition={{ delay: 0.3 }}
-    className='fixed top-0 left-0 w-full h-full flex justify-center items-center'
-  >
-    <motion.div className='w-16 h-16 border-t-4 border-cyan-600 border-solid rounded-full animate-spin' />
-  </motion.div>
-);
+function Loader() {
+  return (
+    <motion.div
+      initial={{ opacity: 0, scale: 0 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ delay: 0.3 }}
+      className='fixed top-0 left-0 w-full h-full flex justify-center items-center'
+    >
+      <motion.div className='w-16 h-16 border-t-4 border-cyan-600 border-solid rounded-full animate-spin' />
+    </motion.div>
+  );
+}

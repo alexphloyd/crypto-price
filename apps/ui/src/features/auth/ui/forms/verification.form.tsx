@@ -11,19 +11,19 @@ import { z } from 'zod';
 export const VerificationForm = ({
   onSubmit,
   isLoading,
-  succesfullyVerified,
+  successfullyVerified,
   error,
 }: {
   onSubmit: (payload: z.infer<typeof VerificationSchemaExtended>) => Promise<void | OnSubmitResult>;
   isLoading: boolean;
-  succesfullyVerified: boolean;
+  successfullyVerified: boolean;
   error?: string | undefined;
 }) => {
   const dispatch = useAppDispatch();
   const [timeToSwitchTab, setTimeToSwitchTab] = useState(4);
 
   useEffect(() => {
-    if (!succesfullyVerified) return;
+    if (!successfullyVerified) return;
 
     const timeout = setInterval(() => {
       setTimeToSwitchTab((prev) => prev - 1);
@@ -35,9 +35,9 @@ export const VerificationForm = ({
       dispatch(authModel.actions.switchAuthProcessTab('log-in'));
     }
     return () => clearInterval(timeout);
-  }, [timeToSwitchTab, succesfullyVerified]);
+  }, [timeToSwitchTab, successfullyVerified]);
 
-  if (succesfullyVerified) {
+  if (successfullyVerified) {
     return (
       <section className='flex flex-col items-center justify-center'>
         <Typography.Text className='text-[16px]'>Your Account succesfully created!</Typography.Text>

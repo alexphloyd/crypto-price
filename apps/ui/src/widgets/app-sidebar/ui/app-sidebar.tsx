@@ -1,10 +1,10 @@
 import { sidebarModel } from '..';
 import { useEffect, useRef } from 'react';
-import { cva } from 'class-variance-authority';
 import { useAppDispatch } from '@app/app/store/hooks';
 import { AppNavigation } from './app-navigation';
 import { AppLogo } from './logo';
 import { AuthActions } from '@app/features/auth';
+import { barStyles } from './styles';
 
 export const AppSidebar = () => {
   const dispatch = useAppDispatch();
@@ -35,23 +35,10 @@ export const AppSidebar = () => {
   });
 
   return (
-    <main ref={barRef} className={styles({ show })}>
+    <main ref={barRef} className={barStyles({ show })}>
       <AppLogo className='mb-4' />
       <AppNavigation />
-
       <AuthActions />
     </main>
   );
 };
-
-const styles = cva(
-  'shadow-r-sm items-center fixed py-5 px-6 top-0 left-0 z-40 flex flex-col h-full border-r-[1px] border-gray-100/10  bg-white transition-transform duration-200 -translate-x-full min-w-fit rounded-r-[30px] overflow-hidden w-[52%] sm:w-[39%] md:w-[30%] lg:w-[19%] xl:w-[17%] 2xl:w-[15%]',
-  {
-    variants: {
-      show: {
-        true: 'translate-x-0',
-        false: 'lg:translate-x-0',
-      },
-    },
-  },
-);
