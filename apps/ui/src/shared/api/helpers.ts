@@ -1,10 +1,10 @@
-import { type UncalibratedQueryValue } from './types';
-
 export const isQueryParamValue = (value: unknown): boolean => {
   return typeof value === 'string' || typeof value === 'number';
 };
 
-export const createQueryParamsString = <T extends Record<string, UncalibratedQueryValue>>(params: T): URLSearchParams | null => {
+export const createQueryParamsString = <T extends Record<string, UncalibratedQueryValue>>(
+  params: T,
+): URLSearchParams | null => {
   const queryParams = {} as Record<keyof T, string>;
   for (const key in params) {
     const value = params[key] as UncalibratedQueryValue;
@@ -25,3 +25,5 @@ export const createQueryString = (data: any) => {
     })
     .join('&');
 };
+
+type UncalibratedQueryValue = string | number;
