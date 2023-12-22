@@ -1,3 +1,4 @@
+import { z } from 'zod';
 import { Form } from '@app/shared/ui/form';
 import { Input } from '@app/shared/ui/input';
 import { NotificationProviderSelector } from '@app/widgets/notification-provider-selector/ui';
@@ -6,7 +7,6 @@ import { authModel } from '@app/features/auth';
 import { useAppDispatch } from '@app/app/store/hooks';
 import { OnSubmitResult } from '@app/shared/ui/form/types';
 import { type BaseError } from '@api-types/errors/base';
-import { z } from 'zod';
 import { SignUpSchemaExtended, VerificationSchemaExtended } from '@app/features/auth/model';
 import { VerificationForm } from '@app/features/auth/ui/forms/verification.form';
 

@@ -11,6 +11,7 @@ export const Login = () => {
   const dispatch = useAppDispatch();
 
   const error = authModel.useLoginErrorMessage();
+  const isLoading = authModel.useIsLoginPending();
 
   const handleLogin = async (credentials: z.infer<typeof LoginSchema>) => {
     await dispatch(authModel.effects.login(credentials))
@@ -25,6 +26,7 @@ export const Login = () => {
       submitText='Log In'
       className='w-full'
       errorMessage={error}
+      isLoading={isLoading}
     >
       <Input name='email' type='email' label='Email' />
       <Input name='password' type='password' label='Password' />

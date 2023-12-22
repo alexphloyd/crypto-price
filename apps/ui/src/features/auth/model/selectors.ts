@@ -21,16 +21,16 @@ export const useAuthProcessTab = () =>
 export const useSignInProcessCredentials = () =>
   useSelector(
     createSelector(
-      (state: AppState) => state.auth,
-      (auth) => auth.signInProcess.credentials,
+      (state: AppState) => state.auth.signInProcess,
+      (process) => process.credentials,
     ),
   );
 
 export const useLoginErrorMessage = () =>
   useSelector(
     createSelector(
-      (state: AppState) => state.auth,
-      (auth) => auth.loginProcess.error,
+      (state: AppState) => state.auth.loginProcess,
+      (process) => process.error,
     ),
   );
 
@@ -38,6 +38,22 @@ export const useSession = () =>
   useSelector(
     createSelector(
       (state: AppState) => state.auth,
-      (auth) => auth.sessionUser,
+      (auth) => auth.session,
+    ),
+  );
+
+export const useIsSessionChecking = () =>
+  useSelector(
+    createSelector(
+      (state: AppState) => state.auth,
+      (auth) => auth.isSessionChecking,
+    ),
+  );
+
+export const useIsLoginPending = () =>
+  useSelector(
+    createSelector(
+      (state: AppState) => state.auth,
+      (auth) => auth.isLoginPending,
     ),
   );

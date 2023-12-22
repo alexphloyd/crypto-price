@@ -2,11 +2,15 @@ import { type Tab, type SignInProcess, type Step, type LoginProcess } from '@app
 import { tokenService } from '@app/shared/services';
 import { type User } from '@prisma/client';
 import { type PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { checkSession } from './effects/check-session';
+import { login } from './effects/login';
 
 type AuthModel = {
   signInProcess: SignInProcess;
   loginProcess: LoginProcess;
-  sessionUser: User | undefined;
+  session: User | undefined;
+  isSessionChecking: boolean;
+  isLoginPending: boolean;
 };
 
 const initialState: AuthModel = {
@@ -18,7 +22,9 @@ const initialState: AuthModel = {
   loginProcess: {
     error: undefined,
   },
-  sessionUser: undefined,
+  session: undefined,
+  isSessionChecking: false,
+  isLoginPending: false,
 };
 
 const authModel = createSlice({
@@ -34,7 +40,7 @@ const authModel = createSlice({
     },
 
     setSessionUser(state, action: PayloadAction<User>) {
-      state.sessionUser = action.payload;
+      state.session = action.payload;
     },
 
     setSignInProcessCredentials(state, action: PayloadAction<Partial<User>>) {
@@ -49,6 +55,29 @@ const authModel = createSlice({
       tokenService.resetAuthTokens();
       return initialState;
     },
+  },
+  extraReducers: (builder) => {
+    // check-session
+    builder.addCase(checkSession.pending, (state) => {
+      state.isSessionChecking = true;
+    });
+    builder.addCase(checkSession.fulfilled, (state) => {
+      state.isSessionChecking = false;
+    });
+    builder.addCase(checkSession.rejected, (state) => {
+      state.isSessionChecking = false;
+    });
+
+    // login
+    builder.addCase(login.pending, (state) => {
+      state.isLoginPending = true;
+    });
+    builder.addCase(login.fulfilled, (state) => {
+      state.isLoginPending = false;
+    });
+    builder.addCase(login.rejected, (state) => {
+      state.isLoginPending = false;
+    });
   },
 });
 
