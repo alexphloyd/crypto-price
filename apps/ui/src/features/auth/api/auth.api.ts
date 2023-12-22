@@ -5,7 +5,6 @@ import { type User } from '@prisma/client';
 import { type SessionResponse, type LoginResponse, type VerifyResponse } from '@api-types/domain/auth/types';
 import { SignUpSchema } from '@dto/auth/schemas/sign-up.schema';
 import { VerificationSchema } from '@dto/auth/schemas/verification.schema';
-import { authModel } from '@app/features/auth';
 
 export const authApi = coreApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -38,11 +37,6 @@ export const authApi = coreApi.injectEndpoints({
         url: 'auth/session',
         method: 'GET',
       }),
-      onQueryStarted: async (_arg, api) => {
-        await api.queryFulfilled.then(({ data }) => {
-          api.dispatch(authModel.actions.setSessionUser(data.user));
-        });
-      },
     }),
   }),
 });

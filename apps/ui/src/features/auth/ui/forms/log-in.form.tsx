@@ -19,7 +19,13 @@ export const Login = () => {
   };
 
   return (
-    <Form onSubmit={handleLogin} schema={LoginSchema} submitText='Log In' className='w-full' errorMessage={error}>
+    <Form
+      onSubmit={handleLogin}
+      schema={LoginSchema}
+      submitText='Log In'
+      className='w-full'
+      errorMessage={error}
+    >
       <Input name='email' type='email' label='Email' />
       <Input name='password' type='password' label='Password' />
     </Form>

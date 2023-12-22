@@ -14,6 +14,6 @@ export const coinsQuery: BaseQueryFn<
   object,
   FetchBaseQueryMeta
 > = fetchBaseQuery({
-  baseUrl: ENV_CONFIG.COINS_SERVICE_URL,
+  baseUrl: ENV_CONFIG.CRYPTO_SERVICE_URL,
   mode: 'cors',
 });

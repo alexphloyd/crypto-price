@@ -2,7 +2,7 @@
 
 interface ImportMetaEnv {
   readonly AUTH_SERVICE_URL: string;
-  readonly COINS_SERVICE_URL: string;
+  readonly CRYPTO_SERVICE_URL: string;
 }
 
 interface ImportMeta {
