@@ -1,8 +1,8 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
-import { authenticatedQuery } from '../base-queries/authenticated-query';
+import { coreQuery } from '../queries/core-query';
 
-export const authApi = createApi({
-  reducerPath: 'auth-api',
-  baseQuery: authenticatedQuery,
+export const coreApi = createApi({
+  reducerPath: 'core-api',
+  baseQuery: coreQuery,
   endpoints: () => ({}),
 });

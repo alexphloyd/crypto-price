@@ -1,13 +1,13 @@
 import { LoginSchema } from '@dto/auth/schemas/login.schema';
 import { z } from 'zod';
-import { authApi as authApiService } from '@app/shared/api';
+import { coreApi } from '@app/shared/api';
 import { type User } from '@prisma/client';
 import { type SessionResponse, type LoginResponse, type VerifyResponse } from '@api-types/domain/auth/types';
 import { SignUpSchema } from '@dto/auth/schemas/sign-up.schema';
 import { VerificationSchema } from '@dto/auth/schemas/verification.schema';
 import { authModel } from '@app/features/auth';
 
-export const authApi = authApiService.injectEndpoints({
+export const authApi = coreApi.injectEndpoints({
   endpoints: (builder) => ({
     signUp: builder.mutation<Awaited<User>, z.infer<typeof SignUpSchema>>({
       query: (body) => ({

@@ -33,7 +33,7 @@ export const queryWithAuthTokens: BaseQueryFn<
   },
 });
 
-export const authenticatedQuery: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError> = async (
+export const coreQuery: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError> = async (
   args,
   api,
   extraOptions,
