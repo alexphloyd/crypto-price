@@ -2,7 +2,7 @@ export type CoinMarketOverview = {
   id: string;
   symbol: string;
   name: string;
-  image: string;
+  image: ImageSrcUrl;
   current_price: number;
   market_cap: number;
   market_cap_rank: number;

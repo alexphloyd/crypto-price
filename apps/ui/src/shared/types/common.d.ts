@@ -11,3 +11,5 @@ declare type ElementsPerPage = string;
 declare type PageNumber = string;
 
 declare type DateTimeString = string;
+
+declare type ImageSrcUrl = string;
