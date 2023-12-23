@@ -1,6 +1,5 @@
 import { FunctionComponent } from 'react';
 import { Navigate } from 'react-router-dom';
-import { type RoutePath } from '@app/shared/types';
 import { type ExcludeStrict } from '@utils/types';
 import { type Role } from '@prisma/client';
 import { authModel } from '@app/features/auth';

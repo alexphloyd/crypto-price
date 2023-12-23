@@ -1,5 +1,5 @@
 import * as model from './model';
-import * as api from './api/auth.api';
+import * as api from './api/api.endpoints';
 
 // model
 export const authModel = {

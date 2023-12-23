@@ -1,4 +1,4 @@
-export type CoinDetails = {
+export type CoinMarketOverview = {
   id: string;
   symbol: string;
   name: string;
@@ -24,5 +24,5 @@ export type CoinDetails = {
   atl_change_percentage: number;
   atl_date: string;
   roi: null;
-  last_updated: string;
+  last_updated: DateTimeString;
 };

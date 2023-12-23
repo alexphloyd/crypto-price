@@ -1,5 +1,4 @@
 import { useAppDispatch } from '@app/app/store/hooks';
-import { type RoutePath } from '@app/shared/types';
 import { useEffect, useState } from 'react';
 import { Icon } from '@app/shared/ui/icon';
 import { useLocation, useNavigate } from 'react-router';

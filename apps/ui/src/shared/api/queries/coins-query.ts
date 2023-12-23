@@ -16,4 +16,9 @@ export const coinsQuery: BaseQueryFn<
 > = fetchBaseQuery({
   baseUrl: ENV_CONFIG.CRYPTO_SERVICE_URL,
   mode: 'cors',
+  prepareHeaders: (headers, api) => {
+    headers.set('Content-Type', 'application/json');
+    headers.set('x-cg-demo-api-key', ENV_CONFIG.CRYPTO_SERVICE_KEY);
+    return headers;
+  },
 });

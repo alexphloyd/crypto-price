@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { authApi } from '@app/features/auth/api/auth.api';
+import { authApi } from '@app/features/auth/api/api.endpoints';
 import { authModel } from '../..';
 
 export const checkSession = createAsyncThunk('auth/check-session', async (_args, { dispatch }) => {

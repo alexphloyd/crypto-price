@@ -1,4 +1,3 @@
-import { ErrorMessage } from '@app/shared/types';
 import { User } from '@prisma/client';
 
 export type Tab = 'sign-up' | 'log-in';

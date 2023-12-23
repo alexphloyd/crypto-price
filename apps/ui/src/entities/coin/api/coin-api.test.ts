@@ -1,6 +1,7 @@
-import { coinApi } from './coin-api';
+import { coinApi } from './api.endpoints';
 import { describe, it } from 'vitest';
 import { appStore } from '@app/app/store/app-store';
+
 describe('coin-api', async () => {
   it('get-markets', async () => {
     appStore.dispatch(
@@ -10,9 +11,11 @@ describe('coin-api', async () => {
         page: '1',
         per_page: '50',
         locale: 'en',
+        sparkline: 'false',
+        precision: 'full',
       }),
     );
     const queries = await Promise.all(appStore.dispatch(coinApi.util.getRunningQueriesThunk()));
-    console.log(queries[0].error.data);
+    expect(queries[0].data).toBeDefined();
   });
 });

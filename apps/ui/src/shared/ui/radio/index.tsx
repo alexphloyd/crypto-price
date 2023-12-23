@@ -1,4 +1,3 @@
-import { type IconName } from '@app/shared/types';
 import { twMerge } from 'tailwind-merge';
 import { useMemo, useState } from 'react';
 import { Icon } from '../icon';
@@ -27,7 +26,11 @@ export const Radio = <O extends RadioOptions>({ options, onChange, defaultChecke
     ));
   }, [selected]);
 
-  return <main className={twMerge(className, 'w-full flex flex-row items-center justify-center gap-x-4')}>{list}</main>;
+  return (
+    <main className={twMerge(className, 'w-full flex flex-row items-center justify-center gap-x-4')}>
+      {list}
+    </main>
+  );
 };
 
 function Button({
@@ -45,7 +48,10 @@ function Button({
 }) {
   return (
     <AntdButton
-      className={twMerge('flex items-center justify-center py-7 px-6 w-full', selected ? 'bg-cyan-100/80' : 'bg-gray-50/00')}
+      className={twMerge(
+        'flex items-center justify-center py-7 px-6 w-full',
+        selected ? 'bg-cyan-100/80' : 'bg-gray-50/00',
+      )}
       type='dashed'
       onClick={() => onClick(value)}
     >

@@ -1,5 +1,5 @@
 import { PHONE_NUMBER_FORMATS } from './formats.constants';
-import { type Country, type PhoneNumber } from '../../types';
+import { type Country } from '../../types';
 
 const LINKING_SYMBOL = '-';
 const SPACE = ' ';
