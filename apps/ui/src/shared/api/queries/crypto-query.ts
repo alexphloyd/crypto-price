@@ -7,7 +7,7 @@ import {
 import { fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { ENV_CONFIG } from '@app/shared/config';
 
-export const coinsQuery: BaseQueryFn<
+export const cryptoQuery: BaseQueryFn<
   string | FetchArgs,
   unknown,
   FetchBaseQueryError,

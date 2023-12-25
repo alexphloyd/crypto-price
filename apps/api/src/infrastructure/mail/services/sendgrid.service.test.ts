@@ -6,6 +6,11 @@ import { lastValueFrom } from 'rxjs';
 import { SENDGRID_SERVICE } from '@app/infrastructure/mail/config/constants';
 import { ConfigModule } from '@nestjs/config';
 
+const TEST_USER = {
+  email: 'alexphloyd@gmail.com',
+};
+const MESSAGE = { code: generateVerificationCode(), email: TEST_USER.email };
+
 describe('SendgridService', () => {
   let service: SendgridService;
   let mailService: MailService;
@@ -43,8 +48,3 @@ describe('SendgridService', () => {
     expect(sendSpy).toBeCalledTimes(1);
   });
 });
-1;
-const TEST_USER = {
-  email: 'alexphloyd@gmail.com',
-};
-const MESSAGE = { code: generateVerificationCode(), email: TEST_USER.email };

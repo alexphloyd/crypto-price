@@ -15,6 +15,15 @@ import { SENDGRID_SERVICE } from '@app/infrastructure/mail/config/constants';
 import { AuthService } from '@app/domain/auth/services/auth.service';
 import { AuthController } from '@app/domain/auth/controller/auth.controller';
 
+const TEST_USER = {
+  email: 'alexborysovdev@gmail.com',
+  name: 'alex',
+  notificationProvider: 'TELEGRAM' as NotificationProvider,
+  password: 'long-password',
+  phoneNumber: '48562933119',
+  surname: 'surname',
+};
+
 describe('auth-controller', () => {
   let authController: AuthController;
   let authService: AuthService;
@@ -100,12 +109,3 @@ describe('auth-controller', () => {
     }
   });
 });
-
-const TEST_USER = {
-  email: 'alexborysovdev@gmail.com',
-  name: 'alex',
-  notificationProvider: 'TELEGRAM' as NotificationProvider,
-  password: 'long-password',
-  phoneNumber: '48562933119',
-  surname: 'surname',
-};
