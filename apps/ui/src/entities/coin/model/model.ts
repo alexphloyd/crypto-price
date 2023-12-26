@@ -4,13 +4,19 @@ import { getMarkets } from './effects/get-markets';
 
 export interface ModelState {
   marketsOverview: {
-    base: CoinMarketsOverview[];
-    personal: CoinMarketsOverview[];
+    data: {
+      global: CoinMarketsOverview[];
+      personal: CoinMarketsOverview[];
+    };
+    filters: {
+      global: unknown; // no filters yet
+      personal: unknown;
+    };
   };
 
   effects: {
     getMarkets: {
-      base: {
+      global: {
         status: EffectStatus;
         error: ErrorMessage;
       };
@@ -24,13 +30,19 @@ export interface ModelState {
 
 const initialState: ModelState = {
   marketsOverview: {
-    base: [],
-    personal: [],
+    data: {
+      global: [],
+      personal: [],
+    },
+    filters: {
+      global: [],
+      personal: [],
+    },
   },
 
   effects: {
     getMarkets: {
-      base: {
+      global: {
         status: 'idle',
         error: undefined,
       },
@@ -47,19 +59,19 @@ export const coinModel = createSlice({
   name: 'coin-model',
   reducers: {},
   extraReducers: (builder) => {
-    // GET-MARKETS
+    // get-markets
     builder.addCase(getMarkets.pending, (state, { meta }) => {
-      state.effects.getMarkets[meta.arg.type].status = meta.requestStatus;
+      state.effects.getMarkets[meta.arg.mode].status = meta.requestStatus;
     });
 
     builder.addCase(getMarkets.fulfilled, (state, { meta, payload }) => {
-      state.effects.getMarkets[meta.arg.type].status = meta.requestStatus;
-      state.marketsOverview[meta.arg.type] = payload ?? [];
+      state.effects.getMarkets[meta.arg.mode].status = meta.requestStatus;
+      state.marketsOverview.data[meta.arg.mode] = payload ?? [];
     });
 
     builder.addCase(getMarkets.rejected, (state, { meta, payload }) => {
-      state.effects.getMarkets[meta.arg.type].status = meta.requestStatus;
-      state.effects.getMarkets[meta.arg.type].error = payload;
+      state.effects.getMarkets[meta.arg.mode].status = meta.requestStatus;
+      state.effects.getMarkets[meta.arg.mode].error = payload;
     });
   },
 });

@@ -1,4 +1,5 @@
 export interface GetMarketsParams {
+  ids?: string;
   vs_currency: Currency;
   category?: CoinCategory;
   order: 'market_cap_asc' | 'market_cap_desc' | 'volume_asc' | 'volume_desc' | 'id_asc' | 'id_desc';

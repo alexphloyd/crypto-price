@@ -1,1 +1,1 @@
-export * from './instances/auth-api';
+export * from './instances/core-api';

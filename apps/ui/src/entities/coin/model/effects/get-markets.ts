@@ -5,27 +5,17 @@ import { coinApi } from '../../api/api.endpoints';
 import { type CoinMarketsOverview } from '../types/core';
 
 export const getMarkets = createAsyncThunk<
-  CoinMarketsOverview[] | undefined | void,
-  { type: keyof CoinModelState['marketsOverview']; queryArgs: GetMarketsParams },
-  {
-    rejectValue: ErrorMessage;
-  }
->('coin-model/get-markets', async ({ type, queryArgs }, { dispatch, rejectWithValue, fulfillWithValue }) => {
-  let data: CoinMarketsOverview[] | undefined;
-  let error: unknown;
-
-  if (type === 'base') {
-    const { data: queryRes, error: queryError } = await dispatch(
-      coinApi.endpoints.getMarkets.initiate(queryArgs, { forceRefetch: true }),
-    );
-    data = queryRes;
-    error = queryError;
-  }
+  CoinMarketsOverview[] | undefined,
+  { mode: keyof CoinModelState['marketsOverview']['data']; queryArgs: GetMarketsParams },
+  { rejectValue: ErrorMessage }
+>('coin-model/get-markets', async ({ mode, queryArgs }, { dispatch, rejectWithValue, fulfillWithValue }) => {
+  const { data, error } = await dispatch(
+    coinApi.endpoints.getMarkets.initiate(queryArgs, { forceRefetch: true }),
+  );
 
   if (error) {
     const msg = typeof error === 'string' ? error : 'Crypto API is getting coffee.. Please, call again later';
     return rejectWithValue(msg);
   }
-
   return fulfillWithValue(data);
 });

@@ -4,19 +4,25 @@ import { Typography } from 'antd';
 import { useEffect } from 'react';
 
 interface Props {
-  type: keyof CoinModelState['marketsOverview'];
+  mode: keyof CoinModelState['marketsOverview']['data'];
 }
 
-export function MarketsOverview({ type }: Props) {
+export function MarketsOverview({ mode }: Props) {
   const dispatch = useAppDispatch();
 
-  const markets = coinModel.useMarketsOverview(type);
-  const effect = coinModel.useEffectState('getMarkets')[type];
+  const markets = coinModel.useMarketsOverview({
+    subject: 'data',
+    mode,
+  });
+  const effect = coinModel.useEffectState({
+    effect: 'getMarkets',
+    mode,
+  });
 
   useEffect(() => {
     dispatch(
       coinModel.effects.getMarkets({
-        type,
+        mode,
         queryArgs: {
           vs_currency: 'usd',
           order: 'market_cap_desc',
@@ -40,7 +46,11 @@ export function MarketsOverview({ type }: Props) {
 
   return (
     <ul className='flex flex-col gap-2'>
-      {markets?.map(({ name, market_cap }) => <Typography.Text>{name}</Typography.Text>)}
+      {markets?.map(({ name, market_cap }) => (
+        <Typography.Text>
+          {name}: {market_cap}
+        </Typography.Text>
+      ))}
     </ul>
   );
 }
