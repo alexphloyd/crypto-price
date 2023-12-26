@@ -5,13 +5,13 @@ import { type PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { checkSession } from './effects/check-session';
 import { login } from './effects/login';
 
-type AuthModel = {
+interface AuthModel {
   signInProcess: SignInProcess;
   loginProcess: LoginProcess;
   session: User | undefined;
   isSessionChecking: boolean;
   isLoginPending: boolean;
-};
+}
 
 const initialState: AuthModel = {
   signInProcess: {

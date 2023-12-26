@@ -34,7 +34,7 @@ export function SignIn() {
       items={TAB_OPTIONS}
       activeKey={activeTab}
       onChange={(key: string) => handleChangeTab(key as TypeOfValue<SignInProcess, 'tab'>)}
-      className='w-full sm:w-[80%] md:w-[70%] lg:w-[54%] xl:w-[45%] 2xl:w-[45%]'
+      className='w-full sm:w-[80%] md:w-[78%] lg:w-[74%] xl:w-[63%] 2xl:w-[45%]'
     />
   );
 }

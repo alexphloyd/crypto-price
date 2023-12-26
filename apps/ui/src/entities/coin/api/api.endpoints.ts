@@ -1,11 +1,11 @@
 import { cryptoApi } from '@app/shared/api/instances/crypto-api';
 import { createQueryString } from '@app/shared/lib';
-import { type CoinMarketOverview } from '../model/types/core';
+import { type CoinMarketsOverview } from '../model/types/core';
 import { type GetMarketsParams } from './api.interface';
 
 export const coinApi = cryptoApi.injectEndpoints({
   endpoints: (builder) => ({
-    getMarkets: builder.query<CoinMarketOverview[], GetMarketsParams>({
+    getMarkets: builder.query<CoinMarketsOverview[], GetMarketsParams>({
       query: (params) => ({
         url: createQueryString({ url: 'coins/markets', params }),
         method: 'GET',
@@ -13,3 +13,5 @@ export const coinApi = cryptoApi.injectEndpoints({
     }),
   }),
 });
+
+export const { getMarkets } = coinApi.endpoints;

@@ -1,3 +1,4 @@
+import { coinModel } from '@app/entities/coin';
 import { authModel } from '@app/features/auth';
 import { coreApi } from '@app/shared/api';
 import { cryptoApi } from '@app/shared/api/instances/crypto-api';
@@ -9,5 +10,7 @@ export const reducer = combineReducers({
   [cryptoApi.reducerPath]: cryptoApi.reducer,
 
   [sidebarModel.name]: sidebarModel.reducer,
+
   [authModel.name]: authModel.reducer,
+  [coinModel.name]: coinModel.reducer,
 });

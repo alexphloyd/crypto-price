@@ -34,7 +34,7 @@ export function Layout({ isGlobalLoading, showSidebar }: Props) {
           <section
             className={twMerge(
               showSidebar && 'blur-[3px] overflow-hidden pointer-events-none',
-              'flex-auto min-h-screen bg-white px-[3.5%] lg:pl-[19%] xl:pl-[17%] 2xl:pl-[15%] pt-11 pb-16 md:pt-10',
+              'flex-auto min-h-screen bg-white px-[5%] lg:pl-[27%] xl:pl-[24%] 2xl:pl-[20%] pb-16 pt-12 lg:pt-10',
             )}
           >
             <Outlet />

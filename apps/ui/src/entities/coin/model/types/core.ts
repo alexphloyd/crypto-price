@@ -1,4 +1,4 @@
-export type CoinMarketOverview = {
+export type CoinMarketsOverview = {
   id: string;
   symbol: string;
   name: string;

@@ -13,3 +13,5 @@ declare type PageNumber = string;
 declare type DateTimeString = string;
 
 declare type ImageSrcUrl = string;
+
+declare type EffectStatus = 'idle' | 'pending' | 'fulfilled' | 'rejected';
