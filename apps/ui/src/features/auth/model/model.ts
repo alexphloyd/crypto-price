@@ -6,14 +6,18 @@ import { checkSession } from './effects/check-session';
 import { login } from './effects/login';
 
 interface AuthModel {
+  session: User | undefined;
+
   signInProcess: SignInProcess;
   loginProcess: LoginProcess;
-  session: User | undefined;
+
   isSessionChecking: boolean;
   isLoginPending: boolean;
 }
 
 const initialState: AuthModel = {
+  session: undefined,
+
   signInProcess: {
     step: 'credentials',
     tab: 'sign-up',
@@ -22,7 +26,7 @@ const initialState: AuthModel = {
   loginProcess: {
     error: undefined,
   },
-  session: undefined,
+
   isSessionChecking: false,
   isLoginPending: false,
 };

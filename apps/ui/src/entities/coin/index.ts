@@ -9,7 +9,8 @@ const { name, reducer, actions } = model;
 export const coinModel = {
   name,
   reducer,
-  ...actions,
+
+  actions,
 
   api: {
     getMarkets,
