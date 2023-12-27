@@ -1,6 +1,6 @@
 import { type CoinModelState } from '@app/entities/coin';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { GetMarketsParams } from '../../api/api.interface';
+import { type GetMarketsParams } from '../../api/api.interface';
 import { coinApi } from '../../api/api.endpoints';
 import { type CoinMarketsOverview } from '../types/core';
 

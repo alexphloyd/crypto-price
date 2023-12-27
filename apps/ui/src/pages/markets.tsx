@@ -1,6 +1,6 @@
 import { MarketsOverview } from '@app/entities/coin';
 
-export default function Home() {
+export default function Markets() {
   return (
     <main className='flex flex-row'>
       <MarketsOverview mode='global' />

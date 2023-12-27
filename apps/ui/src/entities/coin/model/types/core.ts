@@ -26,3 +26,8 @@ export type CoinMarketsOverview = {
   roi: null;
   last_updated: DateTimeString;
 };
+
+export type CoinCategory = {
+  category_id: CoinCategoryId;
+  name: CoinCategoryName;
+};

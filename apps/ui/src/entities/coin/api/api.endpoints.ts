@@ -1,6 +1,6 @@
 import { cryptoApi } from '@app/shared/api/instances/crypto-api';
 import { createQueryString } from '@app/shared/lib';
-import { type CoinMarketsOverview } from '../model/types/core';
+import { CoinCategory, type CoinMarketsOverview } from '../model/types/core';
 import { type GetMarketsParams } from './api.interface';
 
 export const coinApi = cryptoApi.injectEndpoints({
@@ -11,7 +11,14 @@ export const coinApi = cryptoApi.injectEndpoints({
         method: 'GET',
       }),
     }),
+
+    getCategories: builder.query<CoinCategory[], void>({
+      query: () => ({
+        url: createQueryString({ url: 'coins/categories/list' }),
+        method: 'GET',
+      }),
+    }),
   }),
 });
 
-export const { getMarkets } = coinApi.endpoints;
+export const { getMarkets, getCategories } = coinApi.endpoints;

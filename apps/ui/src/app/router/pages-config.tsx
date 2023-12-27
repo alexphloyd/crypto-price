@@ -1,11 +1,11 @@
 import AccessDenied from '@app/pages/access-denied';
 // import { withGuard } from './with-guard';
 
-import Home from '@app/pages/home';
+import Markets from '@app/pages/markets';
 import SignIn from '@app/pages/sign-in';
 
 export const Pages = {
-  Home,
+  Markets,
 
   // Auth
   SignIn,

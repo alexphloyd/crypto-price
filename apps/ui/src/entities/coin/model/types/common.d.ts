@@ -1,4 +1,5 @@
-declare type CoinCategory = string;
+declare type CoinCategoryId = string;
+declare type CoinCategoryName = string;
 
 declare type CoinPricePrecision =
   | 'full'

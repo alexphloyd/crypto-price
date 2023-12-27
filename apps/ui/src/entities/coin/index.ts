@@ -1,5 +1,5 @@
 import { coinModel as model } from './model/model';
-import { getMarkets } from './api/api.endpoints';
+import { getMarkets, getCategories } from './api/api.endpoints';
 import { getMarkets as getMarketsEffect } from './model/effects/get-markets';
 import * as selectors from './model/selectors';
 
@@ -12,6 +12,7 @@ export const coinModel = {
 
   api: {
     getMarkets,
+    getCategories,
   },
 
   effects: {

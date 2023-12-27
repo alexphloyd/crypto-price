@@ -12,12 +12,7 @@ export const appRouter = () =>
         // BOARDS
         {
           path: '/',
-          element: <Pages.Home />,
-        },
-
-        {
-          path: '/your-cars',
-          element: <Pages.Home />,
+          element: <Pages.Markets />,
         },
 
         // AUTH
@@ -33,21 +28,19 @@ export const appRouter = () =>
         // ACCOUNT
         {
           path: '/profile',
-          element: <Pages.Home />,
+          element: <Pages.Markets />,
         },
         {
           path: '/settings',
-          element: <Pages.Home />,
+          element: <Pages.Markets />,
         },
 
         // SUPPORT
         {
           path: '/contact-us',
-          element: <Pages.Home />,
+          element: <Pages.Markets />,
         },
       ],
     },
-    {
-      
-    }
+    {},
   ]);

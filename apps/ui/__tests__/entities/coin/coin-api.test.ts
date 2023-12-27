@@ -48,4 +48,9 @@ describe('coin-api', async () => {
       expect(markets[0].id).toStrictEqual(specificCoinId);
     }
   });
+
+  it('get-categories', async () => {
+    const { data: categories } = await store.dispatch(coinModel.api.getCategories.initiate());
+    expect(categories).toBeDefined();
+  });
 });
