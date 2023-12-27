@@ -1,4 +1,4 @@
-export type CoinMarketsOverview = {
+export type MarketOverview = {
   id: string;
   symbol: string;
   name: string;
@@ -27,9 +27,9 @@ export type CoinMarketsOverview = {
   last_updated: DateTimeString;
 };
 
-export type CoinCategory = {
-  id: CoinCategoryId;
-  name: CoinCategoryName;
+export type MarketCategory = {
+  id: CategoryId;
+  name: CategoryName;
 
   market_cap: number;
   market_cap_change_24h: number;

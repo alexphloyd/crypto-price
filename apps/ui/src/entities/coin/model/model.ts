@@ -1,40 +1,7 @@
-import { type CoinCategory, type CoinMarketsOverview } from './types/core';
 import { createSlice } from '@reduxjs/toolkit';
 import { getMarkets } from './effects/get-markets';
 import { getCategories } from './effects/get-categories';
-
-export interface ModelState {
-  categories: CoinCategory[];
-
-  marketsOverview: {
-    data: {
-      global: CoinMarketsOverview[];
-      personal: CoinMarketsOverview[];
-    };
-    filters: {
-      global: unknown; // no filters yet
-      personal: unknown;
-    };
-  };
-
-  effects: {
-    getMarkets: {
-      global: {
-        status: EffectStatus;
-        error: ErrorMessage;
-      };
-      personal: {
-        status: EffectStatus;
-        error: ErrorMessage;
-      };
-    };
-
-    getCategories: {
-      status: EffectStatus;
-      error: ErrorMessage;
-    };
-  };
-}
+import { type ModelState } from './types/model-state';
 
 const initialState: ModelState = {
   categories: [],
@@ -45,8 +12,8 @@ const initialState: ModelState = {
       personal: [],
     },
     filters: {
-      global: [],
-      personal: [],
+      global: { order: 'market_cap_desc', category: null },
+      personal: { order: 'market_cap_desc', category: null },
     },
   },
 
