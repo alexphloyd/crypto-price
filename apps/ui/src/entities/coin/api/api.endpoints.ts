@@ -14,7 +14,7 @@ export const coinApi = cryptoApi.injectEndpoints({
 
     getCategories: builder.query<CoinCategory[], void>({
       query: () => ({
-        url: createQueryString({ url: 'coins/categories/list' }),
+        url: createQueryString({ url: 'coins/categories' }),
         method: 'GET',
       }),
     }),

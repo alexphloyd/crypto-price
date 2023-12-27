@@ -1,4 +1,4 @@
-export interface GetMarketsParams {
+export type GetMarketsParams = {
   ids?: string;
   vs_currency: Currency;
   category?: CoinCategoryId;
@@ -8,4 +8,4 @@ export interface GetMarketsParams {
   sparkline?: 'true' | 'false';
   precision?: CoinPricePrecision;
   locale: Locale;
-}
+};

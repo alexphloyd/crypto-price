@@ -28,6 +28,15 @@ export type CoinMarketsOverview = {
 };
 
 export type CoinCategory = {
-  category_id: CoinCategoryId;
+  id: CoinCategoryId;
   name: CoinCategoryName;
+
+  market_cap: number;
+  market_cap_change_24h: number;
+
+  content: string;
+  top_3_coins: Array<ImageSrcUrl>;
+
+  volume_24h: number;
+  updated_at: DateTimeString;
 };
