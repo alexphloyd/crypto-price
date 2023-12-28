@@ -19,6 +19,8 @@ export function MarketsOverview({ mode }: Props) {
     mode,
   });
 
+  dispatch(coinModel.actions.setMarketFilter({ mode: 'global', key: 'category', value: {} }));
+
   useEffect(() => {
     dispatch(
       coinModel.effects.getMarkets({

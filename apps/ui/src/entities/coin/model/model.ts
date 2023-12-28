@@ -1,7 +1,8 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { type PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { getMarkets } from './effects/get-markets';
 import { getCategories } from './effects/get-categories';
 import { type ModelState } from './types/model-state';
+import { MarketsFilter } from './types/markets-filter';
 
 const initialState: ModelState = {
   categories: [],
@@ -39,7 +40,25 @@ const initialState: ModelState = {
 export const coinModel = createSlice({
   initialState,
   name: 'coin-model',
-  reducers: {},
+  reducers: {
+    setMarketFilter<K extends keyof MarketsFilter>(
+      state: typeof initialState,
+      action: {
+        payload: {
+          mode: keyof ModelState['marketsOverview']['filters'];
+          key: K;
+          value: MarketsFilter[K];
+        };
+      },
+    ) {
+      const { mode, key, value } = action.payload;
+      const current = state.marketsOverview.filters[mode];
+      state.marketsOverview.filters[mode] = {
+        ...current,
+        [key]: value,
+      };
+    },
+  },
   extraReducers: (builder) => {
     // get-markets
     builder.addCase(getMarkets.pending, (state, { meta }) => {
