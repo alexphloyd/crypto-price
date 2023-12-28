@@ -1,4 +1,3 @@
-import { type CoinModelState } from '@app/entities/coin';
 import { type GetMarketsParams } from '../../api/api.interface';
 import { type MarketOverview } from '../types/core';
 import { createAsyncThunk } from '@reduxjs/toolkit';
@@ -7,17 +6,20 @@ import { CRYPTO_API_ERROR_MESSAGE } from '@app/shared/api/config/crypto-api-erro
 
 export const getMarkets = createAsyncThunk<
   MarketOverview[],
-  { mode: keyof CoinModelState['marketsOverview']['data']; queryArgs: GetMarketsParams },
+  { instanceKey: InstanceKey; queryArgs: GetMarketsParams },
   { rejectValue: ErrorMessage }
->('coin-model/get-markets', async ({ mode, queryArgs }, { dispatch, rejectWithValue, fulfillWithValue }) => {
-  const { data: markets, error } = await dispatch(
-    coinApi.endpoints.getMarkets.initiate(queryArgs, { forceRefetch: true }),
-  );
+>(
+  'coin-model/get-markets',
+  async ({ queryArgs }, { dispatch, rejectWithValue, fulfillWithValue }) => {
+    const { data: markets, error } = await dispatch(
+      coinApi.endpoints.getMarkets.initiate(queryArgs, { forceRefetch: true }),
+    );
 
-  if (error) {
-    const msg = typeof error === 'string' ? error : CRYPTO_API_ERROR_MESSAGE;
-    return rejectWithValue(msg);
-  }
+    if (error) {
+      const msg = typeof error === 'string' ? error : CRYPTO_API_ERROR_MESSAGE;
+      return rejectWithValue(msg);
+    }
 
-  return fulfillWithValue(markets ?? []);
-});
+    return fulfillWithValue(markets ?? []);
+  },
+);

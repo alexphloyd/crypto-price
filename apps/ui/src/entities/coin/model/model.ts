@@ -1,92 +1,86 @@
 import { type PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { getMarkets } from './effects/get-markets';
 import { getCategories } from './effects/get-categories';
-import { type ModelState } from './types/model-state';
-import { MarketsFilter } from './types/markets-filter';
+import { type MarketsInstance, type ModelState } from './types/model-state';
+import { type MarketsFilter } from './types/markets-filter';
 
-const initialState: ModelState = {
-  categories: [],
-
-  marketsOverview: {
-    data: {
-      global: [],
-      personal: [],
-    },
-    filters: {
-      global: { order: 'market_cap_desc', category: null },
-      personal: { order: 'market_cap_desc', category: null },
-    },
-  },
-
-  effects: {
-    getMarkets: {
-      global: {
-        status: 'idle',
-        error: undefined,
-      },
-      personal: {
-        status: 'idle',
-        error: undefined,
-      },
-    },
-
-    getCategories: {
+const initialState = {
+  categories: {
+    data: [],
+    getCategoriesEffect: {
       status: 'idle',
       error: undefined,
     },
   },
-};
+  markets: {},
+} as ModelState;
 
 export const coinModel = createSlice({
   initialState,
   name: 'coin-model',
   reducers: {
+    createMarketsInstance(state, action: PayloadAction<InstanceKey>) {
+      const instanceKey = action.payload;
+      state.markets[instanceKey] = {
+        data: [],
+        filters: {
+          order: 'market_cap_desc',
+          category: null,
+        },
+        getMarketsEffect: {
+          status: 'idle',
+          error: undefined,
+        },
+      } as MarketsInstance;
+    },
+
     setMarketFilter<K extends keyof MarketsFilter>(
       state: typeof initialState,
-      action: {
-        payload: {
-          mode: keyof ModelState['marketsOverview']['filters'];
-          key: K;
-          value: MarketsFilter[K];
-        };
-      },
+      action: PayloadAction<{
+        uniqueKey: string;
+        key: K;
+        value: MarketsFilter[K];
+      }>,
     ) {
-      const { mode, key, value } = action.payload;
-      const current = state.marketsOverview.filters[mode];
-      state.marketsOverview.filters[mode] = {
-        ...current,
-        [key]: value,
-      };
+      const { uniqueKey, key, value } = action.payload;
+      const instance = state.markets[uniqueKey];
+
+      if (instance) {
+        state.markets[uniqueKey].filters = {
+          ...instance.filters,
+          [key]: value,
+        };
+      }
     },
   },
   extraReducers: (builder) => {
     // get-markets
     builder.addCase(getMarkets.pending, (state, { meta }) => {
-      state.effects.getMarkets[meta.arg.mode].status = meta.requestStatus;
+      state.markets[meta.arg.instanceKey].getMarketsEffect.status = meta.requestStatus;
     });
 
     builder.addCase(getMarkets.fulfilled, (state, { meta, payload }) => {
-      state.effects.getMarkets[meta.arg.mode].status = meta.requestStatus;
-      state.marketsOverview.data[meta.arg.mode] = payload;
+      state.markets[meta.arg.instanceKey].getMarketsEffect.status = meta.requestStatus;
+      state.markets[meta.arg.instanceKey].data = payload;
     });
 
     builder.addCase(getMarkets.rejected, (state, { meta, payload }) => {
-      state.effects.getMarkets[meta.arg.mode].status = meta.requestStatus;
-      state.effects.getMarkets[meta.arg.mode].error = payload;
+      state.markets[meta.arg.instanceKey].getMarketsEffect.status = meta.requestStatus;
+      state.markets[meta.arg.instanceKey].getMarketsEffect.error = payload;
     });
 
     // get-categories
     builder.addCase(getCategories.pending, (state, { meta }) => {
-      state.effects.getCategories.status = meta.requestStatus;
+      state.categories.getCategoriesEffect.status = meta.requestStatus;
     });
 
     builder.addCase(getCategories.fulfilled, (state, { meta, payload }) => {
-      state.categories = payload;
-      state.effects.getCategories.status = meta.requestStatus;
+      state.categories.data = payload;
+      state.categories.getCategoriesEffect.status = meta.requestStatus;
     });
 
     builder.addCase(getCategories.rejected, (state, { meta }) => {
-      state.effects.getCategories.status = meta.requestStatus;
+      state.categories.getCategoriesEffect.status = meta.requestStatus;
     });
   },
 });

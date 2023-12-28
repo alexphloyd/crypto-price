@@ -2,34 +2,16 @@ import { type MarketCategory, type MarketOverview } from './core';
 import { type MarketsFilter } from './markets-filter';
 
 export interface ModelState {
-  categories: MarketCategory[];
+  markets: Record<InstanceKey, MarketsInstance>;
 
-  marketsOverview: {
-    data: {
-      global: MarketOverview[];
-      personal: MarketOverview[];
-    };
-    filters: {
-      global: MarketsFilter;
-      personal: MarketsFilter;
-    };
-  };
-
-  effects: {
-    getMarkets: {
-      global: {
-        status: EffectStatus;
-        error: ErrorMessage;
-      };
-      personal: {
-        status: EffectStatus;
-        error: ErrorMessage;
-      };
-    };
-
-    getCategories: {
-      status: EffectStatus;
-      error: ErrorMessage;
-    };
+  categories: {
+    data: MarketCategory[];
+    getCategoriesEffect: EffectState;
   };
 }
+
+export type MarketsInstance = {
+  filters: MarketsFilter;
+  data: MarketOverview[];
+  getMarketsEffect: EffectState;
+};

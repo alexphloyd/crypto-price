@@ -1,35 +1,30 @@
 import { useAppDispatch } from '@app/app/store/hooks';
-import { type CoinModelState, coinModel } from '@app/entities/coin';
+import { coinModel } from '@app/entities/coin';
 import { Typography } from 'antd';
 import { useEffect } from 'react';
 
 interface Props {
-  mode: keyof CoinModelState['marketsOverview']['data'];
+  instanceKey: InstanceKey;
 }
 
-export function MarketsOverview({ mode }: Props) {
+export function MarketsOverview({ instanceKey }: Props) {
   const dispatch = useAppDispatch();
 
-  const markets = coinModel.useMarketsOverview({
-    subject: 'data',
-    mode,
-  });
-  const effect = coinModel.useEffectState({
-    effect: 'getMarkets',
-    mode,
-  });
+  const markets = coinModel.useMarketsOverview({ instanceKey, subject: 'data' });
+  const getCategoriesEffect = coinModel.useCategories({ subject: 'getCategoriesEffect' });
 
-  dispatch(coinModel.actions.setMarketFilter({ mode: 'global', key: 'category', value: {} }));
+  console.log(getCategoriesEffect.status);
 
   useEffect(() => {
+    dispatch(coinModel.actions.createMarketsInstance(instanceKey));
     dispatch(
       coinModel.effects.getMarkets({
-        mode,
+        instanceKey,
         queryArgs: {
           vs_currency: 'usd',
           order: 'market_cap_desc',
           page: '1',
-          per_page: '20',
+          per_page: Math.round(Math.random() * 10).toString(),
           locale: 'en',
           sparkline: 'false',
           precision: 'full',
@@ -37,14 +32,6 @@ export function MarketsOverview({ mode }: Props) {
       }),
     );
   }, []);
-
-  if (effect.error) {
-    return (
-      <Typography.Text type='danger' className='p-3 ml-14'>
-        {effect.error}
-      </Typography.Text>
-    );
-  }
 
   return (
     <ul className='flex flex-col gap-2'>

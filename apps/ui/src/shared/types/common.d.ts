@@ -15,3 +15,10 @@ declare type DateTimeString = string;
 declare type ImageSrcUrl = string;
 
 declare type EffectStatus = 'idle' | 'pending' | 'fulfilled' | 'rejected';
+
+declare type InstanceKey = string;
+
+declare type EffectState = {
+  status: EffectStatus;
+  error: ErrorMessage;
+};

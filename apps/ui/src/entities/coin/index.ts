@@ -28,4 +28,5 @@ export const coinModel = {
 // UI
 export { MarketsOverview } from './ui/markets-overview';
 
+// TYPES
 export { type ModelState as CoinModelState } from './model/types/model-state';

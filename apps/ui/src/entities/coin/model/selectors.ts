@@ -3,30 +3,30 @@ import { createSelector } from '@reduxjs/toolkit';
 import { useSelector } from 'react-redux';
 import { ModelState } from './types/model-state';
 
-export const useMarketsOverview = <S extends keyof ModelState['marketsOverview']>({
+export const useMarketsOverview = <S extends keyof ModelState['markets'][string]>({
+  instanceKey,
   subject,
-  mode,
+}: {
+  instanceKey: string;
+  subject: S;
+}) => {
+  return useSelector(
+    createSelector(
+      (state: AppState) => state['coin-model'].markets[instanceKey],
+      (instance) => instance?.[subject],
+    ),
+  );
+};
+
+export const useCategories = <S extends keyof ModelState['categories']>({
+  subject,
 }: {
   subject: S;
-  mode: keyof ModelState['marketsOverview'][S];
-}) =>
-  useSelector(
+}) => {
+  return useSelector(
     createSelector(
-      (state: AppState) => state['coin-model'].marketsOverview[subject],
-      (subject) => subject[mode],
+      (state: AppState) => state['coin-model'].categories,
+      (categories) => categories?.[subject],
     ),
   );
-
-export const useEffectState = <E extends keyof ModelState['effects']>({
-  effect,
-  mode,
-}: {
-  effect: E;
-  mode: keyof ModelState['effects'][E];
-}) =>
-  useSelector(
-    createSelector(
-      (state: AppState) => state['coin-model'].effects[effect],
-      (effect) => effect[mode],
-    ),
-  );
+};
