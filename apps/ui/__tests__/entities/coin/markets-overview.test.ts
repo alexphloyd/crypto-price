@@ -1,22 +1,27 @@
 import { describe, it } from 'vitest';
 import { makeStore } from '@app/app/store/app-store';
 import { coinModel } from '@app/entities/coin';
-
-const EMPTY = 0;
+import { nanoid } from '@reduxjs/toolkit';
 
 describe('coin-model', async () => {
   const store = makeStore();
   const { dispatch, getState } = store;
 
-  it('manage 2 diff lists in model', async () => {
+  it('manage 2 instance in model', async () => {
+    const instanceKeyA = nanoid();
+    const instanceKeyB = nanoid();
+
+    dispatch(coinModel.actions.createMarketsInstance(instanceKeyA));
+    dispatch(coinModel.actions.createMarketsInstance(instanceKeyB));
+
     await dispatch(
       coinModel.effects.getMarkets({
-        mode: 'global',
+        instanceKey: instanceKeyA,
         queryArgs: {
           vs_currency: 'usd',
           order: 'market_cap_desc',
           page: '1',
-          per_page: '5',
+          per_page: '1',
           locale: 'en',
           sparkline: 'false',
           precision: 'full',
@@ -24,17 +29,14 @@ describe('coin-model', async () => {
       }),
     );
 
-    expect(getState()['coin-model'].marketsOverview.data.personal.length).toBe(EMPTY);
-    expect(getState()['coin-model'].marketsOverview.data.global.length).toBe(5);
-
     await dispatch(
       coinModel.effects.getMarkets({
-        mode: 'personal',
+        instanceKey: instanceKeyB,
         queryArgs: {
           vs_currency: 'usd',
           order: 'market_cap_desc',
           page: '1',
-          per_page: '12',
+          per_page: '2',
           locale: 'en',
           sparkline: 'false',
           precision: 'full',
@@ -42,14 +44,14 @@ describe('coin-model', async () => {
       }),
     );
 
-    expect(getState()['coin-model'].marketsOverview.data.personal.length).toBe(12);
-    expect(getState()['coin-model'].marketsOverview.data.global.length).toBe(5);
+    expect(getState()['coin-model'].markets[instanceKeyA].data.length).toBe(1);
+    expect(getState()['coin-model'].markets[instanceKeyB].data.length).toBe(2);
   });
 
   it('receive categories', async () => {
     const { payload: categories } = await dispatch(coinModel.effects.getCategories());
 
-    const dataInModel = getState()['coin-model'].categories;
+    const dataInModel = getState()['coin-model'].categories.data;
 
     expect(categories).toBeInstanceOf(Array);
     expect(dataInModel).toBeInstanceOf(Array);
