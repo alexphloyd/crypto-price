@@ -1,10 +1,11 @@
+import { type MarketInstancesKey } from '../model/types/markets/core';
 import { useAppDispatch } from '@app/app/store/hooks';
 import { coinModel } from '@app/entities/coin';
 import { Typography } from 'antd';
 import { useEffect } from 'react';
 
 interface Props {
-  instanceKey: InstanceKey;
+  instanceKey: MarketInstancesKey;
 }
 
 export function MarketsOverview({ instanceKey }: Props) {

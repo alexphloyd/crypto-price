@@ -1,12 +1,6 @@
-import { appStore } from '@app/app/store/app-store';
 import { coinModel } from './model';
-
-export const MARKETS_INSTANCES = {
-  GLOBAL: 'GLOBAL',
-  PERSONAL: 'PERSONAL',
-} as const;
-
-export type MarketInstancesKey = keyof typeof MARKETS_INSTANCES;
+import { appStore } from '@app/app/store/app-store';
+import { MARKETS_INSTANCES } from './config/markets.instances';
 
 function initiateInstances() {
   const { dispatch } = appStore;

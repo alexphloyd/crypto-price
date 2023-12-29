@@ -1,3 +1,4 @@
+import { MARKETS_INSTANCES } from '../../config/markets.instances';
 import { MarketsFilter } from './filter';
 
 export type MarketsInstance = {
@@ -5,6 +6,8 @@ export type MarketsInstance = {
   data: MarketOverview[];
   getMarketsEffect: EffectState;
 };
+
+export type MarketInstancesKey = keyof typeof MARKETS_INSTANCES;
 
 export type MarketOverview = {
   id: string;

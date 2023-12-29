@@ -30,3 +30,6 @@ export { MarketsOverview } from './ui/markets-overview';
 
 // TYPES
 export { type ModelState as CoinModelState } from './model/types/core';
+
+// CONFIG
+export { MARKETS_INSTANCES } from './model/config/markets.instances';
