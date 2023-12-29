@@ -1,7 +1,7 @@
 import { type AppState } from '@app/app/store/types';
+import { type ModelState } from './types/core';
 import { createSelector } from '@reduxjs/toolkit';
 import { useSelector } from 'react-redux';
-import { ModelState } from './types/model-state';
 
 export const useMarketsOverview = <S extends keyof ModelState['markets'][string]>({
   instanceKey,

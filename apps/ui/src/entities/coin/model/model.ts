@@ -1,8 +1,9 @@
 import { type PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { type MarketsFilter } from './types/markets/filter';
+import { type ModelState } from './types/core';
+import { type MarketsInstance } from './types/markets/core';
 import { getMarkets } from './effects/get-markets';
 import { getCategories } from './effects/get-categories';
-import { type MarketsInstance, type ModelState } from './types/model-state';
-import { type MarketsFilter } from './types/markets-filter';
 
 const initialState = {
   categories: {

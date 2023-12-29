@@ -1,5 +1,5 @@
 import { type GetMarketsParams } from '../../api/api.interface';
-import { type MarketOverview } from '../types/core';
+import { type MarketOverview } from '../types/markets/core';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { coinApi } from '../../api/api.endpoints';
 import { CRYPTO_API_ERROR_MESSAGE } from '@app/shared/api/config/crypto-api-error-message';

@@ -1,7 +1,7 @@
+import { type MarketCategory, type MarketOverview } from '../model/types/markets/core';
+import { type GetMarketsParams } from './api.interface';
 import { cryptoApi } from '@app/shared/api/instances/crypto-api';
 import { createQueryString } from '@app/shared/lib';
-import { MarketCategory, type MarketOverview } from '../model/types/core';
-import { type GetMarketsParams } from './api.interface';
 
 export const coinApi = cryptoApi.injectEndpoints({
   endpoints: (builder) => ({

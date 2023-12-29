@@ -7,8 +7,8 @@
     "pm2": {
       "executor": "nx-pm2-plugin:pm2-executor",
       "options": {
-          "command": "ui:serve:production",
-          "name": "ui"
+        "command": "ui:serve:production",
+        "name": "ui"
       }
     },
     "build": {

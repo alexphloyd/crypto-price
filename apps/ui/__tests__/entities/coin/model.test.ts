@@ -44,6 +44,7 @@ describe('coin-model', async () => {
       }),
     );
 
+    expect(Object.keys(getState()['coin-model'].markets).length).toBe(2);
     expect(getState()['coin-model'].markets[instanceKeyA].data.length).toBe(1);
     expect(getState()['coin-model'].markets[instanceKeyB].data.length).toBe(2);
   });

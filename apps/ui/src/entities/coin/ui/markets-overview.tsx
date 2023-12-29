@@ -11,12 +11,12 @@ export function MarketsOverview({ instanceKey }: Props) {
   const dispatch = useAppDispatch();
 
   const markets = coinModel.useMarketsOverview({ instanceKey, subject: 'data' });
-  const getCategoriesEffect = coinModel.useCategories({ subject: 'getCategoriesEffect' });
-
-  console.log(getCategoriesEffect.status);
+  const { error, status } = coinModel.useMarketsOverview({
+    instanceKey,
+    subject: 'getMarketsEffect',
+  });
 
   useEffect(() => {
-    dispatch(coinModel.actions.createMarketsInstance(instanceKey));
     dispatch(
       coinModel.effects.getMarkets({
         instanceKey,
@@ -32,6 +32,14 @@ export function MarketsOverview({ instanceKey }: Props) {
       }),
     );
   }, []);
+
+  if (error) {
+    return <span>{error}</span>;
+  }
+
+  if (status === 'pending') {
+    return <span>loading..</span>;
+  }
 
   return (
     <ul className='flex flex-col gap-2'>
