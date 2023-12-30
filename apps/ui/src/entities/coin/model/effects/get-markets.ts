@@ -11,6 +11,8 @@ export const getMarkets = createAsyncThunk<
 >(
   'coin-model/get-markets',
   async ({ queryArgs }, { dispatch, rejectWithValue, fulfillWithValue }) => {
+    console.log('call effect');
+
     const { data: markets, error } = await dispatch(
       coinApi.endpoints.getMarkets.initiate(queryArgs, { forceRefetch: true }),
     );

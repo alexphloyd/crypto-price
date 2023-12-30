@@ -2,6 +2,7 @@ import { coinModel as model } from './model/model';
 import { getMarkets, getCategories } from './api/api.endpoints';
 import { getMarkets as getMarketsEffect } from './model/effects/get-markets';
 import { getCategories as getCategoriesEffect } from './model/effects/get-categories';
+import { initiate } from './model/initiate';
 import * as selectors from './model/selectors';
 
 // MODEL
@@ -9,6 +10,7 @@ const { name, reducer, actions } = model;
 export const coinModel = {
   name,
   reducer,
+  initiate,
 
   actions,
 

@@ -1,9 +1,9 @@
 import { coinModel } from '@app/entities/coin';
 import { describe, it } from 'vitest';
-import { makeStore } from '@app/app/store/app-store';
+import { createStore } from '@app/app/store/app-store';
 
 describe('coin-api', async () => {
-  const store = makeStore();
+  const store = createStore().store;
 
   const PER_PAGE = 4;
   let specificCoinId: string;

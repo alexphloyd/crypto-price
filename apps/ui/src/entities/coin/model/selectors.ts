@@ -12,7 +12,7 @@ export const useMarketsOverview = <S extends keyof ModelState['markets'][string]
 }) => {
   return useSelector(
     createSelector(
-      (state: AppState) => state['coin-model'].markets[instanceKey],
+      (state: AppState) => state['coin-model'].markets?.[instanceKey],
       (instance) => instance?.[subject],
     ),
   );

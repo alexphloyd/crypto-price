@@ -1,10 +1,10 @@
 import { describe, it } from 'vitest';
-import { makeStore } from '@app/app/store/app-store';
+import { createStore } from '@app/app/store/app-store';
 import { coinModel } from '@app/entities/coin';
 import { nanoid } from '@reduxjs/toolkit';
 
 describe('coin-model', async () => {
-  const store = makeStore();
+  const store = createStore().store;
   const { dispatch, getState } = store;
 
   it('manage 2 instance in model', async () => {

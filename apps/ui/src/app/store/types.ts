@@ -1,4 +1,4 @@
-export type AppStore = ReturnType<typeof import('./app-store').makeStore>;
+export type AppStore = ReturnType<typeof import('./app-store').createStore>['store'];
 
 export type AppState = ReturnType<AppStore['getState']>;
 

@@ -12,7 +12,7 @@ export function MarketsOverview({ instanceKey }: Props) {
   const dispatch = useAppDispatch();
 
   const markets = coinModel.useMarketsOverview({ instanceKey, subject: 'data' });
-  const { error, status } = coinModel.useMarketsOverview({
+  const effect = coinModel.useMarketsOverview({
     instanceKey,
     subject: 'getMarketsEffect',
   });
@@ -34,11 +34,11 @@ export function MarketsOverview({ instanceKey }: Props) {
     );
   }, []);
 
-  if (error) {
-    return <span>{error}</span>;
+  if (effect?.error) {
+    return <span>{effect.error}</span>;
   }
 
-  if (status === 'pending') {
+  if (effect?.status === 'pending') {
     return <span>loading..</span>;
   }
 
