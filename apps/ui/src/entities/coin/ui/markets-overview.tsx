@@ -1,6 +1,7 @@
 import { type MarketInstancesKey } from '../model/types/markets/core';
 import { useAppDispatch } from '@app/app/store/hooks';
 import { coinModel } from '@app/entities/coin';
+import { nanoid } from '@reduxjs/toolkit';
 import { Typography } from 'antd';
 import { useEffect } from 'react';
 
@@ -45,7 +46,7 @@ export function MarketsOverview({ instanceKey }: Props) {
   return (
     <ul className='flex flex-col gap-2'>
       {markets?.map(({ name, market_cap }) => (
-        <Typography.Text>
+        <Typography.Text key={nanoid()}>
           {name}: {market_cap}
         </Typography.Text>
       ))}
