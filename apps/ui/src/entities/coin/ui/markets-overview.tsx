@@ -45,8 +45,8 @@ export function MarketsOverview({ instanceKey }: Props) {
 
   return (
     <ul className='flex flex-col gap-2'>
-      {markets?.map(({ name, market_cap }) => (
-        <Typography.Text key={nanoid()}>
+      {markets?.map(({ name, market_cap, id }) => (
+        <Typography.Text key={id}>
           {name}: {market_cap}
         </Typography.Text>
       ))}
